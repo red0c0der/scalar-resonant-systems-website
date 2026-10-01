@@ -1,19 +1,16 @@
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-8 bg-black text-white font-sans">
-      <div className="max-w-3xl text-center space-y-8">
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tighter">
-          Scalar Resonant Systems
-        </h1>
+    <main className="flex min-h-screen flex-col items-center justify-center p-4 bg-black">
+      <div className="w-full max-w-5xl flex flex-col items-center justify-center">
+        <img 
+          src="/logo.png" 
+          alt="Scalar Resonant Systems Inc." 
+          className="w-full h-auto object-contain"
+        />
         
-        <p className="text-xl md:text-3xl text-gray-400 font-light tracking-wide">
-          Toroidal photonic architecture. <br className="hidden md:block" />
-          Zero on-chip heat.
-        </p>
-
-        <div className="h-px w-24 bg-gray-800 mx-auto my-12"></div>
+        <div className="h-px w-24 bg-gray-800 mx-auto mt-4 mb-12"></div>
         
-        <p className="text-sm text-gray-500 uppercase tracking-widest">
+        <p className="text-sm text-gray-500 uppercase tracking-widest text-center">
           Infrastructure in stealth.
         </p>
       </div>
