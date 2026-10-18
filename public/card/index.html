@@ -1623,21 +1623,18 @@
 
         /* =========================================================================
        CYBERPUNK NAME GLITCH & MOLTEN TRANSMUTATION ENGINE
-       Defaults to 'JUSTIN HOWARD'. Glitches/melts to 'redocoder' when clicked as an Easter Egg.
+       Defaults to 'JUSTIN HOWARD'. When clicked as an Easter Egg, glitches to
+       'redocoder' for 3.5 seconds, then automatically melts back to 'JUSTIN HOWARD'.
        ========================================================================= */
     const execNameEl = document.getElementById('exec-name');
     const nameA = "JUSTIN HOWARD";
     const nameB = "redocoder";
-    let currentNameState = "A"; // default to JUSTIN HOWARD
     let isNameGlitching = false;
+    let revertTimeout = null;
     const GLITCH_GLYPHS = "!@#$%^&*()_+-=~<>{}[]|/\;:01λψφΩΣπµ";
 
-    const triggerNameGlitchMelt = () => {
-      if (isNameGlitching) return;
+    const runGlitchTransition = (targetName, onComplete) => {
       isNameGlitching = true;
-      const targetName = (currentNameState === "A") ? nameB : nameA;
-      currentNameState = (currentNameState === "A") ? "B" : "A";
-
       execNameEl.classList.add('glitching', 'melting');
       try {
         if (audio && audio.enabled) audio.playTone(650, 'sawtooth', 0.08);
@@ -1652,24 +1649,19 @@
         step++;
         const progress = step / totalSteps;
 
-        // Sound burst halfway
         if (step === 8) {
           try {
             if (audio && audio.enabled) audio.playTone(840, 'square', 0.06);
           } catch (e) {}
         }
 
-        // Generate corrupted interstitial frame
         let frameText = "";
         for (let i = 0; i < maxLen; i++) {
           if (progress > (i / maxLen)) {
-            // Settling into target character
             frameText += (i < targetName.length) ? targetName[i] : "";
           } else if (Math.random() < 0.65) {
-            // Cyber glitch glyph
             frameText += GLITCH_GLYPHS[Math.floor(Math.random() * GLITCH_GLYPHS.length)];
           } else {
-            // Remnant of old char
             frameText += (i < originalText.length) ? originalText[i] : targetName[i % targetName.length];
           }
         }
@@ -1684,14 +1676,26 @@
           try {
             if (audio && audio.enabled) audio.playTone(1050, 'sine', 0.1);
           } catch (e) {}
+          if (onComplete) onComplete();
         }
-      }, 45); // ~720ms total duration of glitch melt
+      }, 40);
     };
 
-    // Easter Egg: Click name to glitch/melt between Justin Howard and redocoder
+    // Easter Egg: Click name -> Glitch to 'redocoder' -> Auto revert to 'JUSTIN HOWARD' after 3.5s
     execNameEl.addEventListener('click', (e) => {
       e.stopPropagation();
-      triggerNameGlitchMelt();
+      if (isNameGlitching) return;
+      if (revertTimeout) clearTimeout(revertTimeout);
+
+      if (execNameEl.textContent !== nameB) {
+        runGlitchTransition(nameB, () => {
+          revertTimeout = setTimeout(() => {
+            runGlitchTransition(nameA, null);
+          }, 3500); // Stays on redocoder for 3.5 seconds
+        });
+      } else {
+        runGlitchTransition(nameA, null);
+      }
     });
 
     /* =========================================================================
