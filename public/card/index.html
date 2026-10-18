@@ -1239,7 +1239,7 @@
         <!-- Middle: Executive Identity & Interactive 3D Toroid -->
         <div class="middle-row">
           <div class="identity-block">
-            <h1 class="executive-name" id="exec-name">REDOCODER</h1>
+            <h1 class="executive-name" id="exec-name">JUSTIN HOWARD</h1>
             <div class="executive-title">
               <span>CHIEF ARCHITECT</span>
               <span>//</span>
@@ -1623,12 +1623,12 @@
 
         /* =========================================================================
        CYBERPUNK NAME GLITCH & MOLTEN TRANSMUTATION ENGINE
-       Seamlessly melts / matrix-glitches between 'JUSTIN HOWARD' and 'redocoder'
+       Defaults to 'JUSTIN HOWARD'. Glitches/melts to 'redocoder' when clicked as an Easter Egg.
        ========================================================================= */
     const execNameEl = document.getElementById('exec-name');
     const nameA = "JUSTIN HOWARD";
     const nameB = "redocoder";
-    let currentNameState = "B"; // start on redocoder or A
+    let currentNameState = "A"; // default to JUSTIN HOWARD
     let isNameGlitching = false;
     const GLITCH_GLYPHS = "!@#$%^&*()_+-=~<>{}[]|/\;:01λψφΩΣπµ";
 
@@ -1688,19 +1688,10 @@
       }, 45); // ~720ms total duration of glitch melt
     };
 
-    // Auto glitch/melt every 8-12 seconds
-    setInterval(() => {
-      triggerNameGlitchMelt();
-    }, 9000);
-
-    // Also trigger immediately on hover or click
+    // Easter Egg: Click name to glitch/melt between Justin Howard and redocoder
     execNameEl.addEventListener('click', (e) => {
       e.stopPropagation();
       triggerNameGlitchMelt();
-    });
-
-    execNameEl.addEventListener('mouseenter', () => {
-      if (Math.random() < 0.6) triggerNameGlitchMelt();
     });
 
     /* =========================================================================
