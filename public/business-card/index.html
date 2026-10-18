@@ -1142,7 +1142,7 @@
       <span id="style-status-text">STYLE: OBSIDIAN CYBERPUNK // METAMORPHIC</span>
     </div>
     <div class="hud-controls">
-      <button class="hud-btn" id="auto-melt-btn" title="Continuous Hypnotic Style Cycle">
+      <button class="hud-btn" id="auto-melt-btn" title="Cycle through styles (Click to toggle OFF / 30s / 60s)">
         <span>⟳</span> AUTO-MELT: OFF
       </button>
       <button class="hud-btn" id="audio-toggle-btn" title="Toggle Synthesized Audio">
@@ -1532,28 +1532,41 @@
       });
     });
 
-    // Auto-Melt continuous cycle
-    const startAutoMelt = () => {
+    // Auto-Melt Cycle (Configured for 30s / 60s transitions with multi-mode toggle)
+    let autoMeltSeconds = 30; // Default cadence: 30s (toggles 30s -> 60s -> OFF)
+
+    const startAutoMelt = (secs = 30) => {
       autoMeltActive = true;
+      autoMeltSeconds = secs;
       autoMeltBtn.classList.add('active');
-      autoMeltBtn.innerHTML = '<span>⟳</span> AUTO-MELT: ON';
+      autoMeltBtn.innerHTML = `<span>⟳</span> AUTO-MELT: ${autoMeltSeconds}s`;
       audio.playTone(880, 'sine', 0.2);
 
+      if (autoMeltTimer) clearInterval(autoMeltTimer);
       autoMeltTimer = setInterval(() => {
-        meltToStyle(currentStyleIndex + 1, true);
-      }, 3600); // Melts every 3.6s
+        meltToStyle((currentStyleIndex + 1) % styles.length, true);
+      }, autoMeltSeconds * 1000);
     };
 
     const stopAutoMelt = () => {
       autoMeltActive = false;
       autoMeltBtn.classList.remove('active');
       autoMeltBtn.innerHTML = '<span>⟳</span> AUTO-MELT: OFF';
-      if (autoMeltTimer) clearInterval(autoMeltTimer);
+      if (autoMeltTimer) {
+        clearInterval(autoMeltTimer);
+        autoMeltTimer = null;
+      }
     };
 
+    // Cycle through: 30s -> 60s -> OFF
     autoMeltBtn.addEventListener('click', () => {
-      if (autoMeltActive) stopAutoMelt();
-      else startAutoMelt();
+      if (!autoMeltActive) {
+        startAutoMelt(30);
+      } else if (autoMeltSeconds === 30) {
+        startAutoMelt(60);
+      } else {
+        stopAutoMelt();
+      }
     });
 
     // Double-click brand mark to trigger chaotic fast melt
