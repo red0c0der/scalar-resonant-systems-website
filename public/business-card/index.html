@@ -527,6 +527,52 @@
       color: #ffffff;
       line-height: 1.1;
       text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+      transition: text-shadow 0.2s ease;
+    }
+
+    .executive-name.glitching {
+      animation: nameGlitchAberration 0.28s infinite alternate ease-in-out;
+      text-shadow: 
+        -2px 0 #00f0ff, 
+        2px 0 #ff0055, 
+        0 0 15px rgba(255, 255, 255, 0.85);
+    }
+
+    .executive-name.melting {
+      filter: blur(1.5px) contrast(180%);
+      transform: scaleY(0.92) skewX(-2deg);
+      opacity: 0.85;
+      transition: all 0.15s ease-in-out;
+    }
+
+    @keyframes nameGlitchAberration {
+      0% {
+        transform: translate(0, 0);
+        clip-path: inset(0 0 0 0);
+      }
+      20% {
+        transform: translate(-1.5px, 0.8px) skewX(-1.5deg);
+        clip-path: inset(10% 0 35% 0);
+      }
+      40% {
+        transform: translate(1.5px, -0.8px);
+        clip-path: inset(40% 0 15% 0);
+      }
+      60% {
+        transform: translate(-1px, -0.5px) skewX(1deg);
+        clip-path: inset(60% 0 5% 0);
+      }
+      80% {
+        transform: translate(0.8px, 1.2px);
+        clip-path: inset(25% 0 45% 0);
+      }
+      100% {
+        transform: translate(0, 0);
+        clip-path: inset(0 0 0 0);
+      }
     }
 
     .executive-title {
@@ -1573,6 +1619,88 @@
     document.getElementById('brand-mark-btn').addEventListener('click', () => {
       audio.playTone(1200, 'sawtooth', 0.3);
       meltToStyle((currentStyleIndex + 1) % styles.length, true);
+    });
+
+        /* =========================================================================
+       CYBERPUNK NAME GLITCH & MOLTEN TRANSMUTATION ENGINE
+       Seamlessly melts / matrix-glitches between 'JUSTIN HOWARD' and 'redocoder'
+       ========================================================================= */
+    const execNameEl = document.getElementById('exec-name');
+    const nameA = "JUSTIN HOWARD";
+    const nameB = "redocoder";
+    let currentNameState = "B"; // start on redocoder or A
+    let isNameGlitching = false;
+    const GLITCH_GLYPHS = "!@#$%^&*()_+-=~<>{}[]|/\;:01λψφΩΣπµ";
+
+    const triggerNameGlitchMelt = () => {
+      if (isNameGlitching) return;
+      isNameGlitching = true;
+      const targetName = (currentNameState === "A") ? nameB : nameA;
+      currentNameState = (currentNameState === "A") ? "B" : "A";
+
+      execNameEl.classList.add('glitching', 'melting');
+      try {
+        if (audio && audio.enabled) audio.playTone(650, 'sawtooth', 0.08);
+      } catch (e) {}
+
+      let step = 0;
+      const totalSteps = 16;
+      const originalText = execNameEl.textContent;
+      const maxLen = Math.max(originalText.length, targetName.length);
+
+      const glitchInterval = setInterval(() => {
+        step++;
+        const progress = step / totalSteps;
+
+        // Sound burst halfway
+        if (step === 8) {
+          try {
+            if (audio && audio.enabled) audio.playTone(840, 'square', 0.06);
+          } catch (e) {}
+        }
+
+        // Generate corrupted interstitial frame
+        let frameText = "";
+        for (let i = 0; i < maxLen; i++) {
+          if (progress > (i / maxLen)) {
+            // Settling into target character
+            frameText += (i < targetName.length) ? targetName[i] : "";
+          } else if (Math.random() < 0.65) {
+            // Cyber glitch glyph
+            frameText += GLITCH_GLYPHS[Math.floor(Math.random() * GLITCH_GLYPHS.length)];
+          } else {
+            // Remnant of old char
+            frameText += (i < originalText.length) ? originalText[i] : targetName[i % targetName.length];
+          }
+        }
+
+        execNameEl.textContent = frameText;
+
+        if (step >= totalSteps) {
+          clearInterval(glitchInterval);
+          execNameEl.textContent = targetName;
+          execNameEl.classList.remove('glitching', 'melting');
+          isNameGlitching = false;
+          try {
+            if (audio && audio.enabled) audio.playTone(1050, 'sine', 0.1);
+          } catch (e) {}
+        }
+      }, 45); // ~720ms total duration of glitch melt
+    };
+
+    // Auto glitch/melt every 8-12 seconds
+    setInterval(() => {
+      triggerNameGlitchMelt();
+    }, 9000);
+
+    // Also trigger immediately on hover or click
+    execNameEl.addEventListener('click', (e) => {
+      e.stopPropagation();
+      triggerNameGlitchMelt();
+    });
+
+    execNameEl.addEventListener('mouseenter', () => {
+      if (Math.random() < 0.6) triggerNameGlitchMelt();
     });
 
     /* =========================================================================
