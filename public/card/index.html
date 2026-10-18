@@ -772,76 +772,245 @@
     }
 
     /* MODAL OVERLAY: MINIGAME & TERMINAL */
+    /* =========================================================================
+       LEGEND OF THE RED DRAGON (L.O.R.D.) BBS RPG TERMINAL SYSTEM
+       ========================================================================= */
     .game-modal {
       position: fixed;
       inset: 0;
-      background: rgba(5, 8, 17, 0.90);
+      background: rgba(2, 4, 10, 0.94);
       backdrop-filter: blur(16px);
       z-index: 100;
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 12px;
     }
 
     .game-modal.active {
       display: flex;
     }
 
-    .game-container {
-      width: 600px;
-      max-width: 96vw;
-      background: #090e1a;
-      border: 1px solid var(--primary-accent);
-      box-shadow: 0 0 40px var(--card-border-glow);
-      border-radius: 16px;
+    .lord-terminal-frame {
+      width: 720px;
+      max-width: 98vw;
+      height: 580px;
+      max-height: 92vh;
+      background: #02050b;
+      border: 2px solid #ef4444;
+      box-shadow: 0 0 50px rgba(239, 68, 68, 0.4), inset 0 0 30px rgba(0, 0, 0, 0.9);
+      border-radius: 12px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
+      position: relative;
+      font-family: 'Courier New', 'JetBrains Mono', monospace;
     }
 
-    .game-header {
-      padding: 12px 18px;
-      background: rgba(0, 0, 0, 0.4);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: var(--mono-font);
-      font-size: 12px;
-      color: var(--primary-accent);
-    }
-
-    .game-close {
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-size: 16px;
-      font-family: var(--mono-font);
-    }
-
-    .game-close:hover {
-      color: #ffffff;
-    }
-
-    #pong-canvas {
-      width: 100%;
-      height: 340px;
-      background: #050811;
+    /* CRT Monitor Effects */
+    .lord-terminal-frame::before {
+      content: " ";
       display: block;
-      cursor: pointer;
+      position: absolute;
+      top: 0; left: 0; bottom: 0; right: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+      z-index: 20;
+      background-size: 100% 3px, 6px 100%;
+      pointer-events: none;
+      opacity: 0.85;
     }
 
-    .game-footer {
-      padding: 12px 18px;
+    .lord-header-bar {
+      padding: 8px 14px;
+      background: #110505;
+      border-bottom: 2px solid #ef4444;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-family: var(--mono-font);
+      font-size: 12px;
+      font-weight: bold;
+      color: #fca5a5;
+      letter-spacing: 0.08em;
+      z-index: 25;
+    }
+
+    .lord-header-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .lord-header-title span.dragon-icon {
+      color: #ef4444;
+      font-size: 14px;
+      animation: pulse 1.5s infinite;
+    }
+
+    .lord-close-btn {
+      background: #3f0d0d;
+      border: 1px solid #ef4444;
+      color: #fca5a5;
+      padding: 2px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: monospace;
+      font-weight: bold;
       font-size: 11px;
-      color: var(--text-muted);
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.2s;
+    }
+    .lord-close-btn:hover {
+      background: #ef4444;
+      color: #000000;
+    }
+
+    /* Stat Banner Strip */
+    .lord-hud-stats {
+      background: #090303;
+      padding: 6px 14px;
+      border-bottom: 1px solid #450a0a;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: #fecaca;
+      z-index: 25;
+      gap: 8px;
+    }
+
+    .lord-hud-stat-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lord-stat-val {
+      color: #fef08a;
+      font-weight: bold;
+    }
+    .lord-stat-health {
+      color: #86efac;
+      font-weight: bold;
+    }
+
+    /* Screen Text Body */
+    .lord-screen-body {
+      flex: 1;
+      padding: 12px 16px;
+      overflow-y: auto;
+      font-size: 13px;
+      line-height: 1.45;
+      color: #f3f4f6;
+      white-space: pre-wrap;
+      word-break: break-word;
+      background: #02050b;
+      position: relative;
+      z-index: 10;
+      scrollbar-width: thin;
+      scrollbar-color: #ef4444 #0b0202;
+    }
+
+    .lord-screen-body::-webkit-scrollbar {
+      width: 6px;
+    }
+    .lord-screen-body::-webkit-scrollbar-thumb {
+      background: #ef4444;
+    }
+
+    /* ANSI Colors */
+    .c-red { color: #f87171; }
+    .c-lred { color: #ef4444; font-weight: bold; }
+    .c-gold { color: #fbbf24; font-weight: bold; }
+    .c-yellow { color: #fef08a; }
+    .c-green { color: #4ade80; }
+    .c-lgreen { color: #86efac; font-weight: bold; }
+    .c-cyan { color: #38bdf8; }
+    .c-lcyan { color: #67e8f9; font-weight: bold; }
+    .c-magenta { color: #f472b6; }
+    .c-white { color: #ffffff; font-weight: bold; }
+    .c-gray { color: #9ca3af; }
+    .c-darkgray { color: #4b5563; }
+    .c-key { color: #facc15; font-weight: bold; background: #261605; padding: 0 4px; border-radius: 2px; }
+
+    /* Interactive Action Keypad / Command Bar */
+    .lord-cmd-container {
+      background: #0d0404;
+      border-top: 1px solid #450a0a;
+      padding: 8px 12px;
+      z-index: 25;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .lord-prompt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .lord-prompt-text {
+      color: #38bdf8;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .lord-input-field {
+      flex: 1;
+      background: #02050b;
+      border: 1px solid #7f1d1d;
+      color: #fef08a;
+      font-family: inherit;
+      font-size: 13px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      outline: none;
+    }
+    .lord-input-field:focus {
+      border-color: #ef4444;
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+    }
+
+    /* Quick Touch Buttons (Perfect for mobile users) */
+    .lord-touch-pad {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      max-height: 80px;
+      overflow-y: auto;
+    }
+
+    .lord-pad-btn {
+      background: #1c0808;
+      border: 1px solid #7f1d1d;
+      color: #fca5a5;
+      font-family: inherit;
+      font-size: 11px;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s;
+    }
+
+    .lord-pad-btn:hover, .lord-pad-btn:active {
+      background: #ef4444;
+      color: #000000;
+      border-color: #f87171;
+    }
+
+    .lord-pad-key {
+      background: #450a0a;
+      color: #fef08a;
+      padding: 1px 4px;
+      border-radius: 2px;
+      font-weight: bold;
+      font-size: 10px;
+    }
+    .lord-pad-btn:hover .lord-pad-key {
+      background: #000000;
+      color: #ffffff;
     }
 
     /* Terminal Console Modal */
@@ -1097,7 +1266,7 @@
             📥 SAVE CONTACT (VCARD)
           </button>
           <button class="btn-action btn-action-game" id="launch-game-btn">
-            ⚔ CHALLENGE FOUNDER
+            🐉 PLAY L.O.R.D. RPG
           </button>
         </div>
       </div>
@@ -1117,17 +1286,38 @@
     <span class="style-chip-label" id="dock-label">CYBERPUNK</span>
   </div>
 
-  <!-- MINIGAME MODAL: TOROID SINGULARITY DUEL -->
+  <!-- MINIGAME MODAL: LEGEND OF THE RED DRAGON (L.O.R.D.) -->
   <div class="game-modal" id="game-modal">
-    <div class="game-container">
-      <div class="game-header">
-        <span>⚔ TOROID SINGULARITY DUEL // QUANTUM GRAVITY PONG</span>
-        <button class="game-close" id="game-close-btn">✕</button>
+    <div class="lord-terminal-frame">
+      <div class="lord-header-bar">
+        <div class="lord-header-title">
+          <span class="dragon-icon">🐉</span>
+          <span>LEGEND OF THE RED DRAGON // v3.26 BBS EMULATOR</span>
+        </div>
+        <button class="lord-close-btn" id="game-close-btn">QUIT [Q]</button>
       </div>
-      <canvas id="pong-canvas" width="600" height="340"></canvas>
-      <div class="game-footer">
-        <span>CONTROLS: W/S OR UP/DOWN ARROWS / TOUCH DRAG</span>
-        <span id="game-score-banner">PLAYER 0 : 0 AI FOUNDER</span>
+      
+      <!-- Live Player Stats Bar -->
+      <div class="lord-hud-stats" id="lord-hud-stats">
+        <div class="lord-hud-stat-item">HERO: <span class="lord-stat-val" id="hud-name">WARRIOR</span></div>
+        <div class="lord-hud-stat-item">LVL: <span class="lord-stat-val" id="hud-level">1</span></div>
+        <div class="lord-hud-stat-item">HP: <span class="lord-stat-health" id="hud-hp">20/20</span></div>
+        <div class="lord-hud-stat-item">GOLD: <span class="lord-stat-val" id="hud-gold">500</span></div>
+        <div class="lord-hud-stat-item">BANK: <span class="lord-stat-val" id="hud-bank">0</span></div>
+        <div class="lord-hud-stat-item">GEMS: <span class="lord-stat-val" id="hud-gems">0</span></div>
+        <div class="lord-hud-stat-item">FIGHTS: <span class="lord-stat-val" id="hud-fights">15</span></div>
+      </div>
+
+      <!-- ANSI CRT Screen Output Buffer -->
+      <div class="lord-screen-body" id="lord-screen"></div>
+
+      <!-- Keyboard & Touch Navigation Controls -->
+      <div class="lord-cmd-container">
+        <div class="lord-prompt-row">
+          <span class="lord-prompt-text" id="lord-prompt-label">YOUR CHOICE:</span>
+          <input type="text" class="lord-input-field" id="lord-input" maxlength="20" placeholder="Type key or press button below..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </div>
+        <div class="lord-touch-pad" id="lord-touch-pad"></div>
       </div>
     </div>
   </div>
@@ -1556,161 +1746,1030 @@
     });
 
     /* =========================================================================
-       6. MINIGAME: TOROID SINGULARITY DUEL (Gravitational Pong)
+       6. LEGEND OF THE RED DRAGON (L.O.R.D.) BBS ENGINE v3.26
+       Authentic BBS Text RPG: Forest, Town, Abduls, King Arthur, Violet, Dragon
        ========================================================================= */
     const gameModal = document.getElementById('game-modal');
     const launchGameBtn = document.getElementById('launch-game-btn');
     const gameCloseBtn = document.getElementById('game-close-btn');
-    const pongCanvas = document.getElementById('pong-canvas');
-    const pCtx = pongCanvas.getContext('2d');
-    const gameScoreBanner = document.getElementById('game-score-banner');
+    const lordScreen = document.getElementById('lord-screen');
+    const lordInput = document.getElementById('lord-input');
+    const lordTouchPad = document.getElementById('lord-touch-pad');
+    const lordPromptLabel = document.getElementById('lord-prompt-label');
 
-    let gameActive = false;
-    let p1Y = 170, p2Y = 170;
-    const paddleH = 65, paddleW = 10;
-    let p1Score = 0, p2Score = 0;
-    let ballX = 300, ballY = 170;
-    let ballVx = 4.5, ballVy = 2.5;
-    const singularityX = 300, singularityY = 170, singularityMass = 1200;
+    // HUD Elements
+    const hudName = document.getElementById('hud-name');
+    const hudLevel = document.getElementById('hud-level');
+    const hudHp = document.getElementById('hud-hp');
+    const hudGold = document.getElementById('hud-gold');
+    const hudBank = document.getElementById('hud-bank');
+    const hudGems = document.getElementById('hud-gems');
+    const hudFights = document.getElementById('hud-fights');
 
+    // Game Audio FX
+    const playLordBeep = (freq = 440, type = 'square', dur = 0.08) => {
+      try {
+        if (audio && audio.enabled) audio.playTone(freq, type, dur);
+      } catch (e) {}
+    };
+
+    const playLordHit = () => {
+      try {
+        if (audio && audio.enabled) {
+          audio.playTone(150, 'sawtooth', 0.1);
+          setTimeout(() => audio.playTone(80, 'sine', 0.12), 40);
+        }
+      } catch (e) {}
+    };
+
+    const playLordVictory = () => {
+      try {
+        if (audio && audio.enabled) {
+          audio.playTone(523, 'square', 0.1);
+          setTimeout(() => audio.playTone(659, 'square', 0.12), 90);
+          setTimeout(() => audio.playTone(784, 'square', 0.2), 180);
+        }
+      } catch (e) {}
+    };
+
+    const playLordDragonRoar = () => {
+      try {
+        if (audio && audio.enabled) {
+          audio.playTone(90, 'sawtooth', 0.4);
+          setTimeout(() => audio.playTone(65, 'sawtooth', 0.6), 100);
+        }
+      } catch (e) {}
+    };
+
+    // Weapons and Armors
+    const WEAPONS = [
+      { name: "Stick", power: 5, cost: 0 },
+      { name: "Dagger", power: 12, cost: 200 },
+      { name: "Short Sword", power: 22, cost: 750 },
+      { name: "Broadsword", power: 40, cost: 2200 },
+      { name: "Battle Axe", power: 75, cost: 6500 },
+      { name: "Vorpal Blade", power: 130, cost: 18000 },
+      { name: "Photonic Saber", power: 240, cost: 50000 },
+      { name: "Toroid Singularity Lance", power: 500, cost: 150000 }
+    ];
+
+    const ARMORS = [
+      { name: "Rags", defense: 2, cost: 0 },
+      { name: "Padded Leather", defense: 8, cost: 180 },
+      { name: "Studded Leather", defense: 18, cost: 650 },
+      { name: "Ring Mail", defense: 35, cost: 2000 },
+      { name: "Chain Mail", defense: 65, cost: 6000 },
+      { name: "Plate Mail", defense: 110, cost: 16000 },
+      { name: "Beryllium Crystal Carapace", defense: 200, cost: 45000 },
+      { name: "Aegis Toroidal Shielding", defense: 420, cost: 140000 }
+    ];
+
+    const FOREST_MONSTERS = [
+      { name: "Ugly Rat", minLvl: 1, hp: 12, maxHp: 12, str: 6, def: 2, exp: 15, gold: 25 },
+      { name: "Forest Pixie", minLvl: 1, hp: 18, maxHp: 18, str: 8, def: 3, exp: 25, gold: 40 },
+      { name: "Rabid Wolf", minLvl: 1, hp: 26, maxHp: 26, str: 12, def: 5, exp: 40, gold: 70 },
+      { name: "Woodland Bandit", minLvl: 2, hp: 45, maxHp: 45, str: 20, def: 10, exp: 80, gold: 140 },
+      { name: "Goblin Scavenger", minLvl: 2, hp: 60, maxHp: 60, str: 28, def: 14, exp: 120, gold: 220 },
+      { name: "Forest Troll", minLvl: 3, hp: 95, maxHp: 95, str: 42, def: 22, exp: 220, gold: 400 },
+      { name: "Dark Elf Assassin", minLvl: 4, hp: 140, maxHp: 140, str: 60, def: 32, exp: 380, gold: 750 },
+      { name: "Mountain Ogre", minLvl: 5, hp: 210, maxHp: 210, str: 85, def: 48, exp: 650, gold: 1400 },
+      { name: "Rogue Cyber-Alchemist", minLvl: 6, hp: 320, maxHp: 320, str: 120, def: 70, exp: 1100, gold: 2500 },
+      { name: "Ancient Minotaur", minLvl: 7, hp: 480, maxHp: 480, str: 170, def: 100, exp: 1900, gold: 4500 },
+      { name: "Shadow Wyrm", minLvl: 8, hp: 700, maxHp: 700, str: 240, def: 150, exp: 3200, gold: 8000 }
+    ];
+
+    const MASTER_TURGON = [
+      { lvl: 1, name: "Halflings Apprentice", hp: 35, str: 15, def: 8, expReq: 100 },
+      { lvl: 2, name: "Squire Roderick", hp: 70, str: 28, def: 16, expReq: 400 },
+      { lvl: 3, name: "Master Turgon Himself", hp: 130, str: 50, def: 30, expReq: 1200 },
+      { lvl: 4, name: "Sir Lancelot of the Marsh", hp: 220, str: 85, def: 52, expReq: 3200 },
+      { lvl: 5, name: "High Inquisitor Malakor", hp: 360, str: 130, def: 85, expReq: 7500 },
+      { lvl: 6, name: "Arch-Mage Kaelen", hp: 550, str: 190, def: 130, expReq: 16000 },
+      { lvl: 7, name: "Titan Knight Valerius", hp: 850, str: 280, def: 200, expReq: 35000 },
+      { lvl: 8, name: "Dragon-Lord Ignis", hp: 1300, str: 400, def: 300, expReq: 75000 }
+    ];
+
+    // Default Player State
+    const defaultPlayer = {
+      name: "REDOCODER",
+      level: 1,
+      hp: 30,
+      maxHp: 30,
+      str: 15,
+      def: 10,
+      exp: 0,
+      gold: 350,
+      bank: 150,
+      gems: 2,
+      fights: 15,
+      weaponIdx: 0,
+      armorIdx: 0,
+      flirtCount: 0,
+      innSleep: false,
+      dragonSlain: false,
+      lastLoginDay: new Date().toDateString()
+    };
+
+    let player = { ...defaultPlayer };
+    let gameState = "TOWN"; // TOWN, FOREST, COMBAT, INN, BANK, WEAPONS, ARMOR, HEALER, TURGON, DRAGON, STATS
+    let currentEnemy = null;
+    let combatReturnState = "FOREST";
+    let pendingAction = null;
+
+    // Load from LocalStorage
+    const loadLordData = () => {
+      try {
+        const saved = localStorage.getItem('SRS_LORD_SAVE_V1');
+        if (saved) {
+          player = Object.assign({}, defaultPlayer, JSON.parse(saved));
+          // Daily fight reset check
+          const today = new Date().toDateString();
+          if (player.lastLoginDay !== today) {
+            player.fights = 15;
+            player.flirtCount = 0;
+            player.innSleep = false;
+            // Bank interest 5%
+            player.bank = Math.floor(player.bank * 1.05);
+            player.lastLoginDay = today;
+            saveLordData();
+          }
+        }
+      } catch (e) {
+        console.warn("Could not load LORD save:", e);
+      }
+    };
+
+    const saveLordData = () => {
+      try {
+        localStorage.setItem('SRS_LORD_SAVE_V1', JSON.stringify(player));
+      } catch (e) {}
+    };
+
+    const updateHud = () => {
+      hudName.textContent = player.name;
+      hudLevel.textContent = player.level;
+      hudHp.textContent = `${Math.max(0, player.hp)}/${player.maxHp}`;
+      hudHp.style.color = player.hp < player.maxHp * 0.3 ? '#f87171' : '#86efac';
+      hudGold.textContent = player.gold.toLocaleString();
+      hudBank.textContent = player.bank.toLocaleString();
+      hudGems.textContent = player.gems;
+      hudFights.textContent = player.fights;
+    };
+
+    // Terminal Screen Rendering Engine
+    const writeLine = (htmlText = "") => {
+      const line = document.createElement('div');
+      line.innerHTML = htmlText;
+      lordScreen.appendChild(line);
+      lordScreen.scrollTop = lordScreen.scrollHeight;
+    };
+
+    const clearScreen = () => {
+      lordScreen.innerHTML = "";
+    };
+
+    const setPrompt = (text, options = []) => {
+      lordPromptLabel.textContent = text;
+      lordTouchPad.innerHTML = "";
+      options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'lord-pad-btn';
+        btn.innerHTML = `<span class="lord-pad-key">[${opt.key}]</span> ${opt.label}`;
+        btn.addEventListener('click', () => {
+          handleInput(opt.key);
+        });
+        lordTouchPad.appendChild(btn);
+      });
+      lordInput.value = "";
+      setTimeout(() => lordInput.focus(), 50);
+    };
+
+    /* ================= SCREEN CONTROLLERS ================= */
+
+    const showTownSquare = () => {
+      gameState = "TOWN";
+      updateHud();
+      clearScreen();
+      writeLine("<span class='c-lred'>========================================================================</span>");
+      writeLine("<span class='c-gold'>               ⚔ THE REALM OF OASIS // TOWN SQUARE ⚔</span>");
+      writeLine("<span class='c-lred'>========================================================================</span>");
+      writeLine("<span class='c-gray'>Cobblestones echo with armored footsteps. A crisp breeze carries the scent</span>");
+      writeLine("<span class='c-gray'>of roasting boar from the tavern and distant sulfur from the dragon peaks.</span>\n");
+      writeLine("<span class='c-lcyan'>The bustling village stands before you:</span>\n");
+      writeLine("<span class='c-key'>[F]</span> <span class='c-yellow'>The Dark Forest</span>          - Venture out to battle beasts & gain EXP");
+      writeLine("<span class='c-key'>[I]</span> <span class='c-yellow'>The Pig's Whistle Inn</span>     - Rest, talk to the Bard, flirt with Violet");
+      writeLine("<span class='c-key'>[W]</span> <span class='c-yellow'>Abdul's Weapon Emporium</span>   - Buy legendary blades & photonic sabers");
+      writeLine("<span class='c-key'>[A]</span> <span class='c-yellow'>Arthur's Armor Shoppe</span>     - Equip plate mail & crystal shielding");
+      writeLine("<span class='c-key'>[H]</span> <span class='c-yellow'>Healer's Sanity Hut</span>       - Brew elixirs to heal wounds");
+      writeLine("<span class='c-key'>[B]</span> <span class='c-yellow'>Ye Olde Imperial Bank</span>     - Safe storage (5% daily interest)");
+      writeLine("<span class='c-key'>[T]</span> <span class='c-yellow'>Turgon's Training Guild</span>   - Challenge the Master to level up!");
+      writeLine("<span class='c-key'>[S]</span> <span class='c-yellow'>View Your Hero Stats</span>      - Detailed combat breakdown");
+      writeLine("<span class='c-key'>[D]</span> <span class='c-lred'>THE RED DRAGON'S LAIR</span>      - Dare to enter the volcano!");
+      writeLine("<span class='c-key'>[Q]</span> <span class='c-gray'>Return to Business Card</span>");
+
+      setPrompt("TOWN SQUARE (F/I/W/A/H/B/T/S/D/Q):", [
+        { key: "F", label: "Forest" },
+        { key: "I", label: "The Inn" },
+        { key: "W", label: "Weapons" },
+        { key: "A", label: "Armor" },
+        { key: "H", label: "Healer" },
+        { key: "B", label: "Bank" },
+        { key: "T", label: "Turgon" },
+        { key: "S", label: "Stats" },
+        { key: "D", label: "Dragon Lair" },
+        { key: "Q", label: "Quit" }
+      ]);
+    };
+
+    /* ================= THE FOREST ================= */
+    const showForest = () => {
+      gameState = "FOREST";
+      updateHud();
+      clearScreen();
+      writeLine("<span class='c-green'>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>");
+      writeLine("<span class='c-lgreen'>                      🌲 THE ENCHANTED DARK FOREST 🌲</span>");
+      writeLine("<span class='c-green'>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>");
+      writeLine("<span class='c-gray'>Towering ancient oaks block the sun. Moss clings to glowing crystal ruins.</span>");
+      writeLine(`<span class='c-yellow'>You have <b>${player.fights}</b> forest encounters remaining today.</span>\n`);
+
+      if (player.hp <= 0) {
+        writeLine("<span class='c-lred'>You are unconscious and bleeding! Visit the Healer immediately.</span>");
+        setPrompt("RETURN TO TOWN [R]:", [{ key: "R", label: "Return to Town" }]);
+        return;
+      }
+
+      writeLine("<span class='c-key'>[L]</span> <span class='c-yellow'>Look for Something to Fight</span>");
+      writeLine("<span class='c-key'>[R]</span> <span class='c-yellow'>Return to the Safety of Town</span>");
+
+      setPrompt("FOREST COMMAND (L/R):", [
+        { key: "L", label: "Fight Monster" },
+        { key: "R", label: "Town" }
+      ]);
+    };
+
+    const triggerForestEncounter = () => {
+      if (player.fights <= 0) {
+        clearScreen();
+        writeLine("<span class='c-lred'>\nYou are exhausted! No more forest fights remain today.</span>");
+        writeLine("<span class='c-gray'>Rest at the Inn or wait for the morning to regain your energy.</span>\n");
+        setPrompt("PRESS [R] TO RETURN:", [{ key: "R", label: "Return to Town" }]);
+        return;
+      }
+
+      player.fights--;
+      updateHud();
+      saveLordData();
+
+      // Random Event Chance (15%)
+      const roll = Math.random();
+      if (roll < 0.07) {
+        // Find Gold
+        const found = Math.floor(Math.random() * 80 + 30) * player.level;
+        clearScreen();
+        playLordVictory();
+        writeLine("<span class='c-gold'>\n💰 A GLINT IN THE BUSHES!</span>");
+        writeLine(`<span class='c-yellow'>You uncover an abandoned traveler's pouch containing <b>${found} GOLD</b>!</span>\n`);
+        player.gold += found;
+        updateHud();
+        saveLordData();
+        setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
+        pendingAction = () => showForest();
+        return;
+      } else if (roll < 0.12) {
+        // Find Gem
+        clearScreen();
+        playLordVictory();
+        writeLine("<span class='c-lcyan'>\n💎 GEMSTONE DISCOVERY!</span>");
+        writeLine("<span class='c-cyan'>Wedged inside a petrified tree hollow, you pry loose a sparkling green <b>GEM</b>!</span>\n");
+        player.gems += 1;
+        updateHud();
+        saveLordData();
+        setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
+        pendingAction = () => showForest();
+        return;
+      } else if (roll < 0.16) {
+        // Old Hermit Blessing
+        clearScreen();
+        playLordVictory();
+        writeLine("<span class='c-lcyan'>\n🧙 THE MYSTIC OLD HERMIT OF THE WOODS</span>");
+        writeLine("<span class='c-gray'>A robed elder steps out from behind an ancient toroid monolithic arch.</span>");
+        writeLine("<span class='c-lgreen'>'Be protected, young warrior,' he chants, sprinkling optical stardust upon you.</span>");
+        const heal = Math.min(player.maxHp - player.hp, 25 * player.level);
+        player.hp += heal;
+        writeLine(`<span class='c-green'>Your wounds seal! You recover <b>${heal} HP</b>.</span>\n`);
+        updateHud();
+        saveLordData();
+        setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
+        pendingAction = () => showForest();
+        return;
+      }
+
+      // Spawn monster scaled to player level
+      const eligible = FOREST_MONSTERS.filter(m => m.minLvl <= player.level + 1);
+      const template = eligible[Math.floor(Math.random() * eligible.length)];
+      
+      const variance = 0.85 + Math.random() * 0.3;
+      currentEnemy = {
+        name: template.name,
+        hp: Math.floor(template.hp * variance),
+        maxHp: Math.floor(template.hp * variance),
+        str: Math.floor(template.str * variance),
+        def: Math.floor(template.def * variance),
+        exp: Math.floor(template.exp * variance),
+        gold: Math.floor(template.gold * variance)
+      };
+
+      combatReturnState = "FOREST";
+      startCombat();
+    };
+
+    /* ================= COMBAT SYSTEM ================= */
+    const startCombat = () => {
+      gameState = "COMBAT";
+      playLordHit();
+      renderCombatRound("A hostile shadow leaps from the undergrowth!");
+    };
+
+    const renderCombatRound = (message = "") => {
+      clearScreen();
+      writeLine("<span class='c-lred'>========================================================================</span>");
+      writeLine(`<span class='c-lred'>                      ⚔ BATTLE IN PROGRESS ⚔</span>`);
+      writeLine("<span class='c-lred'>========================================================================</span>");
+      if (message) writeLine(`<span class='c-yellow'>${message}</span>\n`);
+
+      writeLine(`<span class='c-white'>HERO: <b>${player.name}</b> (Lvl ${player.level})</span>`);
+      writeLine(`  HP: <span class='c-lgreen'>${player.hp}/${player.maxHp}</span> | Weapon: <span class='c-cyan'>${WEAPONS[player.weaponIdx].name}</span> | Armor: <span class='c-cyan'>${ARMORS[player.armorIdx].name}</span>\n`);
+
+      writeLine(`<span class='c-lred'>FOE: <b>${currentEnemy.name}</b></span>`);
+      writeLine(`  HP: <span class='c-red'>${Math.max(0, currentEnemy.hp)}/${currentEnemy.maxHp}</span> | Strength: ${currentEnemy.str} | Armor: ${currentEnemy.def}\n`);
+
+      writeLine("<span class='c-key'>[A]</span> <span class='c-yellow'>Attack With Weapon</span>");
+      writeLine("<span class='c-key'>[R]</span> <span class='c-yellow'>Run Like a Coward (Try to Flee)</span>");
+
+      setPrompt("COMBAT (A/R):", [
+        { key: "A", label: "Attack" },
+        { key: "R", label: "Run" }
+      ]);
+    };
+
+    const playerAttackRound = () => {
+      playLordHit();
+      const weaponPwr = WEAPONS[player.weaponIdx].power;
+      const baseDmg = Math.max(1, Math.floor(player.str + weaponPwr - currentEnemy.def * 0.4));
+      const variation = Math.floor((Math.random() - 0.3) * 8);
+      const isCrit = Math.random() < 0.15;
+      let totalDmg = Math.max(1, baseDmg + variation);
+      if (isCrit) totalDmg = Math.floor(totalDmg * 1.8);
+
+      currentEnemy.hp -= totalDmg;
+
+      let combatLog = `You strike the <b>${currentEnemy.name}</b> with your <b>${WEAPONS[player.weaponIdx].name}</b> for <span class='c-lred'>${totalDmg}</span> damage!`;
+      if (isCrit) combatLog += " <span class='c-gold'>*** CRITICAL STRIKE! ***</span>";
+
+      if (currentEnemy.hp <= 0) {
+        // VICTORY!
+        playLordVictory();
+        player.exp += currentEnemy.exp;
+        player.gold += currentEnemy.gold;
+        updateHud();
+        saveLordData();
+
+        clearScreen();
+        writeLine("<span class='c-lgreen'>\n========================================================================</span>");
+        writeLine("<span class='c-gold'>                      ⚔ VICTORY IN COMBAT! ⚔</span>");
+        writeLine("<span class='c-lgreen'>========================================================================</span>");
+        writeLine(`<span class='c-white'>The ${currentEnemy.name} collapses into the mud with a final gasp!</span>\n`);
+        writeLine(`<span class='c-yellow'>You search the corpse and plunder <b>${currentEnemy.gold} GOLD</b>!</span>`);
+        writeLine(`<span class='c-lcyan'>You gain <b>${currentEnemy.exp} EXPERIENCE POINTS</b>!</span>\n`);
+
+        if (combatReturnState === "TURGON") {
+          // Master Turgon Defeated! Level Up!
+          player.level += 1;
+          player.maxHp += 20;
+          player.hp = player.maxHp;
+          player.str += 12;
+          player.def += 8;
+          writeLine("<span class='c-gold'>\n🌟 *** CONGRATULATIONS! YOU HAVE ADVANCED IN LEVEL! *** 🌟</span>");
+          writeLine(`<span class='c-lgreen'>Master Turgon bows respectfully: 'You have proven your valor! You are now Level ${player.level}!'</span>`);
+          writeLine("<span class='c-cyan'>+20 Max HP | +12 Strength | +8 Defense | Full HP Restored!</span>\n");
+          updateHud();
+          saveLordData();
+          setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
+          pendingAction = () => showTownSquare();
+          return;
+        }
+
+        if (combatReturnState === "DRAGON") {
+          // DRAGON DEFEATED! GAME WON!
+          player.dragonSlain = true;
+          player.gold += 50000;
+          player.gems += 20;
+          updateHud();
+          saveLordData();
+          clearScreen();
+          writeLine("<span class='c-gold'>\n🐲====================================================================🐲</span>");
+          writeLine("<span class='c-gold'>        👑 VICTORY! YOU HAVE SLAIN THE LEGENDARY RED DRAGON! 👑</span>");
+          writeLine("<span class='c-gold'>🐲====================================================================🐲</span>");
+          writeLine("<span class='c-lred'>With an earth-shattering bellow, the great crimson leviathan crashes</span>");
+          writeLine("<span class='c-lred'>into the magma chasm! Smoke clears, revealing the dragon's glittering hoard:</span>\n");
+          writeLine("<span class='c-yellow'>+50,000 GOLD COINS!</span>");
+          writeLine("<span class='c-lcyan'>+20 FLAWLESS GEMSTONES!</span>");
+          writeLine("<span class='c-gold'>FOUNDER STATUS: TITAN OF THE TOROIDAL REALM!</span>\n");
+          writeLine("<span class='c-gray'>Your name shall be inscribed upon the immutable silicon monuments forever.</span>\n");
+          setPrompt("PRESS [C] TO RETURN TRIUMPHANT:", [{ key: "C", label: "Triumph" }]);
+          pendingAction = () => showTownSquare();
+          return;
+        }
+
+        setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
+        pendingAction = () => showForest();
+        return;
+      }
+
+      // Enemy Counter-Attacks!
+      const armorDef = ARMORS[player.armorIdx].defense;
+      const enemyBaseDmg = Math.max(1, Math.floor(currentEnemy.str - (player.def + armorDef) * 0.45));
+      const enemyVar = Math.floor((Math.random() - 0.4) * 6);
+      const enemyDmg = Math.max(1, enemyBaseDmg + enemyVar);
+
+      player.hp -= enemyDmg;
+      updateHud();
+      saveLordData();
+
+      combatLog += `<br><span class='c-red'>The <b>${currentEnemy.name}</b> counter-strikes viciously, inflicting <span class='c-lred'>${enemyDmg}</span> damage to you!</span>`;
+
+      if (player.hp <= 0) {
+        // DEFEAT!
+        player.hp = 0;
+        updateHud();
+        saveLordData();
+        clearScreen();
+        writeLine("<span class='c-lred'>\n========================================================================</span>");
+        writeLine("<span class='c-red'>                         💀 YOU HAVE BEEN SLAIN! 💀</span>");
+        writeLine("<span class='c-lred'>========================================================================</span>");
+        writeLine(`<span class='c-gray'>The ${currentEnemy.name} delivers a devastating death blow. Darkness engulfs you.</span>\n`);
+        const lostGold = Math.floor(player.gold * 0.5);
+        player.gold -= lostGold;
+        writeLine(`<span class='c-yellow'>Scavengers loot your lifeless body for <b>${lostGold} GOLD</b>!</span>`);
+        writeLine("<span class='c-cyan'>Town monks drag your battered shell back to the Healer's hut...</span>\n");
+        updateHud();
+        saveLordData();
+        setPrompt("PRESS [C] TO AWAKEN IN TOWN:", [{ key: "C", label: "Awaken" }]);
+        pendingAction = () => {
+          player.hp = 5; // Resurrect with 5 HP
+          updateHud();
+          saveLordData();
+          showTownSquare();
+        };
+        return;
+      }
+
+      renderCombatRound(combatLog);
+    };
+
+    const tryFlee = () => {
+      if (Math.random() < 0.55) {
+        clearScreen();
+        writeLine("<span class='c-yellow'>\nYou turn on your heel and sprint frantically through the thorns!</span>");
+        writeLine("<span class='c-lgreen'>You managed to escape safely!</span>\n");
+        setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
+        pendingAction = () => showForest();
+      } else {
+        const scratch = Math.floor(Math.random() * 6 + 4);
+        player.hp = Math.max(1, player.hp - scratch);
+        updateHud();
+        saveLordData();
+        renderCombatRound(`<span class='c-lred'>You tripped over an ancient root! The ${currentEnemy.name} slashes you for ${scratch} damage as you scramble to your feet!</span>`);
+      }
+    };
+
+    /* ================= THE INN ================= */
+    const showInn = () => {
+      gameState = "INN";
+      updateHud();
+      clearScreen();
+      writeLine("<span class='c-gold'>========================================================================</span>");
+      writeLine("<span class='c-yellow'>                  🍺 THE PIG'S WHISTLE INN & TAVERN 🍺</span>");
+      writeLine("<span class='c-gold'>========================================================================</span>");
+      writeLine("<span class='c-gray'>Firelight dances across seasoned oak beams. A lute strums in the corner</span>");
+      writeLine("<span class='c-gray'>and hearty cyber-ale flows freely from brass kegs.</span>\n");
+      writeLine("<span class='c-key'>[B]</span> <span class='c-yellow'>Converse with Seth Able the Bard</span>");
+      writeLine("<span class='c-key'>[F]</span> <span class='c-magenta'>Flirt with Violet the Barmaid</span>");
+      writeLine("<span class='c-key'>[A]</span> <span class='c-yellow'>Order a Tankard of Cyber-Ale (20 Gold)</span>");
+      writeLine("<span class='c-key'>[S]</span> <span class='c-cyan'>Sleep in a Warm Bed (Save & Restore 5 HP)</span>");
+      writeLine("<span class='c-key'>[R]</span> <span class='c-gray'>Return to Town Square</span>");
+
+      setPrompt("INN (B/F/A/S/R):", [
+        { key: "B", label: "Bard" },
+        { key: "F", label: "Violet" },
+        { key: "A", label: "Ale" },
+        { key: "S", label: "Sleep" },
+        { key: "R", label: "Town" }
+      ]);
+    };
+
+    const talkBard = () => {
+      clearScreen();
+      playLordVictory();
+      const rumors = [
+        "'The Red Dragon nests upon the Obsidian Toroid spire... only those with Dragon Plate and Vorpal weapons survive!'",
+        "'Did you know? Depositing gold in the Imperial Bank yields 5% compound interest each real day!'",
+        "'Turgon only trains warriors who possess enough combat experience from the dark forest.'",
+        "'In the deep woods, ancient monoliths occasionally bestow flawless gems to wandering souls.'",
+        "'Beware the Mountain Ogres; their crude clubs shatter light leather armors!'"
+      ];
+      const rumor = rumors[Math.floor(Math.random() * rumors.length)];
+      writeLine("<span class='c-gold'>\n🎶 SETH ABLE STRUMS HIS LUTE 🎶</span>");
+      writeLine(`<span class='c-yellow'>${rumor}</span>\n`);
+      setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
+      pendingAction = () => showInn();
+    };
+
+    const flirtViolet = () => {
+      clearScreen();
+      if (player.flirtCount >= 3) {
+        writeLine("<span class='c-magenta'>\nViolet winks and laughs: 'My, you are persistent today! Go slay some beasts and come back tonight!'</span>\n");
+      } else {
+        player.flirtCount++;
+        const smiles = [
+          "Violet blushes warmly as you recount your latest dungeon conquest. She brings you extra cider!",
+          "You present a delicate forest petal. Violet smiles brightly and kisses your cheek!",
+          "Violet giggles: 'A brave hero like you shouldn't be wandering alone in the dark forest...'"
+        ];
+        writeLine("<span class='c-magenta'>\n💖 FLIRTING WITH VIOLET 💖</span>");
+        writeLine(`<span class='c-white'>${smiles[player.flirtCount - 1]}</span>\n`);
+        player.hp = Math.min(player.maxHp, player.hp + 5);
+        updateHud();
+        saveLordData();
+      }
+      setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
+      pendingAction = () => showInn();
+    };
+
+    /* ================= WEAPON SHOP ================= */
+    const showWeapons = () => {
+      gameState = "WEAPONS";
+      updateHud();
+      clearScreen();
+      writeLine("<span class='c-lcyan'>========================================================================</span>");
+      writeLine("<span class='c-cyan'>                    ⚔ ABDUL'S WEAPON EMPORIUM ⚔</span>");
+      writeLine("<span class='c-lcyan'>========================================================================</span>");
+      writeLine("<span class='c-gray'>Abdul grins showing a gold tooth, polishing a gleaming broadsword.</span>");
+      writeLine(`<span class='c-yellow'>You currently wield: <b>${WEAPONS[player.weaponIdx].name}</b> (+${WEAPONS[player.weaponIdx].power} ATK)</span>\n`);
+
+      const options = [];
+      WEAPONS.forEach((w, idx) => {
+        if (idx === player.weaponIdx) {
+          writeLine(`<span class='c-green'>[${idx + 1}] ${w.name} - EQUIPPED (Power: +${w.power})</span>`);
+        } else if (idx < player.weaponIdx) {
+          writeLine(`<span class='c-gray'>[${idx + 1}] ${w.name} - OUTGROWN</span>`);
+        } else {
+          writeLine(`<span class='c-key'>[${idx + 1}]</span> <span class='c-yellow'>${w.name}</span> (Power: +${w.power}) - Cost: <span class='c-gold'>${w.cost.toLocaleString()} Gold</span>`);
+          options.push({ key: String(idx + 1), label: w.name });
+        }
+      });
+      writeLine("\n<span class='c-key'>[R]</span> <span class='c-gray'>Return to Town</span>");
+      options.push({ key: "R", label: "Town" });
+
+      setPrompt("CHOOSE WEAPON TO BUY:", options);
+    };
+
+    const buyWeapon = (idx) => {
+      const weapon = WEAPONS[idx];
+      if (!weapon) return;
+      if (idx <= player.weaponIdx) {
+        clearScreen();
+        writeLine("<span class='c-yellow'>\nYou already possess this weapon or a superior one!</span>\n");
+        setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
+        pendingAction = () => showWeapons();
+        return;
+      }
+      if (player.gold < weapon.cost) {
+        clearScreen();
+        writeLine("<span class='c-lred'>\nAbdul scoffs: 'You don't have enough gold for that fine blade!'</span>\n");
+        setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
+        pendingAction = () => showWeapons();
+        return;
+      }
+
+      player.gold -= weapon.cost;
+      player.weaponIdx = idx;
+      playLordVictory();
+      updateHud();
+      saveLordData();
+      clearScreen();
+      writeLine(`<span class='c-lgreen'>\nYou purchase the <b>${weapon.name}</b>! Your strike power increases by +${weapon.power}!</span>\n`);
+      setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
+      pendingAction = () => showWeapons();
+    };
+
+    /* ================= ARMOR SHOP ================= */
+    const showArmor = () => {
+      gameState = "ARMOR";
+      updateHud();
+      clearScreen();
+      writeLine("<span class='c-lcyan'>========================================================================</span>");
+      writeLine("<span class='c-cyan'>                    🛡 ARTHUR'S ARMOR SHOPPE 🛡</span>");
+      writeLine("<span class='c-lcyan'>========================================================================</span>");
+      writeLine("<span class='c-gray'>Anvils ring out as smiths pound glowing ingots of tungsten steel.</span>");
+      writeLine(`<span class='c-yellow'>You currently wear: <b>${ARMORS[player.armorIdx].name}</b> (+${ARMORS[player.armorIdx].defense} DEF)</span>\n`);
+
+      const options = [];
+      ARMORS.forEach((a, idx) => {
+        if (idx === player.armorIdx) {
+          writeLine(`<span class='c-green'>[${idx + 1}] ${a.name} - EQUIPPED (Defense: +${a.defense})</span>`);
+        } else if (idx < player.armorIdx) {
+          writeLine(`<span class='c-gray'>[${idx + 1}] ${a.name} - OUTGROWN</span>`);
+        } else {
+          writeLine(`<span class='c-key'>[${idx + 1}]</span> <span class='c-yellow'>${a.name}</span> (Defense: +${a.defense}) - Cost: <span class='c-gold'>${a.cost.toLocaleString()} Gold</span>`);
+          options.push({ key: String(idx + 1), label: a.name });
+        }
+      });
+      writeLine("\n<span class='c-key'>[R]</span> <span class='c-gray'>Return to Town</span>");
+      options.push({ key: "R", label: "Town" });
+
+      setPrompt("CHOOSE ARMOR TO BUY:", options);
+    };
+
+    const buyArmor = (idx) => {
+      const armor = ARMORS[idx];
+      if (!armor) return;
+      if (idx <= player.armorIdx) {
+        clearScreen();
+        writeLine("<span class='c-yellow'>\nYou already wear this armor or superior armor!</span>\n");
+        setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
+        pendingAction = () => showArmor();
+        return;
+      }
+      if (player.gold < armor.cost) {
+        clearScreen();
+        writeLine("<span class='c-lred'>\nArthur shakes his head: 'Good steel requires good gold, adventurer!'</span>\n");
+        setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
+        pendingAction = () => showArmor();
+        return;
+      }
+
+      player.gold -= armor.cost;
+      player.armorIdx = idx;
+      playLordVictory();
+      updateHud();
+      saveLordData();
+      clearScreen();
+      writeLine(`<span class='c-lgreen'>\nYou equip the <b>${armor.name}</b>! Your defense increases by +${armor.defense}!</span>\n`);
+      setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
+      pendingAction = () => showArmor();
+    };
+
+    /* ================= HEALER'S HUT ================= */
+    const showHealer = () => {
+      gameState = "HEALER";
+      updateHud();
+      clearScreen();
+      writeLine("<span class='c-green'>========================================================================</span>");
+      writeLine("<span class='c-lgreen'>                      🌿 HEALER'S SANCTUARY 🌿</span>");
+      writeLine("<span class='c-green'>========================================================================</span>");
+      writeLine("<span class='c-gray'>Vials of glowing emerald salve bubble gently over a soft hearth.</span>");
+      writeLine(`<span class='c-white'>Current Health: <span class='c-lgreen'>${player.hp}/${player.maxHp} HP</span></span>\n`);
+
+      const missingHp = player.maxHp - player.hp;
+      const costPerHp = 2 * player.level;
+      const fullCost = missingHp * costPerHp;
+
+      if (missingHp <= 0) {
+        writeLine("<span class='c-yellow'>The healer smiles: 'You are bursting with vitality! No healing required.'</span>\n");
+      } else {
+        writeLine(`<span class='c-yellow'>You have <b>${missingHp} wounds</b>.</span>`);
+        writeLine(`<span class='c-gold'>Cost to heal fully: <b>${fullCost} Gold</b> (${costPerHp} gold/HP)</span>\n`);
+        writeLine("<span class='c-key'>[H]</span> <span class='c-yellow'>Heal All Wounds</span>");
+      }
+      writeLine("<span class='c-key'>[R]</span> <span class='c-gray'>Return to Town</span>");
+
+      const opts = [];
+      if (missingHp > 0) opts.push({ key: "H", label: "Heal All" });
+      opts.push({ key: "R", label: "Town" });
+
+      setPrompt("HEALER (H/R):", opts);
+    };
+
+    const healWounds = () => {
+      const missingHp = player.maxHp - player.hp;
+      const costPerHp = 2 * player.level;
+      const fullCost = missingHp * costPerHp;
+
+      if (player.gold < fullCost) {
+        clearScreen();
+        writeLine("<span class='c-lred'>\nYou lack the gold to pay for a full healing draught!</span>\n");
+        setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
+        pendingAction = () => showHealer();
+        return;
+      }
+
+      player.gold -= fullCost;
+      player.hp = player.maxHp;
+      playLordVictory();
+      updateHud();
+      saveLordData();
+      clearScreen();
+      writeLine("<span class='c-lgreen'>\nThe soothing elixir restores your flesh and bone! Health fully restored.</span>\n");
+      setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
+      pendingAction = () => showHealer();
+    };
+
+    /* ================= THE BANK ================= */
+    const showBank = () => {
+      gameState = "BANK";
+      updateHud();
+      clearScreen();
+      writeLine("<span class='c-gold'>========================================================================</span>");
+      writeLine("<span class='c-yellow'>                    🏦 YE OLDE IMPERIAL BANK 🏦</span>");
+      writeLine("<span class='c-gold'>========================================================================</span>");
+      writeLine("<span class='c-gray'>Armored guards flank heavy iron vault doors. The Teller peeks through iron bars.</span>\n");
+      writeLine(`Gold in Hand: <span class='c-gold'>${player.gold.toLocaleString()}</span>`);
+      writeLine(`Gold in Bank: <span class='c-gold'>${player.bank.toLocaleString()}</span> (5% daily interest)\n`);
+
+      writeLine("<span class='c-key'>[D]</span> <span class='c-yellow'>Deposit All Gold to Bank</span>");
+      writeLine("<span class='c-key'>[W]</span> <span class='c-yellow'>Withdraw All Gold from Bank</span>");
+      writeLine("<span class='c-key'>[R]</span> <span class='c-gray'>Return to Town Square</span>");
+
+      setPrompt("BANK (D/W/R):", [
+        { key: "D", label: "Deposit All" },
+        { key: "W", label: "Withdraw All" },
+        { key: "R", label: "Town" }
+      ]);
+    };
+
+    /* ================= TURGON'S TRAINING GUILD ================= */
+    const showTurgon = () => {
+      gameState = "TURGON";
+      updateHud();
+      clearScreen();
+      writeLine("<span class='c-lred'>========================================================================</span>");
+      writeLine("<span class='c-gold'>                  🥋 MASTER TURGON'S TRAINING GUILD 🥋</span>");
+      writeLine("<span class='c-lred'>========================================================================</span>");
+      writeLine("<span class='c-gray'>Veteran gladiators spar in sawdust rings. Master Turgon crosses his mighty arms.</span>\n");
+
+      if (player.level >= 8) {
+        writeLine("<span class='c-gold'>Master Turgon salutes you: 'You have reached the maximum martial mastery! You are ready to slay the Red Dragon!'</span>\n");
+        setPrompt("RETURN TO TOWN [R]:", [{ key: "R", label: "Town" }]);
+        return;
+      }
+
+      const masterFoe = MASTER_TURGON[player.level - 1];
+      writeLine(`Current Level: <span class='c-yellow'>${player.level}</span> | Experience: <span class='c-lcyan'>${player.exp.toLocaleString()}</span>`);
+      writeLine(`Experience required to challenge Master: <span class='c-gold'>${masterFoe.expReq.toLocaleString()}</span>\n`);
+
+      if (player.exp < masterFoe.expReq) {
+        writeLine(`<span class='c-red'>Turgon scoffs: 'You lack discipline! Go battle more monsters in the forest before challenging <b>${masterFoe.name}</b>!'</span>\n`);
+        writeLine("<span class='c-key'>[R]</span> <span class='c-gray'>Return to Town</span>");
+        setPrompt("TURGON (R):", [{ key: "R", label: "Town" }]);
+      } else {
+        writeLine(`<span class='c-lgreen'>You are worthy! Master Turgon introduces your trial opponent: <b>${masterFoe.name}</b>!</span>`);
+        writeLine("<span class='c-yellow'>Defeat them in honorable combat to earn your next level title!</span>\n");
+        writeLine("<span class='c-key'>[C]</span> <span class='c-lred'>CHALLENGE MASTER IN COMBAT</span>");
+        writeLine("<span class='c-key'>[R]</span> <span class='c-gray'>Not Yet (Return to Town)</span>");
+        setPrompt("TURGON CHALLENGE (C/R):", [
+          { key: "C", label: "Fight Master" },
+          { key: "R", label: "Town" }
+        ]);
+      }
+    };
+
+    const startTurgonFight = () => {
+      const masterFoe = MASTER_TURGON[player.level - 1];
+      currentEnemy = {
+        name: masterFoe.name,
+        hp: masterFoe.hp,
+        maxHp: masterFoe.hp,
+        str: masterFoe.str,
+        def: masterFoe.def,
+        exp: 500 * player.level,
+        gold: 1000 * player.level
+      };
+      combatReturnState = "TURGON";
+      startCombat();
+    };
+
+    /* ================= THE RED DRAGON'S LAIR ================= */
+    const showDragonLair = () => {
+      gameState = "DRAGON";
+      updateHud();
+      clearScreen();
+      playLordDragonRoar();
+      writeLine("<span class='c-lred'>🐲====================================================================🐲</span>");
+      writeLine("<span class='c-lred'>             🌋 THE VOLCANIC LAIR OF THE RED DRAGON 🌋</span>");
+      writeLine("<span class='c-lred'>🐲====================================================================🐲</span>");
+      writeLine("<span class='c-red'>Bones of failed champions litter the obsidian floor. Rivers of liquid</span>");
+      writeLine("<span class='c-red'>fire illuminate smoke-stained stalactites. At the cavern summit, an immense</span>");
+      writeLine("<span class='c-red'>crimson dragon opens slit golden eyes, smoke curling from razor nostrils!</span>\n");
+
+      if (player.dragonSlain) {
+        writeLine("<span class='c-gold'>The Red Dragon lies defeated! You are already hailed as the Supreme Sovereign of the Realm!</span>\n");
+        setPrompt("RETURN TO TOWN [R]:", [{ key: "R", label: "Town" }]);
+        return;
+      }
+
+      if (player.level < 6) {
+        writeLine("<span class='c-lred'>WARNING: You are only Level " + player.level + "! The Dragon will incinerate you in seconds!</span>\n");
+      }
+
+      writeLine("<span class='c-key'>[D]</span> <span class='c-lred'>DRAW WEAPON AND ATTACK THE RED DRAGON!</span>");
+      writeLine("<span class='c-key'>[R]</span> <span class='c-gray'>Flee Back to Town</span>");
+
+      setPrompt("DRAGON LAIR (D/R):", [
+        { key: "D", label: "Attack Dragon" },
+        { key: "R", label: "Flee" }
+      ]);
+    };
+
+    const startDragonBattle = () => {
+      currentEnemy = {
+        name: "THE RED DRAGON",
+        hp: 1800,
+        maxHp: 1800,
+        str: 380,
+        def: 220,
+        exp: 50000,
+        gold: 50000
+      };
+      combatReturnState = "DRAGON";
+      startCombat();
+    };
+
+    /* ================= STATS SHEET ================= */
+    const showStats = () => {
+      gameState = "STATS";
+      updateHud();
+      clearScreen();
+      writeLine("<span class='c-lcyan'>========================================================================</span>");
+      writeLine("<span class='c-cyan'>                    📜 HERO STATUS & TELEMETRY 📜</span>");
+      writeLine("<span class='c-lcyan'>========================================================================</span>");
+      writeLine(`Name: <span class='c-gold'>${player.name}</span>`);
+      writeLine(`Level: <span class='c-yellow'>${player.level}</span>`);
+      writeLine(`Hit Points: <span class='c-lgreen'>${player.hp} / ${player.maxHp}</span>`);
+      writeLine(`Base Strength: <span class='c-white'>${player.str}</span> (+${WEAPONS[player.weaponIdx].power} from ${WEAPONS[player.weaponIdx].name})`);
+      writeLine(`Base Defense:  <span class='c-white'>${player.def}</span> (+${ARMORS[player.armorIdx].defense} from ${ARMORS[player.armorIdx].name})`);
+      writeLine(`Total Attack Power:  <span class='c-lred'>${player.str + WEAPONS[player.weaponIdx].power}</span>`);
+      writeLine(`Total Armor Defense: <span class='c-lcyan'>${player.def + ARMORS[player.armorIdx].defense}</span>`);
+      writeLine(`Experience: <span class='c-yellow'>${player.exp.toLocaleString()}</span>`);
+      writeLine(`Gold in Hand: <span class='c-gold'>${player.gold.toLocaleString()}</span>`);
+      writeLine(`Gold in Bank: <span class='c-gold'>${player.bank.toLocaleString()}</span>`);
+      writeLine(`Flawless Gems: <span class='c-cyan'>${player.gems}</span>`);
+      writeLine(`Forest Fights Left: <span class='c-lgreen'>${player.fights}</span>`);
+      writeLine(`Dragon Slain Status: <span class='c-lred'>${player.dragonSlain ? "YES (TITAN)" : "NO"}</span>\n`);
+
+      writeLine("<span class='c-key'>[R]</span> <span class='c-gray'>Return to Town</span>");
+      setPrompt("STATS (R):", [{ key: "R", label: "Town" }]);
+    };
+
+    /* ================= INPUT HANDLER ================= */
+    const handleInput = (rawVal) => {
+      const val = (rawVal || "").trim().toUpperCase();
+      if (!val) return;
+      playLordBeep();
+
+      if (pendingAction) {
+        const action = pendingAction;
+        pendingAction = null;
+        action();
+        return;
+      }
+
+      if (val === "Q") {
+        gameModal.classList.remove('active');
+        return;
+      }
+
+      switch (gameState) {
+        case "TOWN":
+          if (val === "F") showForest();
+          else if (val === "I") showInn();
+          else if (val === "W") showWeapons();
+          else if (val === "A") showArmor();
+          else if (val === "H") showHealer();
+          else if (val === "B") showBank();
+          else if (val === "T") showTurgon();
+          else if (val === "S") showStats();
+          else if (val === "D") showDragonLair();
+          break;
+
+        case "FOREST":
+          if (val === "L") triggerForestEncounter();
+          else if (val === "R") showTownSquare();
+          break;
+
+        case "COMBAT":
+          if (val === "A") playerAttackRound();
+          else if (val === "R") tryFlee();
+          break;
+
+        case "INN":
+          if (val === "B") talkBard();
+          else if (val === "F") flirtViolet();
+          else if (val === "A") {
+            if (player.gold >= 20) {
+              player.gold -= 20;
+              player.hp = Math.min(player.maxHp, player.hp + 2);
+              updateHud();
+              saveLordData();
+              clearScreen();
+              writeLine("<span class='c-yellow'>\nYou gulp down a frothing mug of cyber-ale! (+2 HP)</span>\n");
+            } else {
+              clearScreen();
+              writeLine("<span class='c-lred'>\nYou don't even have 20 gold for ale!</span>\n");
+            }
+            setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
+            pendingAction = () => showInn();
+          } else if (val === "S") {
+            player.hp = Math.min(player.maxHp, player.hp + 5);
+            saveLordData();
+            clearScreen();
+            writeLine("<span class='c-cyan'>\nYou rest peacefully in the feather bed. Progress saved to local storage! (+5 HP)</span>\n");
+            setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
+            pendingAction = () => showInn();
+          } else if (val === "R") showTownSquare();
+          break;
+
+        case "WEAPONS":
+          if (val === "R") showTownSquare();
+          else {
+            const num = parseInt(val, 10);
+            if (!isNaN(num) && num >= 1 && num <= WEAPONS.length) buyWeapon(num - 1);
+          }
+          break;
+
+        case "ARMOR":
+          if (val === "R") showTownSquare();
+          else {
+            const num = parseInt(val, 10);
+            if (!isNaN(num) && num >= 1 && num <= ARMORS.length) buyArmor(num - 1);
+          }
+          break;
+
+        case "HEALER":
+          if (val === "H") healWounds();
+          else if (val === "R") showTownSquare();
+          break;
+
+        case "BANK":
+          if (val === "D") {
+            player.bank += player.gold;
+            player.gold = 0;
+            saveLordData();
+            showBank();
+          } else if (val === "W") {
+            player.gold += player.bank;
+            player.bank = 0;
+            saveLordData();
+            showBank();
+          } else if (val === "R") showTownSquare();
+          break;
+
+        case "TURGON":
+          if (val === "C") startTurgonFight();
+          else if (val === "R") showTownSquare();
+          break;
+
+        case "DRAGON":
+          if (val === "D") startDragonBattle();
+          else if (val === "R") showTownSquare();
+          break;
+
+        case "STATS":
+          if (val === "R") showTownSquare();
+          break;
+
+        default:
+          showTownSquare();
+      }
+    };
+
+    // Event Listeners for Game Launch & Input
     launchGameBtn.addEventListener('click', () => {
       gameModal.classList.add('active');
-      gameActive = true;
-      audio.playTone(440, 'square', 0.2);
-      resetBall();
+      loadLordData();
+      showTownSquare();
+      playLordVictory();
     });
 
     gameCloseBtn.addEventListener('click', () => {
       gameModal.classList.remove('active');
-      gameActive = false;
     });
 
-    const resetBall = () => {
-      ballX = 300;
-      ballY = 170;
-      ballVx = (Math.random() > 0.5 ? 4.5 : -4.5);
-      ballVy = (Math.random() - 0.5) * 4.0;
-    };
+    lordInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const val = lordInput.value;
+        lordInput.value = '';
+        handleInput(val);
+      }
+    });
 
     window.addEventListener('keydown', (e) => {
-      if (!gameActive) return;
-      if (e.key === 'w' || e.key === 'W' || e.key === 'ArrowUp') p1Y = Math.max(paddleH / 2, p1Y - 24);
-      if (e.key === 's' || e.key === 'S' || e.key === 'ArrowDown') p1Y = Math.min(340 - paddleH / 2, p1Y + 24);
+      if (!gameModal.classList.contains('active')) return;
+      if (document.activeElement === lordInput) return; // let input handle it
+      if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+        handleInput(e.key);
+      }
     });
-
-    pongCanvas.addEventListener('touchmove', (e) => {
-      if (!gameActive) return;
-      const rect = pongCanvas.getBoundingClientRect();
-      const touchY = e.touches[0].clientY - rect.top;
-      p1Y = Math.min(Math.max(touchY, paddleH / 2), 340 - paddleH / 2);
-    }, { passive: true });
-
-    const gameLoop = () => {
-      if (gameActive) {
-        const targetP2 = ballY + (Math.sin(Date.now() * 0.005) * 12);
-        p2Y += (targetP2 - p2Y) * 0.085;
-        p2Y = Math.min(Math.max(p2Y, paddleH / 2), 340 - paddleH / 2);
-
-        // Singularity Gravitational Lens
-        const dx = singularityX - ballX;
-        const dy = singularityY - ballY;
-        const distSq = Math.max(dx * dx + dy * dy, 400);
-        const force = singularityMass / distSq;
-        const dist = Math.sqrt(distSq);
-        ballVx += (dx / dist) * force * 0.12;
-        ballVy += (dy / dist) * force * 0.12;
-
-        ballX += ballVx;
-        ballY += ballVy;
-
-        if (ballY <= 6 || ballY >= 334) {
-          ballVy = -ballVy;
-          audio.playTone(200, 'sine', 0.04);
-        }
-
-        if (ballX <= 30 && ballX >= 15 && Math.abs(ballY - p1Y) < paddleH / 2) {
-          ballVx = Math.abs(ballVx) * 1.05 + 0.2;
-          ballVy += (ballY - p1Y) * 0.15;
-          audio.playPaddleHit(true);
-        }
-
-        if (ballX >= 570 && ballX <= 585 && Math.abs(ballY - p2Y) < paddleH / 2) {
-          ballVx = -Math.abs(ballVx) * 1.05 - 0.2;
-          ballVy += (ballY - p2Y) * 0.15;
-          audio.playPaddleHit(false);
-        }
-
-        if (dist < 35 && Math.random() < 0.1) audio.playSingularityGravity();
-
-        if (ballX < 0) {
-          p2Score++;
-          audio.playScore();
-          updateScore();
-          resetBall();
-        } else if (ballX > 600) {
-          p1Score++;
-          audio.playScore();
-          updateScore();
-          resetBall();
-        }
-
-        pCtx.fillStyle = '#050811';
-        pCtx.fillRect(0, 0, 600, 340);
-
-        pCtx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
-        pCtx.setLineDash([6, 6]);
-        pCtx.beginPath();
-        pCtx.moveTo(300, 0);
-        pCtx.lineTo(300, 340);
-        pCtx.stroke();
-        pCtx.setLineDash([]);
-
-        // Singularity core
-        pCtx.beginPath();
-        pCtx.arc(singularityX, singularityY, 26, 0, Math.PI * 2);
-        pCtx.strokeStyle = styles[currentStyleIndex].color;
-        pCtx.lineWidth = 2;
-        pCtx.shadowColor = styles[currentStyleIndex].color;
-        pCtx.shadowBlur = 16;
-        pCtx.stroke();
-
-        pCtx.beginPath();
-        pCtx.arc(singularityX, singularityY, 8, 0, Math.PI * 2);
-        pCtx.fillStyle = currentToroidRings[1] || '#a855f7';
-        pCtx.shadowColor = currentToroidRings[1] || '#a855f7';
-        pCtx.shadowBlur = 20;
-        pCtx.fill();
-
-        // Paddles
-        pCtx.fillStyle = styles[currentStyleIndex].color;
-        pCtx.shadowColor = styles[currentStyleIndex].color;
-        pCtx.shadowBlur = 10;
-        pCtx.fillRect(20, p1Y - paddleH / 2, paddleW, paddleH);
-
-        pCtx.fillStyle = '#ff0055';
-        pCtx.shadowColor = '#ff0055';
-        pCtx.shadowBlur = 10;
-        pCtx.fillRect(570, p2Y - paddleH / 2, paddleW, paddleH);
-
-        // Photon pulse ball
-        pCtx.beginPath();
-        pCtx.arc(ballX, ballY, 6, 0, Math.PI * 2);
-        pCtx.fillStyle = '#ffffff';
-        pCtx.shadowColor = styles[currentStyleIndex].color;
-        pCtx.shadowBlur = 18;
-        pCtx.fill();
-      }
-      requestAnimationFrame(gameLoop);
-    };
-    gameLoop();
-
-    const updateScore = () => {
-      gameScoreBanner.textContent = `PLAYER ${p1Score} : ${p2Score} AI FOUNDER`;
-      if (p1Score >= 5) {
-        alert("🏆 FOUNDER ACCESS GRANTED! You mastered the toroidal gravitational lens.");
-        p1Score = 0; p2Score = 0;
-      }
-    };
 
     /* =========================================================================
        7. HACKER TERMINAL & EASTER EGGS
