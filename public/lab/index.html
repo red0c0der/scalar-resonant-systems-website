@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>SCALAR RESONANT SYSTEMS // PHOTONIC SIMULATION LABORATORY</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,800;1,400&family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #050811;
+      --bg-card: rgba(11, 16, 28, 0.85);
+      --bg-card-hover: rgba(16, 24, 42, 0.95);
+      --border-line: rgba(0, 240, 255, 0.22);
+      --border-glow: rgba(0, 240, 255, 0.55);
+      --neon-cyan: #00f0ff;
+      --neon-purple: #a855f7;
+      --neon-gold: #f59e0b;
+      --neon-rose: #ff0055;
+      --neon-emerald: #10b981;
+      --text-bright: #ffffff;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 50% 15%, rgba(168, 85, 247, 0.12) 0%, transparent 65%),
+        radial-gradient(circle at 85% 85%, rgba(0, 240, 255, 0.08) 0%, transparent 55%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
+      color: var(--text-main);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding-bottom: 60px;
+    }
+
+    /* Ambient cyber dust canvas */
+    #ambient-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.65;
+    }
+
+    /* Top HUD Navigation */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      background: rgba(5, 8, 17, 0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 100;
+      padding: 14px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-block {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+
+    .brand-hex {
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--neon-cyan);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 240, 255, 0.06);
+      box-shadow: 0 0 16px rgba(0, 240, 255, 0.25);
+    }
+
+    .brand-hex svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--neon-cyan);
+      fill: none;
+      stroke-width: 1.8;
+    }
+
+    .brand-text h1 {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      color: #ffffff;
+      text-transform: uppercase;
+    }
+
+    .brand-text p {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      color: var(--neon-cyan);
+      letter-spacing: 0.08em;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-main);
+      padding: 7px 16px;
+      border-radius: 999px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-decoration: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-btn:hover {
+      border-color: var(--neon-cyan);
+      color: var(--neon-cyan);
+      box-shadow: 0 0 14px rgba(0, 240, 255, 0.25);
+      transform: translateY(-1px);
+    }
+
+    .nav-btn.primary {
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%);
+      border-color: var(--neon-cyan);
+      color: #ffffff;
+    }
+
+    /* Main Container */
+    .lab-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 30px 24px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Hero Header */
+    .hero-banner {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(0, 240, 255, 0.06);
+      border: 1px solid rgba(0, 240, 255, 0.2);
+      border-radius: 999px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--neon-cyan);
+      margin-bottom: 16px;
+    }
+
+    .hero-badge .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--neon-cyan);
+      box-shadow: 0 0 8px var(--neon-cyan);
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+      line-height: 1.15;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-muted);
+      max-width: 760px;
+      margin: 14px auto 0;
+      line-height: 1.6;
+    }
+
+    /* Lab Grid: 2 Columns */
+    .lab-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 980px) {
+      .lab-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Simulation Module Card */
+    .sim-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-line);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sim-card:hover {
+      border-color: var(--border-glow);
+      box-shadow: 0 25px 50px -10px rgba(0, 240, 255, 0.15);
+    }
+
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .module-tag {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      color: var(--neon-cyan);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .module-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .live-status {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      padding: 3px 8px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: var(--neon-emerald);
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+    }
+
+    /* Canvas Viewport */
+    .viewport-box {
+      width: 100%;
+      height: 220px;
+      background: #060913;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      margin-bottom: 18px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .viewport-box canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .telemetry-overlay {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--neon-cyan);
+      background: rgba(5, 8, 17, 0.85);
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(0, 240, 255, 0.2);
+      pointer-events: none;
+    }
+
+    /* Interactive Controls */
+    .controls-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .control-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    .control-label {
+      color: var(--text-muted);
+    }
+
+    .control-val {
+      color: var(--neon-cyan);
+      font-weight: 600;
+    }
+
+    .slider-bar {
+      width: 100%;
+      height: 5px;
+      -webkit-appearance: none;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      outline: none;
+      margin-top: 6px;
+    }
+
+    .slider-bar::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--neon-cyan);
+      cursor: pointer;
+      box-shadow: 0 0 8px var(--neon-cyan);
+    }
+
+    .btn-toggle-group {
+      display: flex;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .toggle-chip {
+      flex: 1;
+      padding: 6px 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-muted);
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .toggle-chip:hover {
+      border-color: var(--neon-cyan);
+      color: var(--neon-cyan);
+    }
+
+    .toggle-chip.active {
+      background: rgba(0, 240, 255, 0.15);
+      border-color: var(--neon-cyan);
+      color: var(--neon-cyan);
+      font-weight: 600;
+    }
+
+    /* Live Benchmark Footer */
+    .benchmark-ticker {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 30px;
+      padding: 20px;
+      background: rgba(8, 12, 22, 0.85);
+      border: 1px solid var(--border-line);
+      border-radius: 14px;
+      font-family: var(--font-mono);
+    }
+
+    @media (max-width: 860px) {
+      .benchmark-ticker {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .ticker-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .ticker-label {
+      font-size: 9.5px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .ticker-val {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Dust Canvas -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- Top Navigation Header -->
+  <header class="top-nav">
+    <a href="/" class="brand-block">
+      <div class="brand-hex">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9"/>
+          <circle cx="12" cy="12" r="5" stroke-dasharray="2 2"/>
+          <circle cx="12" cy="12" r="2" fill="var(--neon-cyan)"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>SCALAR RESONANT SYSTEMS</h1>
+        <p>PHOTONIC SIMULATION LAB // V3.2</p>
+      </div>
+    </a>
+
+    <div class="nav-actions">
+      <button class="nav-btn" id="audio-btn" title="Toggle Synthesized Optical Feedback">
+        <span id="audio-icon">🔊</span> AUDIO
+      </button>
+      <a href="/card" class="nav-btn primary">
+        FOUNDER CARD ↗
+      </a>
+      <a href="/" class="nav-btn">
+        STEALTH PORTAL
+      </a>
+    </div>
+  </header>
+
+  <!-- Lab Container -->
+  <main class="lab-container">
+    
+    <!-- Hero Banner -->
+    <div class="hero-banner">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        <span>VERIFIED 3D MAXWELL ELECTRODYNAMIC BENCHMARK LAB</span>
+      </div>
+      <h2 class="hero-title">Interactive Photonic Simulation Laboratory</h2>
+      <p class="hero-subtitle">
+        Directly explore and manipulate the 3D non-Euclidean optical computing hardware. 
+        Simulate multi-wavelength Kerr micro-combs, vertical ALD directional couplers, and concentric toroidal resonances at 60 FPS.
+      </p>
+    </div>
+
+    <!-- 2x2 Grid of Modules -->
+    <div class="lab-grid">
+
+      <!-- MODULE 1: WDM MICRO-COMB MULTIPLIER -->
+      <section class="sim-card">
+        <div>
+          <div class="card-head">
+            <div>
+              <div class="module-tag">TIER 1 HARDWARE // MONGE TOPOLOGY</div>
+              <h3 class="module-title">64λ WDM Optical Comb Multiplier</h3>
+            </div>
+            <span class="live-status">LIVE OSA</span>
+          </div>
+
+          <div class="viewport-box">
+            <canvas id="comb-canvas" width="600" height="240"></canvas>
+            <div class="telemetry-overlay" id="comb-telemetry">Δν = 150 GHz | 64 Carriers</div>
+          </div>
+        </div>
+
+        <div class="controls-panel">
+          <div class="control-row">
+            <span class="control-label">Comb Sub-Sampling Grid:</span>
+            <span class="control-val" id="comb-grid-label">Every 3rd (64 Channels Active)</span>
+          </div>
+          <div class="btn-toggle-group">
+            <button class="toggle-chip active" id="btn-comb-64">1-in-3 Sub-Sampled (64λ)</button>
+            <button class="toggle-chip" id="btn-comb-192">Full Native Spectrum (192λ)</button>
+          </div>
+
+          <div class="control-row" style="margin-top: 6px;">
+            <span class="control-label">Tensor Input Power:</span>
+            <span class="control-val" id="tensor-power-val">+10.0 dBm</span>
+          </div>
+          <input type="range" min="0" max="20" value="10" step="0.5" class="slider-bar" id="slider-tensor-power">
+        </div>
+      </section>
+
+      <!-- MODULE 2: 3D ALD VERTICAL COUPLER -->
+      <section class="sim-card">
+        <div>
+          <div class="card-head">
+            <div>
+              <div class="module-tag">LAYER 3 TRANSITION // NODES P, Q, R</div>
+              <h3 class="module-title">3D ALD Vertical Directional Coupler</h3>
+            </div>
+            <span class="live-status">FDTD SOLVER</span>
+          </div>
+
+          <div class="viewport-box">
+            <canvas id="ald-canvas" width="600" height="240"></canvas>
+            <div class="telemetry-overlay" id="ald-telemetry">IL = 2.015 dB | η = 62.88%</div>
+          </div>
+        </div>
+
+        <div class="controls-panel">
+          <div class="control-row">
+            <span class="control-label">Overlap Interaction Length (L):</span>
+            <span class="control-val" id="ald-len-val">12.0 µm (Tape-Out Baseline)</span>
+          </div>
+          <input type="range" min="6.0" max="22.0" value="12.0" step="0.5" class="slider-bar" id="slider-ald-len">
+
+          <div class="control-row" style="margin-top: 6px;">
+            <span class="control-label">ALD Dielectric Spacer (gz):</span>
+            <span class="control-val" id="ald-gap-val">180 nm SiO₂ (n=1.444)</span>
+          </div>
+          <input type="range" min="120" max="240" value="180" step="5" class="slider-bar" id="slider-ald-gap">
+        </div>
+      </section>
+
+      <!-- MODULE 3: 3D CONCENTRIC TOROIDAL RESONATOR -->
+      <section class="sim-card">
+        <div>
+          <div class="card-head">
+            <div>
+              <div class="module-tag">TIER 2 RESONANT CORE // MANIFOLD T²</div>
+              <h3 class="module-title">Tri-Toroid Resonator & Gravitational Lens</h3>
+            </div>
+            <span class="live-status">Q = 2,791.5</span>
+          </div>
+
+          <div class="viewport-box">
+            <canvas id="toroid-canvas" width="600" height="240"></canvas>
+            <div class="telemetry-overlay" id="toroid-telemetry">R₁: 300µm | R₂: 485µm | R₃: 785µm</div>
+          </div>
+        </div>
+
+        <div class="controls-panel">
+          <div class="control-row">
+            <span class="control-label">&gt;40 GHz RF Pockels Modulation:</span>
+            <span class="control-val" id="pockels-val">3.2 Vπ (Active)</span>
+          </div>
+          <input type="range" min="0" max="5.0" value="3.2" step="0.1" class="slider-bar" id="slider-pockels">
+
+          <div class="control-row" style="margin-top: 6px;">
+            <span class="control-label">Golden Ratio Harmonic Phase Shift (Φ):</span>
+            <span class="control-val" id="phi-val">1.618 rad</span>
+          </div>
+          <input type="range" min="0.5" max="3.14" value="1.618" step="0.01" class="slider-bar" id="slider-phi">
+        </div>
+      </section>
+
+      <!-- MODULE 4: CENTRAL SINGULARITY EMITTER & DMD SIEVE -->
+      <section class="sim-card">
+        <div>
+          <div class="card-head">
+            <div>
+              <div class="module-tag">LAYER 6 OUTPUT // 100µm PORT</div>
+              <h3 class="module-title">Central Singularity Emitter & Fourier Sieve</h3>
+            </div>
+            <span class="live-status">OAM l = ±1</span>
+          </div>
+
+          <div class="viewport-box">
+            <canvas id="emitter-canvas" width="600" height="240"></canvas>
+            <div class="telemetry-overlay" id="emitter-telemetry">Vortex Charge: l = +1</div>
+          </div>
+        </div>
+
+        <div class="controls-panel">
+          <div class="control-row">
+            <span class="control-label">DMD Spatial Hologram Mode:</span>
+            <span class="control-val" id="dmd-mode-val">Forked Diffraction Grating</span>
+          </div>
+          <div class="btn-toggle-group">
+            <button class="toggle-chip active" id="btn-oam-1">Charge l = +1</button>
+            <button class="toggle-chip" id="btn-oam-2">Charge l = +2</button>
+            <button class="toggle-chip" id="btn-oam-3">Trinary Superposition</button>
+          </div>
+
+          <div class="control-row" style="margin-top: 6px;">
+            <span class="control-label">Collimating OFT Lens Focal Length (f):</span>
+            <span class="control-val" id="oft-val">12.5 mm</span>
+          </div>
+          <input type="range" min="5.0" max="25.0" value="12.5" step="0.5" class="slider-bar" id="slider-oft">
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Verified Hardware Telemetry Ticker -->
+    <section class="benchmark-ticker">
+      <div class="ticker-item">
+        <span class="ticker-label">Carrier Central Wavelength</span>
+        <span class="ticker-val" style="color: var(--neon-cyan);">1550.0 nm (C-Band)</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-label">ALD Transition Loss (Simulated)</span>
+        <span class="ticker-val" style="color: var(--neon-rose);">2.015 dB (62.88%)</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-label">Continuous Euler Bend Radii</span>
+        <span class="ticker-val" style="color: var(--neon-purple);">R ≥ 15.0 µm (0 Acute)</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-label">Reticle Die Dimensions</span>
+        <span class="ticker-val" style="color: var(--neon-gold);">2.5 mm × 2.5 mm</span>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Interactive Simulation Canvas Scripts -->
+  <script>
+    /* =========================================================================
+       1. SYNTHESIZED WEB AUDIO ENGINE
+       ========================================================================= */
+    class LabAudio {
+      constructor() {
+        this.ctx = null;
+        this.enabled = true;
+      }
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioContext();
+        }
+        if (this.ctx.state === 'suspended') this.ctx.resume();
+      }
+      playSweep(fStart, fEnd, duration = 0.15) {
+        if (!this.enabled) return;
+        this.init();
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.frequency.setValueAtTime(fStart, now);
+        osc.frequency.exponentialRampToValueAtTime(fEnd, now + duration);
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(now + duration);
+      }
+    }
+    const audio = new LabAudio();
+
+    const audioBtn = document.getElementById('audio-btn');
+    const audioIcon = document.getElementById('audio-icon');
+    audioBtn.addEventListener('click', () => {
+      audio.enabled = !audio.enabled;
+      audioIcon.textContent = audio.enabled ? '🔊' : '🔇';
+      if (audio.enabled) audio.playSweep(440, 880, 0.1);
+    });
+
+    /* =========================================================================
+       2. MODULE 1: WDM MICRO-COMB OSA CANVAS
+       ========================================================================= */
+    const combCanvas = document.getElementById('comb-canvas');
+    const cCtx = combCanvas.getContext('2d');
+    let combMode = 64; // 64 or 192
+    let combPower = 10.0;
+    let combPhase = 0;
+
+    const btn64 = document.getElementById('btn-comb-64');
+    const btn192 = document.getElementById('btn-comb-192');
+    const sliderPower = document.getElementById('slider-tensor-power');
+    const tensorPowerVal = document.getElementById('tensor-power-val');
+    const combTelemetry = document.getElementById('comb-telemetry');
+    const combGridLabel = document.getElementById('comb-grid-label');
+
+    btn64.addEventListener('click', () => {
+      combMode = 64;
+      btn64.classList.add('active');
+      btn192.classList.remove('active');
+      combGridLabel.textContent = "Every 3rd (64 Channels Active)";
+      combTelemetry.textContent = "Δν = 150 GHz | 64 Carriers";
+      audio.playSweep(300, 600);
+    });
+
+    btn192.addEventListener('click', () => {
+      combMode = 192;
+      btn192.classList.add('active');
+      btn64.classList.remove('active');
+      combGridLabel.textContent = "Native Grid (192 Channels)";
+      combTelemetry.textContent = "Δν = 50 GHz | 192 Carriers";
+      audio.playSweep(600, 1200);
+    });
+
+    sliderPower.addEventListener('input', (e) => {
+      combPower = parseFloat(e.target.value);
+      tensorPowerVal.textContent = `+${combPower.toFixed(1)} dBm`;
+    });
+
+    const drawComb = () => {
+      cCtx.fillStyle = '#060913';
+      cCtx.fillRect(0, 0, 600, 240);
+
+      // Grid lines
+      cCtx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+      cCtx.lineWidth = 1;
+      for (let y = 30; y < 240; y += 40) {
+        cCtx.beginPath();
+        cCtx.moveTo(0, y);
+        cCtx.lineTo(600, y);
+        cCtx.stroke();
+      }
+
+      combPhase += 0.03;
+      const totalLines = combMode === 64 ? 64 : 192;
+      const step = 560 / totalLines;
+
+      for (let i = 0; i < totalLines; i++) {
+        const x = 20 + i * step;
+        const normI = (i - totalLines / 2) / (totalLines / 2);
+        // Gaussian envelope across C-Band
+        const envelope = Math.exp(-normI * normI * 2.2);
+        const noise = Math.sin(i * 0.4 + combPhase) * 6;
+        const height = (envelope * 140 * (combPower / 10.0)) + noise;
+
+        cCtx.strokeStyle = combMode === 64 ? '#00f0ff' : '#a855f7';
+        cCtx.lineWidth = combMode === 64 ? 2.5 : 1.2;
+        cCtx.shadowColor = combMode === 64 ? '#00f0ff' : '#a855f7';
+        cCtx.shadowBlur = 8;
+
+        cCtx.beginPath();
+        cCtx.moveTo(x, 220);
+        cCtx.lineTo(x, 220 - Math.max(height, 5));
+        cCtx.stroke();
+      }
+      requestAnimationFrame(drawComb);
+    };
+    drawComb();
+
+    /* =========================================================================
+       3. MODULE 2: 3D ALD VERTICAL COUPLER (Coupled-Mode Solver)
+       ========================================================================= */
+    const aldCanvas = document.getElementById('ald-canvas');
+    const aCtx = aldCanvas.getContext('2d');
+    let aldLen = 12.0;
+    let aldGap = 180;
+
+    const sliderAldLen = document.getElementById('slider-ald-len');
+    const sliderAldGap = document.getElementById('slider-ald-gap');
+    const aldLenVal = document.getElementById('ald-len-val');
+    const aldGapVal = document.getElementById('ald-gap-val');
+    const aldTelemetry = document.getElementById('ald-telemetry');
+
+    const updateAldMetrics = () => {
+      // Coupled-mode theory: kappa ~ exp(-gamma * gap)
+      // At gap=180, Lc=16.5 um -> kappa = pi / (2 * 16.5) = 0.0952
+      const gamma = 0.0075;
+      const kappa0 = 0.0952;
+      const kappa = kappa0 * Math.exp(-gamma * (aldGap - 180));
+      const crossPower = Math.sin(kappa * aldLen) ** 2;
+      const etaPct = crossPower * 100.0;
+      const ilDb = -10 * Math.log10(Math.max(crossPower, 0.0001));
+
+      aldTelemetry.textContent = `IL = ${ilDb.toFixed(3)} dB | η = ${etaPct.toFixed(2)}%`;
+      if (Math.abs(aldLen - 16.5) < 0.3) {
+        aldLenVal.textContent = `${aldLen.toFixed(1)} µm (★ CRITICAL BEAT LENGTH Lc)`;
+      } else if (Math.abs(aldLen - 12.0) < 0.1) {
+        aldLenVal.textContent = `${aldLen.toFixed(1)} µm (Tape-Out Baseline)`;
+      } else {
+        aldLenVal.textContent = `${aldLen.toFixed(1)} µm`;
+      }
+    };
+
+    sliderAldLen.addEventListener('input', (e) => {
+      aldLen = parseFloat(e.target.value);
+      updateAldMetrics();
+    });
+
+    sliderAldGap.addEventListener('input', (e) => {
+      aldGap = parseInt(e.target.value);
+      aldGapVal.textContent = `${aldGap} nm SiO₂ (n=1.444)`;
+      updateAldMetrics();
+    });
+
+    let wavePhase = 0;
+    const drawAld = () => {
+      aCtx.fillStyle = '#060913';
+      aCtx.fillRect(0, 0, 600, 240);
+
+      wavePhase += 0.05;
+
+      // Tier 1 Waveguide (Bottom: y = 160)
+      aCtx.fillStyle = '#0f172a';
+      aCtx.fillRect(40, 150, 520, 20);
+      aCtx.strokeStyle = 'rgba(0, 240, 255, 0.3)';
+      aCtx.strokeRect(40, 150, 520, 20);
+
+      // Tier 2 Waveguide (Top: y = 70)
+      aCtx.fillStyle = '#0f172a';
+      aCtx.fillRect(40, 60, 520, 20);
+      aCtx.strokeStyle = 'rgba(168, 85, 247, 0.3)';
+      aCtx.strokeRect(40, 60, 520, 20);
+
+      // Overlap interaction window (centered)
+      const overlapPx = (aldLen / 25.0) * 380;
+      const startX = 300 - overlapPx / 2;
+      const endX = 300 + overlapPx / 2;
+
+      // ALD dielectric via window
+      aCtx.fillStyle = 'rgba(255, 0, 85, 0.15)';
+      aCtx.fillRect(startX, 80, overlapPx, 70);
+      aCtx.strokeStyle = '#ff0055';
+      aCtx.setLineDash([4, 4]);
+      aCtx.strokeRect(startX, 80, overlapPx, 70);
+      aCtx.setLineDash([]);
+
+      // Wave propagation particles
+      const kappa = 0.0952 * Math.exp(-0.0075 * (aldGap - 180));
+      const crossFraction = Math.sin(kappa * aldLen) ** 2;
+
+      // Tier 1 input beam
+      aCtx.fillStyle = '#00f0ff';
+      aCtx.shadowColor = '#00f0ff';
+      aCtx.shadowBlur = 10;
+      for (let x = 40; x < startX; x += 18) {
+        aCtx.fillRect(x + (wavePhase * 15 % 18), 158, 8, 4);
+      }
+
+      // Coupled beam into Tier 2
+      aCtx.fillStyle = '#a855f7';
+      aCtx.shadowColor = '#a855f7';
+      for (let x = endX; x < 560; x += 18) {
+        const pSize = Math.max(crossFraction * 8, 1);
+        aCtx.fillRect(x + (wavePhase * 15 % 18), 68, pSize, 4);
+      }
+
+      // Residual beam in Tier 1 through port
+      aCtx.fillStyle = '#00f0ff';
+      for (let x = endX; x < 560; x += 18) {
+        const pSize = Math.max((1 - crossFraction) * 8, 1);
+        aCtx.fillRect(x + (wavePhase * 15 % 18), 158, pSize, 4);
+      }
+
+      requestAnimationFrame(drawAld);
+    };
+    drawAld();
+
+    /* =========================================================================
+       4. MODULE 3: 3D CONCENTRIC TOROIDAL RESONATOR
+       ========================================================================= */
+    const toroidCanvas = document.getElementById('toroid-canvas');
+    const tCtx = toroidCanvas.getContext('2d');
+    let tAngle = 0;
+    let pockelsV = 3.2;
+    let phiVal = 1.618;
+
+    const sliderPockels = document.getElementById('slider-pockels');
+    const sliderPhi = document.getElementById('slider-phi');
+    const pockelsVal = document.getElementById('pockels-val');
+    const phiValText = document.getElementById('phi-val');
+
+    sliderPockels.addEventListener('input', (e) => {
+      pockelsV = parseFloat(e.target.value);
+      pockelsVal.textContent = `${pockelsV.toFixed(1)} Vπ`;
+    });
+
+    sliderPhi.addEventListener('input', (e) => {
+      phiVal = parseFloat(e.target.value);
+      phiValText.textContent = `${phiVal.toFixed(3)} rad`;
+    });
+
+    const drawToroid = () => {
+      tCtx.fillStyle = '#060913';
+      tCtx.fillRect(0, 0, 600, 240);
+      tAngle += 0.02 + pockelsV * 0.005;
+
+      const cx = 300, cy = 120;
+      const radii = [32, 54, 86];
+      const colors = ['#00f0ff', '#a855f7', '#f59e0b'];
+
+      radii.forEach((r, idx) => {
+        tCtx.beginPath();
+        const pts = 48;
+        for (let i = 0; i <= pts; i++) {
+          const th = (i / pts) * Math.PI * 2;
+          const kerrDistort = Math.sin(th * 3 + tAngle * 2 + idx * phiVal) * (pockelsV * 1.5);
+          const x0 = (r + kerrDistort) * Math.cos(th);
+          const y0 = (r + kerrDistort) * Math.sin(th) * 0.45; // Elliptical projection
+
+          if (i === 0) tCtx.moveTo(cx + x0, cy + y0);
+          else tCtx.lineTo(cx + x0, cy + y0);
+        }
+        tCtx.strokeStyle = colors[idx];
+        tCtx.lineWidth = 2.0;
+        tCtx.shadowColor = colors[idx];
+        tCtx.shadowBlur = 10;
+        tCtx.stroke();
+      });
+
+      // Recirculating photon packets
+      for (let i = 0; i < 3; i++) {
+        const th = tAngle * (i + 1) * 0.8;
+        const r = radii[i];
+        const px = cx + r * Math.cos(th);
+        const py = cy + r * Math.sin(th) * 0.45;
+
+        tCtx.beginPath();
+        tCtx.arc(px, py, 4, 0, Math.PI * 2);
+        tCtx.fillStyle = '#ffffff';
+        tCtx.shadowColor = colors[i];
+        tCtx.shadowBlur = 14;
+        tCtx.fill();
+      }
+
+      requestAnimationFrame(drawToroid);
+    };
+    drawToroid();
+
+    /* =========================================================================
+       5. MODULE 4: CENTRAL SINGULARITY EMITTER & DMD VORTEX SIEVE
+       ========================================================================= */
+    const emitterCanvas = document.getElementById('emitter-canvas');
+    const eCtx = emitterCanvas.getContext('2d');
+    let oamCharge = 1;
+    let vortexPhase = 0;
+
+    const btnOam1 = document.getElementById('btn-oam-1');
+    const btnOam2 = document.getElementById('btn-oam-2');
+    const btnOam3 = document.getElementById('btn-oam-3');
+    const emitterTelemetry = document.getElementById('emitter-telemetry');
+
+    btnOam1.addEventListener('click', () => {
+      oamCharge = 1;
+      btnOam1.classList.add('active');
+      btnOam2.classList.remove('active');
+      btnOam3.classList.remove('active');
+      emitterTelemetry.textContent = "Vortex Charge: l = +1";
+      audio.playSweep(500, 750);
+    });
+
+    btnOam2.addEventListener('click', () => {
+      oamCharge = 2;
+      btnOam2.classList.add('active');
+      btnOam1.classList.remove('active');
+      btnOam3.classList.remove('active');
+      emitterTelemetry.textContent = "Vortex Charge: l = +2";
+      audio.playSweep(750, 1000);
+    });
+
+    btnOam3.addEventListener('click', () => {
+      oamCharge = 3;
+      btnOam3.classList.add('active');
+      btnOam1.classList.remove('active');
+      btnOam2.classList.remove('active');
+      emitterTelemetry.textContent = "Trinary Superposition (192-State)";
+      audio.playSweep(400, 1200);
+    });
+
+    const drawEmitter = () => {
+      eCtx.fillStyle = '#060913';
+      eCtx.fillRect(0, 0, 600, 240);
+      vortexPhase += 0.04;
+
+      const cx = 300, cy = 120;
+
+      // Far-field doughnut vortex beam
+      for (let arm = 0; arm < (oamCharge === 3 ? 3 : oamCharge); arm++) {
+        const offset = arm * ((Math.PI * 2) / (oamCharge === 3 ? 3 : oamCharge));
+        eCtx.beginPath();
+        for (let r = 12; r < 75; r += 2) {
+          const th = offset + (r * 0.08) * (oamCharge === 2 ? 1.5 : 1.0) - vortexPhase;
+          const x = cx + r * Math.cos(th);
+          const y = cy + r * Math.sin(th);
+          if (r === 12) eCtx.moveTo(x, y);
+          else eCtx.lineTo(x, y);
+        }
+        eCtx.strokeStyle = oamCharge === 1 ? '#00f0ff' : (oamCharge === 2 ? '#a855f7' : '#f59e0b');
+        eCtx.lineWidth = 2.5;
+        eCtx.shadowColor = eCtx.strokeStyle;
+        eCtx.shadowBlur = 12;
+        eCtx.stroke();
+      }
+
+      // Central dark singularity vortex core (zero intensity null)
+      eCtx.beginPath();
+      eCtx.arc(cx, cy, 10, 0, Math.PI * 2);
+      eCtx.fillStyle = '#060913';
+      eCtx.fill();
+      eCtx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+      eCtx.lineWidth = 1;
+      eCtx.stroke();
+
+      requestAnimationFrame(drawEmitter);
+    };
+    drawEmitter();
+
+    /* =========================================================================
+       6. AMBIENT PARTICLES
+       ========================================================================= */
+    const ambientCanvas = document.getElementById('ambient-canvas');
+    const ambCtx = ambientCanvas.getContext('2d');
+    let ambParticles = [];
+
+    const resizeAmb = () => {
+      ambientCanvas.width = window.innerWidth;
+      ambientCanvas.height = window.innerHeight;
+    };
+    window.addEventListener('resize', resizeAmb);
+    resizeAmb();
+
+    for (let i = 0; i < 40; i++) {
+      ambParticles.push({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        r: Math.random() * 1.5 + 0.5,
+        c: Math.random() > 0.5 ? '#00f0ff' : '#a855f7'
+      });
+    }
+
+    const animAmb = () => {
+      ambCtx.clearRect(0, 0, ambientCanvas.width, ambientCanvas.height);
+      ambParticles.forEach(p => {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0) p.x = ambientCanvas.width;
+        if (p.x > ambientCanvas.width) p.x = 0;
+        if (p.y < 0) p.y = ambientCanvas.height;
+        if (p.y > ambientCanvas.height) p.y = 0;
+        ambCtx.beginPath();
+        ambCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ambCtx.fillStyle = p.c;
+        ambCtx.shadowColor = p.c;
+        ambCtx.shadowBlur = 6;
+        ambCtx.fill();
+      });
+      requestAnimationFrame(animAmb);
+    };
+    animAmb();
+  </script>
+</body>
+</html>
