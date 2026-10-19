@@ -24,7 +24,19 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                const s = localStorage.getItem('SRS_ACTIVE_STYLE');
+                if (s) document.body.setAttribute('data-style', s);
+              } catch (e) {}
+            `,
+          }}
+        />
+        {children}
+      </body>
     </html>
   );
 }

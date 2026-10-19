@@ -1568,6 +1568,11 @@
       if (playAudio) {
         audio.playMeltTransition(s.freq);
       }
+
+      // Persist active style across pages
+      try {
+        localStorage.setItem('SRS_ACTIVE_STYLE', s.id);
+      } catch (e) {}
     };
 
     // Style dock click handlers
@@ -1614,6 +1619,17 @@
         stopAutoMelt();
       }
     });
+
+    // Restore persistent style on load
+    try {
+      const savedStyle = localStorage.getItem('SRS_ACTIVE_STYLE');
+      if (savedStyle) {
+        const idx = styles.findIndex(st => st.id === savedStyle);
+        if (idx !== -1 && idx !== currentStyleIndex) {
+          meltToStyle(idx, false);
+        }
+      }
+    } catch (e) {}
 
     // Double-click brand mark to trigger chaotic fast melt
     document.getElementById('brand-mark-btn').addEventListener('click', () => {

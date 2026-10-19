@@ -49,6 +49,7 @@
       min-height: 100vh;
       overflow-x: hidden;
       padding-bottom: 60px;
+      transition: background-color 0.4s ease, color 0.4s ease;
     }
 
     /* =========================================================================
@@ -212,6 +213,85 @@
       color: var(--neon-cyan);
       margin-left: 6px;
       text-transform: uppercase;
+    }
+
+    .style-dock-melt-toggle {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 4px 9px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.25s ease;
+    }
+
+    .style-dock-melt-toggle:hover {
+      border-color: var(--neon-cyan);
+      color: var(--neon-cyan);
+    }
+
+    .style-dock-melt-toggle.active {
+      background: var(--neon-cyan);
+      border-color: var(--neon-cyan);
+      color: #050811;
+      box-shadow: 0 0 12px var(--neon-cyan);
+    }
+
+    .style-dock-divider {
+      width: 1px;
+      height: 14px;
+      background: rgba(255, 255, 255, 0.2);
+      margin: 0 4px;
+    }
+
+    /* Educational Theory Callout */
+    .theory-callout {
+      margin-top: 14px;
+      padding: 11px 14px;
+      background: rgba(0, 0, 0, 0.45);
+      border-left: 2px solid var(--neon-cyan);
+      border-radius: 6px;
+      font-size: 11px;
+      transition: border-color 0.4s ease;
+    }
+
+    .theory-tag {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      font-weight: 700;
+      color: var(--neon-cyan);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .theory-desc {
+      font-family: var(--font-body);
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 6px;
+      font-size: 11.5px;
+    }
+
+    .theory-formula {
+      font-family: var(--font-mono);
+      color: var(--neon-purple);
+      font-size: 10px;
+      padding: 4px 8px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 4px;
+      display: inline-block;
+      border: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     /* Ambient cyber dust canvas */
@@ -401,7 +481,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
       position: relative;
       overflow: hidden;
     }
@@ -687,6 +767,12 @@
             <span class="control-val" id="tensor-power-val">+10.0 dBm</span>
           </div>
           <input type="range" min="0" max="20" value="10" step="0.5" class="slider-bar" id="slider-tensor-power">
+
+          <div class="theory-callout">
+            <div class="theory-tag"><span>⚡</span> PHYSICS: LUGIATO-LEFEVER KERR COMB SOLITONS</div>
+            <div class="theory-desc">Continuous CW laser pumping in dispersion-engineered Si₃N₄ microrings drives four-wave mixing (FWM) χ⁽³⁾, forming equidistant phase-locked micro-comb carriers across C-band.</div>
+            <div class="theory-formula">FSR = c / (n_g · 2πR) = 150 GHz &nbsp;|&nbsp; 64 Carriers Active</div>
+          </div>
         </div>
       </section>
 
@@ -719,6 +805,12 @@
             <span class="control-val" id="ald-gap-val">180 nm SiO₂ (n=1.444)</span>
           </div>
           <input type="range" min="120" max="240" value="180" step="5" class="slider-bar" id="slider-ald-gap">
+
+          <div class="theory-callout">
+            <div class="theory-tag"><span>📐</span> PHYSICS: EVANESCENT COUPLED-MODE SUPERPOSITION</div>
+            <div class="theory-desc">Photons transfer sinusoidally between Tier-1 SOI and Tier-2 Si₃N₄ waveguides across an ALD dielectric spacer via evanescent boundary overlap. Full beat length L_c achieves 100% transfer.</div>
+            <div class="theory-formula">P_coupled(L) = P₀ · sin²(κL) &nbsp;|&nbsp; L_c = 16.5 µm (Tape-Out L = 12.0 µm)</div>
+          </div>
         </div>
       </section>
 
@@ -751,6 +843,12 @@
             <span class="control-val" id="phi-val">1.618 rad</span>
           </div>
           <input type="range" min="0.5" max="3.14" value="1.618" step="0.01" class="slider-bar" id="slider-phi">
+
+          <div class="theory-callout">
+            <div class="theory-tag"><span>🔄</span> PHYSICS: CONCENTRIC WGM CAVITY QED &amp; ORBIT SPEED INVERSION</div>
+            <div class="theory-desc">Photons circulate inside 3 concentric microrings (Q ≈ 2,791.5). Orbital angular velocity is strictly inversely proportional to radius (ω ∝ 1/R), ensuring inner photons orbit faster than outer photons.</div>
+            <div class="theory-formula">ω_inner &gt; ω_mid &gt; ω_outer &nbsp;|&nbsp; Golden Ratio Phase: Φ = 1.618 rad</div>
+          </div>
         </div>
       </section>
 
@@ -787,6 +885,12 @@
             <span class="control-val" id="oft-val">12.5 mm</span>
           </div>
           <input type="range" min="5.0" max="25.0" value="12.5" step="0.5" class="slider-bar" id="slider-oft">
+
+          <div class="theory-callout">
+            <div class="theory-tag"><span>🌀</span> PHYSICS: ORBITAL ANGULAR MOMENTUM (OAM) DISLOCATION</div>
+            <div class="theory-desc">Digital Micromirror Device (DMD) holographic phase masks impart azimuthal exp(i·l·θ) spiral wavefronts carrying topological charge l·ℏ per photon, generating a central phase singularity null.</div>
+            <div class="theory-formula">E(r, θ, z) ∝ r^|l| · exp(i·l·θ) &nbsp;|&nbsp; I(r=0) = 0 (Dark Singularity Core)</div>
+          </div>
         </div>
       </section>
 
@@ -814,8 +918,41 @@
 
   </main>
 
+  <!-- THE METAMORPHIC STYLE MELT DOCK -->
+  <div class="style-dock" id="style-dock">
+    <button class="style-dock-melt-toggle" id="dock-melt-toggle" title="Cycle Auto-Melt Cadence (30s / 60s / OFF)">⟳ AUTO</button>
+    <div class="style-dock-divider"></div>
+    <button class="style-chip-btn active" data-style-target="cyberpunk" style="background: #00f0ff; box-shadow: 0 0 10px #00f0ff;" title="Obsidian Cyberpunk"></button>
+    <button class="style-chip-btn" data-style-target="titanium-gold" style="background: #fbbf24; box-shadow: 0 0 10px #fbbf24;" title="Titanium & 24K Gold"></button>
+    <button class="style-chip-btn" data-style-target="silicon-prism" style="background: #c084fc; box-shadow: 0 0 10px #c084fc;" title="Silicon Wafer & Prism"></button>
+    <button class="style-chip-btn" data-style-target="matrix-emerald" style="background: #10b981; box-shadow: 0 0 10px #10b981;" title="Quantum Matrix Emerald"></button>
+    <button class="style-chip-btn" data-style-target="synthwave-sunset" style="background: #f43f5e; box-shadow: 0 0 10px #f43f5e;" title="Synthwave Sunset"></button>
+    <button class="style-chip-btn" data-style-target="solarflare-plasma" style="background: #ea580c; box-shadow: 0 0 10px #ea580c;" title="Solarflare Plasma"></button>
+    <button class="style-chip-btn" data-style-target="stealth-carbon" style="background: #ffffff; box-shadow: 0 0 10px #ffffff;" title="Stealth Phantom Carbon"></button>
+    <span class="style-chip-label" id="dock-label">CYBERPUNK</span>
+  </div>
+
   <!-- Interactive Simulation Canvas Scripts -->
   <script>
+    /* =========================================================================
+       METAMORPHIC STYLE PALETTES
+       ========================================================================= */
+    const styles = [
+      { id: "cyberpunk", name: "OBSIDIAN CYBERPUNK", freq: 440, color: "#00f0ff", secondary: "#a855f7", accent: "#f59e0b", bg: "#060913", toroidColors: ['#00f0ff', '#a855f7', '#f59e0b'] },
+      { id: "titanium-gold", name: "TITANIUM & 24K GOLD", freq: 523.25, color: "#fbbf24", secondary: "#e2e8f0", accent: "#d97706", bg: "#08090d", toroidColors: ['#fbbf24', '#f1f5f9', '#d97706'] },
+      { id: "silicon-prism", name: "SILICON WAFER & PRISM", freq: 587.33, color: "#c084fc", secondary: "#38bdf8", accent: "#f472b6", bg: "#070b14", toroidColors: ['#c084fc', '#38bdf8', '#f472b6'] },
+      { id: "matrix-emerald", name: "QUANTUM MATRIX PHOSPHOR", freq: 659.25, color: "#10b981", secondary: "#34d399", accent: "#a3e635", bg: "#030c08", toroidColors: ['#10b981', '#34d399', '#a3e635'] },
+      { id: "synthwave-sunset", name: "SYNTHWAVE SUNSET", freq: 698.46, color: "#f43f5e", secondary: "#fb923c", accent: "#fde047", bg: "#10061e", toroidColors: ['#f43f5e', '#fb923c', '#fde047'] },
+      { id: "solarflare-plasma", name: "SOLARFLARE THERMODYNAMIC", freq: 783.99, color: "#ea580c", secondary: "#facc15", accent: "#ffffff", bg: "#140507", toroidColors: ['#ea580c', '#facc15', '#ffffff'] },
+      { id: "stealth-carbon", name: "STEALTH PHANTOM CARBON", freq: 880.00, color: "#ffffff", secondary: "#9ca3af", accent: "#ef4444", bg: "#030304", toroidColors: ['#ffffff', '#9ca3af', '#ef4444'] }
+    ];
+
+    let currentStyleIndex = 0;
+    let activeTheme = styles[0];
+    let autoMeltActive = false;
+    let autoMeltTimer = null;
+    let autoMeltSeconds = 30;
+
     /* =========================================================================
        1. SYNTHESIZED WEB AUDIO ENGINE
        ========================================================================= */
@@ -825,43 +962,105 @@
         this.enabled = true;
       }
       init() {
-        if (!this.ctx) {
-          const AudioContext = window.AudioContext || window.webkitAudioContext;
-          this.ctx = new AudioContext();
-        }
-        if (this.ctx.state === 'suspended') this.ctx.resume();
+        try {
+          if (!this.ctx) {
+            const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+            if (AudioCtxClass) this.ctx = new AudioCtxClass();
+          }
+          if (this.ctx && this.ctx.state === 'suspended') {
+            this.ctx.resume();
+          }
+        } catch (e) {}
       }
       playSweep(fStart, fEnd, duration = 0.15) {
         if (!this.enabled) return;
         this.init();
-        const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.frequency.setValueAtTime(fStart, now);
-        osc.frequency.exponentialRampToValueAtTime(fEnd, now + duration);
-        gain.gain.setValueAtTime(0.12, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start();
-        osc.stop(now + duration);
+        if (!this.ctx) return;
+        try {
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.frequency.setValueAtTime(fStart, now);
+          osc.frequency.exponentialRampToValueAtTime(fEnd, now + duration);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(now + duration);
+        } catch (e) {}
+      }
+      playTone(freq, type = 'sine', duration = 0.12, gainVal = 0.15) {
+        if (!this.enabled) return;
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+          gain.gain.setValueAtTime(gainVal, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + duration);
+        } catch (e) {}
+      }
+      playMeltChord(baseFreq = 440) {
+        if (!this.enabled) return;
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const now = this.ctx.currentTime;
+          const chords = [baseFreq, baseFreq * 1.25, baseFreq * 1.5, baseFreq * 1.875];
+          chords.forEach((f, idx) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            const filter = this.ctx.createBiquadFilter();
+
+            osc.type = idx % 2 === 0 ? 'sine' : 'triangle';
+            osc.frequency.setValueAtTime(f, now);
+            osc.frequency.exponentialRampToValueAtTime(f * 1.08, now + 0.6);
+
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(300, now);
+            filter.frequency.exponentialRampToValueAtTime(3600, now + 0.35);
+            filter.frequency.exponentialRampToValueAtTime(800, now + 0.7);
+
+            gain.gain.setValueAtTime(0.08 / chords.length, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.7);
+
+            osc.connect(filter);
+            filter.connect(gain);
+            gain.connect(this.ctx.destination);
+
+            osc.start();
+            osc.stop(now + 0.7);
+          });
+        } catch (e) {}
+      }
+      playMeltTransition(baseFreq = 440) {
+        this.playMeltChord(baseFreq);
       }
     }
     const audio = new LabAudio();
 
     const audioBtn = document.getElementById('audio-btn');
     const audioIcon = document.getElementById('audio-icon');
-    audioBtn.addEventListener('click', () => {
-      audio.enabled = !audio.enabled;
-      audioIcon.textContent = audio.enabled ? '🔊' : '🔇';
-      if (audio.enabled) audio.playSweep(440, 880, 0.1);
-    });
+    if (audioBtn) {
+      audioBtn.addEventListener('click', () => {
+        audio.enabled = !audio.enabled;
+        if (audioIcon) audioIcon.textContent = audio.enabled ? '🔊' : '🔇';
+        if (audio.enabled) audio.playSweep(440, 880, 0.1);
+      });
+    }
 
     /* =========================================================================
        2. MODULE 1: WDM MICRO-COMB OSA CANVAS
        ========================================================================= */
     const combCanvas = document.getElementById('comb-canvas');
-    const cCtx = combCanvas.getContext('2d');
+    const cCtx = combCanvas ? combCanvas.getContext('2d') : null;
     let combMode = 64; // 64 or 192
     let combPower = 10.0;
     let combPhase = 0;
@@ -873,31 +1072,38 @@
     const combTelemetry = document.getElementById('comb-telemetry');
     const combGridLabel = document.getElementById('comb-grid-label');
 
-    btn64.addEventListener('click', () => {
-      combMode = 64;
-      btn64.classList.add('active');
-      btn192.classList.remove('active');
-      combGridLabel.textContent = "Every 3rd (64 Channels Active)";
-      combTelemetry.textContent = "Δν = 150 GHz | 64 Carriers";
-      audio.playSweep(300, 600);
-    });
+    if (btn64) {
+      btn64.addEventListener('click', () => {
+        combMode = 64;
+        btn64.classList.add('active');
+        if (btn192) btn192.classList.remove('active');
+        if (combGridLabel) combGridLabel.textContent = "Every 3rd (64 Channels Active)";
+        if (combTelemetry) combTelemetry.textContent = "Δν = 150 GHz | 64 Carriers";
+        audio.playSweep(300, 600);
+      });
+    }
 
-    btn192.addEventListener('click', () => {
-      combMode = 192;
-      btn192.classList.add('active');
-      btn64.classList.remove('active');
-      combGridLabel.textContent = "Native Grid (192 Channels)";
-      combTelemetry.textContent = "Δν = 50 GHz | 192 Carriers";
-      audio.playSweep(600, 1200);
-    });
+    if (btn192) {
+      btn192.addEventListener('click', () => {
+        combMode = 192;
+        btn192.classList.add('active');
+        if (btn64) btn64.classList.remove('active');
+        if (combGridLabel) combGridLabel.textContent = "Native Grid (192 Channels)";
+        if (combTelemetry) combTelemetry.textContent = "Δν = 50 GHz | 192 Carriers";
+        audio.playSweep(600, 1200);
+      });
+    }
 
-    sliderPower.addEventListener('input', (e) => {
-      combPower = parseFloat(e.target.value);
-      tensorPowerVal.textContent = `+${combPower.toFixed(1)} dBm`;
-    });
+    if (sliderPower) {
+      sliderPower.addEventListener('input', (e) => {
+        combPower = parseFloat(e.target.value);
+        if (tensorPowerVal) tensorPowerVal.textContent = `+${combPower.toFixed(1)} dBm`;
+      });
+    }
 
     const drawComb = () => {
-      cCtx.fillStyle = '#060913';
+      if (!cCtx) return;
+      cCtx.fillStyle = activeTheme.bg;
       cCtx.fillRect(0, 0, 600, 240);
 
       // Grid lines
@@ -922,9 +1128,10 @@
         const noise = Math.sin(i * 0.4 + combPhase) * 6;
         const height = (envelope * 140 * (combPower / 10.0)) + noise;
 
-        cCtx.strokeStyle = combMode === 64 ? '#00f0ff' : '#a855f7';
+        const strokeCol = combMode === 64 ? activeTheme.color : activeTheme.secondary;
+        cCtx.strokeStyle = strokeCol;
         cCtx.lineWidth = combMode === 64 ? 2.5 : 1.2;
-        cCtx.shadowColor = combMode === 64 ? '#00f0ff' : '#a855f7';
+        cCtx.shadowColor = strokeCol;
         cCtx.shadowBlur = 8;
 
         cCtx.beginPath();
@@ -940,7 +1147,7 @@
        3. MODULE 2: 3D ALD VERTICAL COUPLER (Coupled-Mode Solver)
        ========================================================================= */
     const aldCanvas = document.getElementById('ald-canvas');
-    const aCtx = aldCanvas.getContext('2d');
+    const aCtx = aldCanvas ? aldCanvas.getContext('2d') : null;
     let aldLen = 12.0;
     let aldGap = 180;
 
@@ -960,30 +1167,37 @@
       const etaPct = crossPower * 100.0;
       const ilDb = -10 * Math.log10(Math.max(crossPower, 0.0001));
 
-      aldTelemetry.textContent = `IL = ${ilDb.toFixed(3)} dB | η = ${etaPct.toFixed(2)}%`;
-      if (Math.abs(aldLen - 16.5) < 0.3) {
-        aldLenVal.textContent = `${aldLen.toFixed(1)} µm (★ CRITICAL BEAT LENGTH Lc)`;
-      } else if (Math.abs(aldLen - 12.0) < 0.1) {
-        aldLenVal.textContent = `${aldLen.toFixed(1)} µm (Tape-Out Baseline)`;
-      } else {
-        aldLenVal.textContent = `${aldLen.toFixed(1)} µm`;
+      if (aldTelemetry) aldTelemetry.textContent = `IL = ${ilDb.toFixed(3)} dB | η = ${etaPct.toFixed(2)}%`;
+      if (aldLenVal) {
+        if (Math.abs(aldLen - 16.5) < 0.3) {
+          aldLenVal.textContent = `${aldLen.toFixed(1)} µm (★ CRITICAL BEAT LENGTH Lc)`;
+        } else if (Math.abs(aldLen - 12.0) < 0.1) {
+          aldLenVal.textContent = `${aldLen.toFixed(1)} µm (Tape-Out Baseline)`;
+        } else {
+          aldLenVal.textContent = `${aldLen.toFixed(1)} µm`;
+        }
       }
     };
 
-    sliderAldLen.addEventListener('input', (e) => {
-      aldLen = parseFloat(e.target.value);
-      updateAldMetrics();
-    });
+    if (sliderAldLen) {
+      sliderAldLen.addEventListener('input', (e) => {
+        aldLen = parseFloat(e.target.value);
+        updateAldMetrics();
+      });
+    }
 
-    sliderAldGap.addEventListener('input', (e) => {
-      aldGap = parseInt(e.target.value);
-      aldGapVal.textContent = `${aldGap} nm SiO₂ (n=1.444)`;
-      updateAldMetrics();
-    });
+    if (sliderAldGap) {
+      sliderAldGap.addEventListener('input', (e) => {
+        aldGap = parseInt(e.target.value);
+        if (aldGapVal) aldGapVal.textContent = `${aldGap} nm SiO₂ (n=1.444)`;
+        updateAldMetrics();
+      });
+    }
 
     let wavePhase = 0;
     const drawAld = () => {
-      aCtx.fillStyle = '#060913';
+      if (!aCtx) return;
+      aCtx.fillStyle = activeTheme.bg;
       aCtx.fillRect(0, 0, 600, 240);
 
       wavePhase += 0.05;
@@ -991,13 +1205,13 @@
       // Tier 1 Waveguide (Bottom: y = 160)
       aCtx.fillStyle = '#0f172a';
       aCtx.fillRect(40, 150, 520, 20);
-      aCtx.strokeStyle = 'rgba(0, 240, 255, 0.3)';
+      aCtx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
       aCtx.strokeRect(40, 150, 520, 20);
 
       // Tier 2 Waveguide (Top: y = 70)
       aCtx.fillStyle = '#0f172a';
       aCtx.fillRect(40, 60, 520, 20);
-      aCtx.strokeStyle = 'rgba(168, 85, 247, 0.3)';
+      aCtx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
       aCtx.strokeRect(40, 60, 520, 20);
 
       // Overlap interaction window (centered)
@@ -1018,23 +1232,24 @@
       const crossFraction = Math.sin(kappa * aldLen) ** 2;
 
       // Tier 1 input beam
-      aCtx.fillStyle = '#00f0ff';
-      aCtx.shadowColor = '#00f0ff';
+      aCtx.fillStyle = activeTheme.color;
+      aCtx.shadowColor = activeTheme.color;
       aCtx.shadowBlur = 10;
       for (let x = 40; x < startX; x += 18) {
         aCtx.fillRect(x + (wavePhase * 15 % 18), 158, 8, 4);
       }
 
       // Coupled beam into Tier 2
-      aCtx.fillStyle = '#a855f7';
-      aCtx.shadowColor = '#a855f7';
+      aCtx.fillStyle = activeTheme.secondary;
+      aCtx.shadowColor = activeTheme.secondary;
       for (let x = endX; x < 560; x += 18) {
         const pSize = Math.max(crossFraction * 8, 1);
         aCtx.fillRect(x + (wavePhase * 15 % 18), 68, pSize, 4);
       }
 
       // Residual beam in Tier 1 through port
-      aCtx.fillStyle = '#00f0ff';
+      aCtx.fillStyle = activeTheme.color;
+      aCtx.shadowColor = activeTheme.color;
       for (let x = endX; x < 560; x += 18) {
         const pSize = Math.max((1 - crossFraction) * 8, 1);
         aCtx.fillRect(x + (wavePhase * 15 % 18), 158, pSize, 4);
@@ -1045,10 +1260,10 @@
     drawAld();
 
     /* =========================================================================
-       4. MODULE 3: 3D CONCENTRIC TOROIDAL RESONATOR
+       4. MODULE 3: 3D CONCENTRIC TOROIDAL RESONATOR (Orbital Physics Corrected)
        ========================================================================= */
     const toroidCanvas = document.getElementById('toroid-canvas');
-    const tCtx = toroidCanvas.getContext('2d');
+    const tCtx = toroidCanvas ? toroidCanvas.getContext('2d') : null;
     let tAngle = 0;
     let pockelsV = 3.2;
     let phiVal = 1.618;
@@ -1058,24 +1273,29 @@
     const pockelsVal = document.getElementById('pockels-val');
     const phiValText = document.getElementById('phi-val');
 
-    sliderPockels.addEventListener('input', (e) => {
-      pockelsV = parseFloat(e.target.value);
-      pockelsVal.textContent = `${pockelsV.toFixed(1)} Vπ`;
-    });
+    if (sliderPockels) {
+      sliderPockels.addEventListener('input', (e) => {
+        pockelsV = parseFloat(e.target.value);
+        if (pockelsVal) pockelsVal.textContent = `${pockelsV.toFixed(1)} Vπ`;
+      });
+    }
 
-    sliderPhi.addEventListener('input', (e) => {
-      phiVal = parseFloat(e.target.value);
-      phiValText.textContent = `${phiVal.toFixed(3)} rad`;
-    });
+    if (sliderPhi) {
+      sliderPhi.addEventListener('input', (e) => {
+        phiVal = parseFloat(e.target.value);
+        if (phiValText) phiValText.textContent = `${phiVal.toFixed(3)} rad`;
+      });
+    }
 
     const drawToroid = () => {
-      tCtx.fillStyle = '#060913';
+      if (!tCtx) return;
+      tCtx.fillStyle = activeTheme.bg;
       tCtx.fillRect(0, 0, 600, 240);
       tAngle += 0.02 + pockelsV * 0.005;
 
       const cx = 300, cy = 120;
       const radii = [32, 54, 86];
-      const colors = ['#00f0ff', '#a855f7', '#f59e0b'];
+      const colors = activeTheme.toroidColors;
 
       radii.forEach((r, idx) => {
         tCtx.beginPath();
@@ -1089,16 +1309,18 @@
           if (i === 0) tCtx.moveTo(cx + x0, cy + y0);
           else tCtx.lineTo(cx + x0, cy + y0);
         }
-        tCtx.strokeStyle = colors[idx];
+        tCtx.strokeStyle = colors[idx] || colors[0];
         tCtx.lineWidth = 2.0;
-        tCtx.shadowColor = colors[idx];
+        tCtx.shadowColor = colors[idx] || colors[0];
         tCtx.shadowBlur = 10;
         tCtx.stroke();
       });
 
-      // Recirculating photon packets
+      // Recirculating photon packets: Orbital speed is inversely proportional to radius (FSR = c / 2πR)
+      // Inner ring (R=32) completes orbits faster than outer ring (R=86)
       for (let i = 0; i < 3; i++) {
-        const th = tAngle * (i + 1) * 0.8;
+        const orbitalSpeed = (radii[0] / radii[i]) * 1.6;
+        const th = tAngle * orbitalSpeed;
         const r = radii[i];
         const px = cx + r * Math.cos(th);
         const py = cy + r * Math.sin(th) * 0.45;
@@ -1106,7 +1328,7 @@
         tCtx.beginPath();
         tCtx.arc(px, py, 4, 0, Math.PI * 2);
         tCtx.fillStyle = '#ffffff';
-        tCtx.shadowColor = colors[i];
+        tCtx.shadowColor = colors[i] || colors[0];
         tCtx.shadowBlur = 14;
         tCtx.fill();
       }
@@ -1119,7 +1341,7 @@
        5. MODULE 4: CENTRAL SINGULARITY EMITTER & DMD VORTEX SIEVE
        ========================================================================= */
     const emitterCanvas = document.getElementById('emitter-canvas');
-    const eCtx = emitterCanvas.getContext('2d');
+    const eCtx = emitterCanvas ? emitterCanvas.getContext('2d') : null;
     let oamCharge = 1;
     let vortexPhase = 0;
 
@@ -1128,35 +1350,42 @@
     const btnOam3 = document.getElementById('btn-oam-3');
     const emitterTelemetry = document.getElementById('emitter-telemetry');
 
-    btnOam1.addEventListener('click', () => {
-      oamCharge = 1;
-      btnOam1.classList.add('active');
-      btnOam2.classList.remove('active');
-      btnOam3.classList.remove('active');
-      emitterTelemetry.textContent = "Vortex Charge: l = +1";
-      audio.playSweep(500, 750);
-    });
+    if (btnOam1) {
+      btnOam1.addEventListener('click', () => {
+        oamCharge = 1;
+        btnOam1.classList.add('active');
+        if (btnOam2) btnOam2.classList.remove('active');
+        if (btnOam3) btnOam3.classList.remove('active');
+        if (emitterTelemetry) emitterTelemetry.textContent = "Vortex Charge: l = +1";
+        audio.playSweep(500, 750);
+      });
+    }
 
-    btnOam2.addEventListener('click', () => {
-      oamCharge = 2;
-      btnOam2.classList.add('active');
-      btnOam1.classList.remove('active');
-      btnOam3.classList.remove('active');
-      emitterTelemetry.textContent = "Vortex Charge: l = +2";
-      audio.playSweep(750, 1000);
-    });
+    if (btnOam2) {
+      btnOam2.addEventListener('click', () => {
+        oamCharge = 2;
+        btnOam2.classList.add('active');
+        if (btnOam1) btnOam1.classList.remove('active');
+        if (btnOam3) btnOam3.classList.remove('active');
+        if (emitterTelemetry) emitterTelemetry.textContent = "Vortex Charge: l = +2";
+        audio.playSweep(750, 1000);
+      });
+    }
 
-    btnOam3.addEventListener('click', () => {
-      oamCharge = 3;
-      btnOam3.classList.add('active');
-      btnOam1.classList.remove('active');
-      btnOam2.classList.remove('active');
-      emitterTelemetry.textContent = "Trinary Superposition (192-State)";
-      audio.playSweep(400, 1200);
-    });
+    if (btnOam3) {
+      btnOam3.addEventListener('click', () => {
+        oamCharge = 3;
+        btnOam3.classList.add('active');
+        if (btnOam1) btnOam1.classList.remove('active');
+        if (btnOam2) btnOam2.classList.remove('active');
+        if (emitterTelemetry) emitterTelemetry.textContent = "Trinary Superposition (192-State)";
+        audio.playSweep(400, 1200);
+      });
+    }
 
     const drawEmitter = () => {
-      eCtx.fillStyle = '#060913';
+      if (!eCtx) return;
+      eCtx.fillStyle = activeTheme.bg;
       eCtx.fillRect(0, 0, 600, 240);
       vortexPhase += 0.04;
 
@@ -1173,9 +1402,10 @@
           if (r === 12) eCtx.moveTo(x, y);
           else eCtx.lineTo(x, y);
         }
-        eCtx.strokeStyle = oamCharge === 1 ? '#00f0ff' : (oamCharge === 2 ? '#a855f7' : '#f59e0b');
+        const strokeColor = oamCharge === 1 ? activeTheme.color : (oamCharge === 2 ? activeTheme.secondary : activeTheme.accent);
+        eCtx.strokeStyle = strokeColor;
         eCtx.lineWidth = 2.5;
-        eCtx.shadowColor = eCtx.strokeStyle;
+        eCtx.shadowColor = strokeColor;
         eCtx.shadowBlur = 12;
         eCtx.stroke();
       }
@@ -1183,7 +1413,7 @@
       // Central dark singularity vortex core (zero intensity null)
       eCtx.beginPath();
       eCtx.arc(cx, cy, 10, 0, Math.PI * 2);
-      eCtx.fillStyle = '#060913';
+      eCtx.fillStyle = activeTheme.bg;
       eCtx.fill();
       eCtx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
       eCtx.lineWidth = 1;
@@ -1197,10 +1427,11 @@
        6. AMBIENT PARTICLES
        ========================================================================= */
     const ambientCanvas = document.getElementById('ambient-canvas');
-    const ambCtx = ambientCanvas.getContext('2d');
+    const ambCtx = ambientCanvas ? ambientCanvas.getContext('2d') : null;
     let ambParticles = [];
 
     const resizeAmb = () => {
+      if (!ambientCanvas) return;
       ambientCanvas.width = window.innerWidth;
       ambientCanvas.height = window.innerHeight;
     };
@@ -1214,11 +1445,12 @@
         vx: (Math.random() - 0.5) * 0.3,
         vy: (Math.random() - 0.5) * 0.3,
         r: Math.random() * 1.5 + 0.5,
-        c: Math.random() > 0.5 ? '#00f0ff' : '#a855f7'
+        c: Math.random() > 0.5 ? activeTheme.color : activeTheme.secondary
       });
     }
 
     const animAmb = () => {
+      if (!ambCtx || !ambientCanvas) return;
       ambCtx.clearRect(0, 0, ambientCanvas.width, ambientCanvas.height);
       ambParticles.forEach(p => {
         p.x += p.vx; p.y += p.vy;
@@ -1238,95 +1470,116 @@
     animAmb();
 
     /* =========================================================================
-       METAMORPHIC STYLE MELT ENGINE FOR LABORATORY
+       7. METAMORPHIC STYLE MELT ENGINE CONTROLLER (LABORATORY HUD)
        ========================================================================= */
-    const styles = [
-      { id: "cyberpunk", name: "OBSIDIAN CYBERPUNK", freq: 440, color: "#00f0ff" },
-      { id: "titanium-gold", name: "TITANIUM & 24K GOLD", freq: 523.25, color: "#fbbf24" },
-      { id: "silicon-prism", name: "SILICON WAFER & PRISM", freq: 587.33, color: "#c084fc" },
-      { id: "matrix-emerald", name: "QUANTUM MATRIX PHOSPHOR", freq: 659.25, color: "#10b981" },
-      { id: "synthwave-sunset", name: "SYNTHWAVE SUNSET", freq: 698.46, color: "#f43f5e" },
-      { id: "solarflare-plasma", name: "SOLARFLARE THERMODYNAMIC", freq: 783.99, color: "#ea580c" },
-      { id: "stealth-carbon", name: "STEALTH PHANTOM CARBON", freq: 880.00, color: "#ffffff" }
-    ];
-
-    let currentStyleIndex = 0;
-    let autoMeltActive = false;
-    let autoMeltTimer = null;
-    let autoMeltSeconds = 30;
-
-    const dockLabel = document.getElementById('dock-label');
-    const styleChips = document.querySelectorAll('.style-chip-btn');
-    const autoMeltBtn = document.getElementById('auto-melt-btn');
-
-    const meltToStyle = (index, playAudio = true) => {
+    function meltToStyle(index, playAudio = true) {
       currentStyleIndex = ((index % styles.length) + styles.length) % styles.length;
-      const s = styles[currentStyleIndex];
+      activeTheme = styles[currentStyleIndex];
+      const s = activeTheme;
 
       document.body.setAttribute('data-style', s.id);
-      dockLabel.textContent = s.name.split(' ')[0];
+      
+      const dockLabel = document.getElementById('dock-label');
+      if (dockLabel) dockLabel.textContent = s.name.split(' ')[0];
 
+      const styleChips = document.querySelectorAll('.style-chip-btn');
       styleChips.forEach((btn, i) => {
         btn.classList.toggle('active', i === currentStyleIndex);
       });
 
+      // Synchronize ambient particles
+      ambParticles.forEach((p, idx) => {
+        p.c = idx % 2 === 0 ? s.color : s.secondary;
+      });
+
+      // Persist across laboratory, founder card, and site navigation
+      try {
+        localStorage.setItem('SRS_ACTIVE_STYLE', s.id);
+      } catch (e) {}
+
       if (playAudio && audio && audio.enabled) {
         audio.playMeltChord(s.freq);
       }
-    };
+    }
+    window.meltToStyle = meltToStyle;
+    window.styles = styles;
 
-    styleChips.forEach((btn, i) => {
-      btn.addEventListener('click', () => {
-        if (autoMeltActive) stopAutoMelt();
-        meltToStyle(i, true);
+    function initStyleEngine() {
+      const styleChips = document.querySelectorAll('.style-chip-btn');
+      const autoMeltBtn = document.getElementById('auto-melt-btn');
+      const dockMeltToggle = document.getElementById('dock-melt-toggle');
+
+      styleChips.forEach((btn, i) => {
+        btn.addEventListener('click', () => {
+          if (autoMeltActive) stopAutoMelt();
+          meltToStyle(i, true);
+        });
       });
-    });
 
-    const startAutoMelt = (secs = 30) => {
-      autoMeltActive = true;
-      autoMeltSeconds = secs;
-      autoMeltBtn.classList.add('active');
-      autoMeltBtn.innerHTML = `<span>⟳</span> AUTO-MELT: ${autoMeltSeconds}s`;
-      if (audio && audio.enabled) audio.playTone(880, 'sine', 0.2);
+      const updateAutoMeltUi = () => {
+        if (autoMeltBtn) {
+          autoMeltBtn.classList.toggle('active', autoMeltActive);
+          autoMeltBtn.innerHTML = autoMeltActive 
+            ? `<span>⟳</span> AUTO-MELT: ${autoMeltSeconds}s`
+            : `<span>⟳</span> AUTO-MELT: OFF`;
+        }
+        if (dockMeltToggle) {
+          dockMeltToggle.classList.toggle('active', autoMeltActive);
+          dockMeltToggle.textContent = autoMeltActive ? `⟳ ${autoMeltSeconds}s` : `⟳ AUTO`;
+        }
+      };
 
-      if (autoMeltTimer) clearInterval(autoMeltTimer);
-      autoMeltTimer = setInterval(() => {
-        meltToStyle(currentStyleIndex + 1, true);
-      }, autoMeltSeconds * 1000);
-    };
+      const startAutoMelt = (secs = 30) => {
+        autoMeltActive = true;
+        autoMeltSeconds = secs;
+        updateAutoMeltUi();
+        if (audio && audio.enabled) audio.playTone(880, 'sine', 0.2);
 
-    const stopAutoMelt = () => {
-      autoMeltActive = false;
-      autoMeltBtn.classList.remove('active');
-      autoMeltBtn.innerHTML = '<span>⟳</span> AUTO-MELT: OFF';
-      if (autoMeltTimer) {
-        clearInterval(autoMeltTimer);
-        autoMeltTimer = null;
-      }
-    };
+        if (autoMeltTimer) clearInterval(autoMeltTimer);
+        autoMeltTimer = setInterval(() => {
+          meltToStyle(currentStyleIndex + 1, true);
+        }, autoMeltSeconds * 1000);
+      };
 
-    autoMeltBtn.addEventListener('click', () => {
-      if (!autoMeltActive) {
-        startAutoMelt(30);
-      } else if (autoMeltSeconds === 30) {
-        startAutoMelt(60);
-      } else {
-        stopAutoMelt();
-      }
-    });
+      const stopAutoMelt = () => {
+        autoMeltActive = false;
+        updateAutoMeltUi();
+        if (autoMeltTimer) {
+          clearInterval(autoMeltTimer);
+          autoMeltTimer = null;
+        }
+      };
 
+      const cycleAutoMelt = () => {
+        if (!autoMeltActive) {
+          startAutoMelt(30);
+        } else if (autoMeltSeconds === 30) {
+          startAutoMelt(60);
+        } else {
+          stopAutoMelt();
+        }
+      };
+
+      if (autoMeltBtn) autoMeltBtn.addEventListener('click', cycleAutoMelt);
+      if (dockMeltToggle) dockMeltToggle.addEventListener('click', cycleAutoMelt);
+
+      // Check stored style preference
+      try {
+        const saved = localStorage.getItem('SRS_ACTIVE_STYLE');
+        if (saved) {
+          const idx = styles.findIndex(s => s.id === saved);
+          if (idx !== -1) {
+            meltToStyle(idx, false);
+          }
+        }
+      } catch (e) {}
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initStyleEngine);
+    } else {
+      initStyleEngine();
+    }
   </script>
-  <!-- THE METAMORPHIC STYLE MELT DOCK -->
-  <div class="style-dock" id="style-dock">
-    <button class="style-chip-btn active" data-style-target="cyberpunk" style="background: #00f0ff; box-shadow: 0 0 10px #00f0ff;" title="Obsidian Cyberpunk"></button>
-    <button class="style-chip-btn" data-style-target="titanium-gold" style="background: #fbbf24; box-shadow: 0 0 10px #fbbf24;" title="Titanium & 24K Gold"></button>
-    <button class="style-chip-btn" data-style-target="silicon-prism" style="background: #c084fc; box-shadow: 0 0 10px #c084fc;" title="Silicon Wafer & Prism"></button>
-    <button class="style-chip-btn" data-style-target="matrix-emerald" style="background: #10b981; box-shadow: 0 0 10px #10b981;" title="Quantum Matrix Emerald"></button>
-    <button class="style-chip-btn" data-style-target="synthwave-sunset" style="background: #f43f5e; box-shadow: 0 0 10px #f43f5e;" title="Synthwave Sunset"></button>
-    <button class="style-chip-btn" data-style-target="solarflare-plasma" style="background: #ea580c; box-shadow: 0 0 10px #ea580c;" title="Solarflare Plasma"></button>
-    <button class="style-chip-btn" data-style-target="stealth-carbon" style="background: #ffffff; box-shadow: 0 0 10px #ffffff;" title="Stealth Phantom Carbon"></button>
-    <span class="style-chip-label" id="dock-label">CYBERPUNK</span>
-  </div>
-
 </body>
 </html>
