@@ -2,3098 +2,432 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>SCALAR RESONANT SYSTEMS // CHIEF ARCHITECT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Justin Howard — Scalar Resonant Systems Inc.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,800;1,400&family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
-    /* =========================================================================
-       DYNAMIC CSS VARIABLES & STYLE PALETTES (THE METAMORPHIC ENGINE)
-       All properties transition smoothly with cubic-bezier timing
-       ========================================================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
-      /* Style 0: OBSIDIAN CYBERPUNK (Default) */
-      --bg-space: #050811;
-      --bg-radial-1: rgba(168, 85, 247, 0.12);
-      --bg-radial-2: rgba(0, 240, 255, 0.08);
-      --card-bg-start: rgba(16, 22, 38, 0.96);
-      --card-bg-end: rgba(8, 12, 22, 0.98);
-      --card-border: rgba(0, 240, 255, 0.28);
-      --card-border-glow: rgba(0, 240, 255, 0.6);
-      --card-shadow-color: rgba(0, 240, 255, 0.18);
-      --primary-accent: #00f0ff;
-      --secondary-accent: #a855f7;
-      --highlight-accent: #f59e0b;
-      --alert-accent: #ff0055;
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
-      --brand-font: 'Syne', sans-serif;
-      --mono-font: 'JetBrains Mono', monospace;
-      --holo-opacity: 0.75;
-      --circuit-opacity: 0.18;
-      --melt-displacement: 0px;
+      --bg:        #06080f;
+      --surface:   #0c0f1a;
+      --border:    rgba(0, 230, 255, 0.14);
+      --border-hi: rgba(0, 230, 255, 0.38);
+      --glow:      rgba(0, 230, 255, 0.22);
+      --cyan:      #00e6ff;
+      --purple:    #a78bfa;
+      --gold:      #f59e0b;
+      --text:      #f1f5f9;
+      --muted:     #64748b;
+      --sub:       #94a3b8;
     }
 
-    /* Style 1: AEROSPACE TITANIUM & 24K GOLD (Haute Luxury) */
-    body[data-style="titanium-gold"] {
-      --bg-space: #08090c;
-      --bg-radial-1: rgba(245, 158, 11, 0.10);
-      --bg-radial-2: rgba(217, 119, 6, 0.06);
-      --card-bg-start: rgba(22, 24, 30, 0.97);
-      --card-bg-end: rgba(12, 13, 17, 0.99);
-      --card-border: rgba(245, 158, 11, 0.35);
-      --card-border-glow: rgba(245, 158, 11, 0.7);
-      --card-shadow-color: rgba(245, 158, 11, 0.22);
-      --primary-accent: #fbbf24;
-      --secondary-accent: #f59e0b;
-      --highlight-accent: #fef3c7;
-      --alert-accent: #ea580c;
-      --text-main: #fffbeb;
-      --text-muted: #a8a29e;
-      --brand-font: 'Cinzel', serif;
-      --holo-opacity: 0.45;
-      --circuit-opacity: 0.10;
-    }
-
-    /* Style 2: SILICON WAFER & CLEANROOM PRISM (Semiconductor Foundry) */
-    body[data-style="silicon-prism"] {
-      --bg-space: #070d1a;
-      --bg-radial-1: rgba(56, 189, 248, 0.14);
-      --bg-radial-2: rgba(236, 72, 153, 0.08);
-      --card-bg-start: rgba(11, 23, 44, 0.95);
-      --card-bg-end: rgba(7, 13, 26, 0.98);
-      --card-border: rgba(56, 189, 248, 0.4);
-      --card-border-glow: rgba(192, 132, 252, 0.65);
-      --card-shadow-color: rgba(56, 189, 248, 0.25);
-      --primary-accent: #38bdf8;
-      --secondary-accent: #c084fc;
-      --highlight-accent: #f472b6;
-      --alert-accent: #38bdf8;
-      --text-main: #f0f9ff;
-      --text-muted: #94a3b8;
-      --brand-font: 'Syne', sans-serif;
-      --holo-opacity: 0.95;
-      --circuit-opacity: 0.24;
-    }
-
-    /* Style 3: BIOLUMINESCENT MATRIX (Deep Quantum Phosphor) */
-    body[data-style="matrix-emerald"] {
-      --bg-space: #02100a;
-      --bg-radial-1: rgba(16, 185, 129, 0.16);
-      --bg-radial-2: rgba(52, 211, 153, 0.06);
-      --card-bg-start: rgba(5, 25, 17, 0.96);
-      --card-bg-end: rgba(2, 15, 10, 0.99);
-      --card-border: rgba(16, 185, 129, 0.35);
-      --card-border-glow: rgba(52, 211, 153, 0.7);
-      --card-shadow-color: rgba(16, 185, 129, 0.25);
-      --primary-accent: #10b981;
-      --secondary-accent: #34d399;
-      --highlight-accent: #a3e635;
-      --alert-accent: #059669;
-      --text-main: #ecfdf5;
-      --text-muted: #6ee7b7;
-      --brand-font: 'JetBrains Mono', monospace;
-      --holo-opacity: 0.55;
-      --circuit-opacity: 0.28;
-    }
-
-    /* Style 4: SYNTHWAVE OUTRUN 1984 (Neon Sunset) */
-    body[data-style="synthwave-sunset"] {
-      --bg-space: #10061e;
-      --bg-radial-1: rgba(244, 63, 94, 0.18);
-      --bg-radial-2: rgba(251, 146, 60, 0.12);
-      --card-bg-start: rgba(28, 11, 48, 0.96);
-      --card-bg-end: rgba(15, 6, 28, 0.99);
-      --card-border: rgba(244, 63, 94, 0.4);
-      --card-border-glow: rgba(251, 146, 60, 0.7);
-      --card-shadow-color: rgba(244, 63, 94, 0.3);
-      --primary-accent: #f43f5e;
-      --secondary-accent: #fb923c;
-      --highlight-accent: #fde047;
-      --alert-accent: #e11d48;
-      --text-main: #fff1f2;
-      --text-muted: #fda4af;
-      --brand-font: 'Syne', sans-serif;
-      --holo-opacity: 0.85;
-      --circuit-opacity: 0.20;
-    }
-
-    /* Style 5: SOLARFLARE PLASMA (Thermodynamic Core) */
-    body[data-style="solarflare-plasma"] {
-      --bg-space: #140507;
-      --bg-radial-1: rgba(234, 88, 12, 0.16);
-      --bg-radial-2: rgba(225, 29, 72, 0.10);
-      --card-bg-start: rgba(35, 10, 14, 0.96);
-      --card-bg-end: rgba(18, 4, 7, 0.99);
-      --card-border: rgba(234, 88, 12, 0.45);
-      --card-border-glow: rgba(250, 204, 21, 0.75);
-      --card-shadow-color: rgba(234, 88, 12, 0.3);
-      --primary-accent: #ea580c;
-      --secondary-accent: #facc15;
-      --highlight-accent: #ffffff;
-      --alert-accent: #b91c1c;
-      --text-main: #fff7ed;
-      --text-muted: #fdba74;
-      --brand-font: 'Syne', sans-serif;
-      --holo-opacity: 0.70;
-      --circuit-opacity: 0.22;
-    }
-
-    /* Style 6: STEALTH PHANTOM CARBON (Surgical Minimalist) */
-    body[data-style="stealth-carbon"] {
-      --bg-space: #030304;
-      --bg-radial-1: rgba(255, 255, 255, 0.04);
-      --bg-radial-2: rgba(255, 255, 255, 0.02);
-      --card-bg-start: rgba(14, 14, 16, 0.98);
-      --card-bg-end: rgba(8, 8, 9, 0.99);
-      --card-border: rgba(255, 255, 255, 0.18);
-      --card-border-glow: rgba(255, 255, 255, 0.4);
-      --card-shadow-color: rgba(0, 0, 0, 0.85);
-      --primary-accent: #ffffff;
-      --secondary-accent: #9ca3af;
-      --highlight-accent: #d1d5db;
-      --alert-accent: #ef4444;
-      --text-main: #f9fafb;
-      --text-muted: #6b7280;
-      --brand-font: 'Inter', sans-serif;
-      --holo-opacity: 0.25;
-      --circuit-opacity: 0.08;
-    }
-
-    /* =========================================================================
-       BASE PAGE & MELTING TRANSITION TIMING
-       ========================================================================= */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      user-select: none;
-      -webkit-user-select: none;
-      -webkit-tap-highlight-color: transparent;
-      transition: 
-        background-color 1.1s cubic-bezier(0.4, 0, 0.2, 1),
-        border-color 1.1s cubic-bezier(0.4, 0, 0.2, 1),
-        color 1.1s cubic-bezier(0.4, 0, 0.2, 1),
-        box-shadow 1.1s cubic-bezier(0.4, 0, 0.2, 1);
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
     }
 
     body {
-      background-color: var(--bg-space);
-      background-image: 
-        radial-gradient(circle at 50% 20%, var(--bg-radial-1) 0%, transparent 60%),
-        radial-gradient(circle at 80% 80%, var(--bg-radial-2) 0%, transparent 50%),
-        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-      background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
-      color: var(--text-main);
-      font-family: 'Inter', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      overflow-x: hidden;
-      perspective: 1400px;
-      padding: 20px;
+      padding: 24px 16px 80px;
+      background-image:
+        radial-gradient(ellipse 60% 40% at 50% 0%, rgba(0,230,255,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 80% 100%, rgba(167,139,250,0.05) 0%, transparent 60%);
     }
 
-    /* SVG Molten Displacement Filter Effect */
-    .melting-active {
-      filter: url(#melt-distortion);
-      animation: melt-pulse 0.9s cubic-bezier(0.25, 1, 0.5, 1);
-    }
-
-    @keyframes melt-pulse {
-      0% { transform: scale(1); filter: url(#melt-distortion) brightness(1.3); }
-      50% { transform: scale(1.02) skewX(1deg); filter: url(#melt-distortion) brightness(1.6); }
-      100% { transform: scale(1); filter: none; }
-    }
-
-    /* Ambient cyber dust canvas */
-    #ambient-canvas {
+    /* ── Back to home ──────────────────────────────────────────────────────── */
+    .back-link {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.65;
-    }
-
-    /* Top Utility Header */
-    .hud-header {
-      position: fixed;
-      top: 16px;
+      top: 20px;
       left: 20px;
-      right: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 50;
-      font-family: var(--mono-font);
-      font-size: 11px;
-      color: var(--text-muted);
-      letter-spacing: 0.1em;
-    }
-
-    .hud-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 6px 14px;
-      background: rgba(11, 15, 25, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 999px;
-      backdrop-filter: blur(12px);
-    }
-
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--primary-accent);
-      box-shadow: 0 0 10px var(--primary-accent);
-      animation: pulse-dot 2s infinite ease-in-out;
-    }
-
-    @keyframes pulse-dot {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.8); }
-    }
-
-    .hud-controls {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .hud-btn {
-      background: rgba(11, 15, 25, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: var(--text-main);
-      padding: 6px 14px;
-      border-radius: 999px;
-      cursor: pointer;
-      font-family: var(--mono-font);
-      font-size: 11px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      backdrop-filter: blur(12px);
-    }
-
-    .hud-btn:hover {
-      border-color: var(--primary-accent);
-      color: var(--primary-accent);
-      box-shadow: 0 0 14px var(--card-border-glow);
-    }
-
-    .hud-btn.active {
-      border-color: var(--primary-accent);
-      background: rgba(0, 240, 255, 0.12);
-      color: var(--primary-accent);
-      box-shadow: 0 0 12px var(--card-border-glow);
-    }
-
-    /* 3D Card Container */
-    .card-wrapper {
-      position: relative;
-      width: 500px;
-      max-width: 92vw;
-      height: 300px;
-      z-index: 10;
-      transform-style: preserve-3d;
-      transition: transform 0.15s ease-out;
-      cursor: grab;
-      margin: 20px 0;
-    }
-
-    .card-wrapper:active {
-      cursor: grabbing;
-    }
-
-    .card-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      transform-style: preserve-3d;
-      transition: transform 0.85s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      border-radius: 20px;
-    }
-
-    .card-inner.flipped {
-      transform: rotateY(180deg);
-    }
-
-    /* Shared Card Face Styling */
-    .card-face {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border-radius: 20px;
-      backface-visibility: hidden;
-      background: linear-gradient(135deg, var(--card-bg-start) 0%, var(--card-bg-end) 100%);
-      border: 1px solid var(--card-border);
-      box-shadow: 
-        0 25px 50px -12px rgba(0, 0, 0, 0.85),
-        0 0 35px -5px var(--card-shadow-color),
-        inset 0 1px 1px rgba(255, 255, 255, 0.2);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 24px 28px;
-    }
-
-    /* Holographic Prismatic Rainbow Sheen */
-    .holo-sheen {
-      position: absolute;
-      top: -100%;
-      left: -100%;
-      width: 300%;
-      height: 300%;
-      background: linear-gradient(
-        115deg,
-        transparent 35%,
-        rgba(0, 240, 255, 0.09) 45%,
-        rgba(168, 85, 247, 0.14) 50%,
-        rgba(245, 158, 11, 0.10) 55%,
-        transparent 65%
-      );
-      pointer-events: none;
-      mix-blend-mode: screen;
-      transform: translate(0px, 0px);
-      opacity: var(--holo-opacity);
-      z-index: 2;
-    }
-
-    .circuit-overlay {
-      position: absolute;
-      inset: 0;
-      background-image: 
-        radial-gradient(circle at 10% 90%, var(--card-shadow-color) 0%, transparent 40%),
-        radial-gradient(circle at 90% 10%, var(--card-border-glow) 0%, transparent 40%);
-      pointer-events: none;
-      z-index: 1;
-      opacity: var(--circuit-opacity);
-    }
-
-    /* FRONT FACE CONTENT */
-    .card-front {
-      z-index: 3;
-    }
-
-    .header-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      position: relative;
-      z-index: 5;
-    }
-
-    .brand-mark {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      cursor: pointer;
-    }
-
-    .brand-logo-hex {
-      width: 38px;
-      height: 38px;
-      border: 1px solid var(--primary-accent);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255, 255, 255, 0.04);
-      box-shadow: 0 0 15px var(--card-border-glow);
-      position: relative;
-    }
-
-    .brand-logo-hex svg {
-      width: 24px;
-      height: 24px;
-      fill: none;
-      stroke: var(--primary-accent);
-      stroke-width: 1.8;
-    }
-
-    .brand-title {
-      font-family: var(--brand-font);
-      font-size: 13.5px;
-      font-weight: 800;
-      letter-spacing: 0.15em;
-      color: #ffffff;
-      text-transform: uppercase;
-    }
-
-    .brand-sub {
-      font-family: var(--mono-font);
-      font-size: 9.5px;
-      color: var(--primary-accent);
-      letter-spacing: 0.08em;
-    }
-
-    /* Tactile NFC / EM Chip */
-    .nfc-chip-module {
-      position: relative;
-      width: 48px;
-      height: 38px;
-      border-radius: 6px;
-      background: linear-gradient(135deg, #d97706 0%, #b45309 50%, #78350f 100%);
-      border: 1px solid #f59e0b;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      overflow: hidden;
-    }
-
-    .nfc-chip-module:hover {
-      box-shadow: 0 0 18px rgba(245, 158, 11, 0.6);
-    }
-
-    .chip-lines {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      inset: 0;
-      border: 1px solid rgba(0, 0, 0, 0.35);
-      border-radius: 5px;
-      pointer-events: none;
-    }
-
-    .chip-lines::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: rgba(0, 0, 0, 0.35);
-    }
-
-    .chip-lines::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 50%;
-      width: 1px;
-      background: rgba(0, 0, 0, 0.35);
-    }
-
-    .chip-center {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: #f59e0b;
-      border: 1px solid #fbbf24;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 2;
-    }
-
-    .chip-center svg {
-      width: 12px;
-      height: 12px;
-      fill: #451a03;
-    }
-
-    /* Middle Core Section */
-    .middle-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
-      z-index: 5;
-      margin: 8px 0;
-    }
-
-    .identity-block {
-      max-width: 62%;
-    }
-
-    .executive-name {
-      font-family: var(--brand-font);
-      font-size: 25px;
-      font-weight: 800;
-      letter-spacing: 0.02em;
-      color: #ffffff;
-      line-height: 1.1;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
-      position: relative;
-      display: inline-block;
-      cursor: pointer;
-      transition: text-shadow 0.2s ease;
-    }
-
-    .executive-name.glitching {
-      animation: nameGlitchAberration 0.28s infinite alternate ease-in-out;
-      text-shadow: 
-        -2px 0 #00f0ff, 
-        2px 0 #ff0055, 
-        0 0 15px rgba(255, 255, 255, 0.85);
-    }
-
-    .executive-name.melting {
-      filter: blur(1.5px) contrast(180%);
-      transform: scaleY(0.92) skewX(-2deg);
-      opacity: 0.85;
-      transition: all 0.15s ease-in-out;
-    }
-
-    @keyframes nameGlitchAberration {
-      0% {
-        transform: translate(0, 0);
-        clip-path: inset(0 0 0 0);
-      }
-      20% {
-        transform: translate(-1.5px, 0.8px) skewX(-1.5deg);
-        clip-path: inset(10% 0 35% 0);
-      }
-      40% {
-        transform: translate(1.5px, -0.8px);
-        clip-path: inset(40% 0 15% 0);
-      }
-      60% {
-        transform: translate(-1px, -0.5px) skewX(1deg);
-        clip-path: inset(60% 0 5% 0);
-      }
-      80% {
-        transform: translate(0.8px, 1.2px);
-        clip-path: inset(25% 0 45% 0);
-      }
-      100% {
-        transform: translate(0, 0);
-        clip-path: inset(0 0 0 0);
-      }
-    }
-
-    .executive-title {
-      font-family: var(--mono-font);
-      font-size: 11px;
-      color: var(--primary-accent);
-      margin-top: 5px;
-      letter-spacing: 0.06em;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .executive-spec {
-      font-family: var(--mono-font);
-      font-size: 9.5px;
-      color: var(--text-muted);
-      margin-top: 6px;
-      line-height: 1.4;
-    }
-
-    /* Embedded 3D Toroid Canvas */
-    .toroid-canvas-box {
-      position: relative;
-      width: 115px;
-      height: 115px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    #toroid-mini-canvas {
-      width: 115px;
-      height: 115px;
-      border-radius: 50%;
-      cursor: pointer;
-    }
-
-    .toroid-badge {
-      position: absolute;
-      bottom: -6px;
-      font-family: var(--mono-font);
-      font-size: 8px;
-      background: rgba(0, 0, 0, 0.75);
-      border: 1px solid var(--secondary-accent);
-      color: var(--secondary-accent);
-      padding: 1px 7px;
-      border-radius: 4px;
-      letter-spacing: 0.05em;
-      pointer-events: none;
-    }
-
-    /* Footer Row */
-    .footer-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      position: relative;
-      z-index: 5;
-    }
-
-    .contact-pills {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .contact-pill {
-      font-family: var(--mono-font);
+      font-family: 'JetBrains Mono', monospace;
       font-size: 10px;
-      color: var(--text-main);
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 5px 10px;
-      border-radius: 6px;
+      letter-spacing: 0.08em;
+      color: var(--muted);
       text-decoration: none;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--cyan); }
+
+    /* ── Card shell ────────────────────────────────────────────────────────── */
+    .card {
+      width: 100%;
+      max-width: 540px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px 36px 32px;
+      box-shadow:
+        0 0 0 1px rgba(0,0,0,0.4),
+        0 24px 48px rgba(0,0,0,0.6),
+        0 0 60px var(--glow);
+      position: relative;
+      overflow: hidden;
     }
 
-    .contact-pill:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: var(--primary-accent);
-      color: var(--primary-accent);
-      transform: translateY(-1px);
+    /* Subtle top-edge glow line */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 10%; right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+      opacity: 0.5;
     }
 
-    .flip-hint-btn {
-      background: none;
-      border: none;
-      color: var(--primary-accent);
-      font-family: var(--mono-font);
-      font-size: 10px;
+    /* ── Header ────────────────────────────────────────────────────────────── */
+    .card-header {
       display: flex;
-      align-items: center;
-      gap: 5px;
-      cursor: pointer;
-      padding: 4px 8px;
-      border-radius: 4px;
-    }
-
-    .flip-hint-btn:hover {
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    /* BACK FACE CONTENT */
-    .card-back {
-      transform: rotateY(180deg);
-      z-index: 2;
-    }
-
-    .back-header {
-      display: flex;
+      align-items: flex-start;
       justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding-bottom: 8px;
+      margin-bottom: 28px;
     }
 
-    .back-title {
-      font-family: var(--mono-font);
+    .brand-block {}
+    .brand-name {
       font-size: 11px;
       font-weight: 600;
-      color: var(--primary-accent);
-      letter-spacing: 0.1em;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .brand-domain {
+      font-size: 10px;
+      color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+      margin-top: 2px;
+      letter-spacing: 0.06em;
     }
 
-    .back-grid {
+    /* Chip mark */
+    .chip-mark {
+      width: 44px;
+      height: 36px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #b45309, #78350f);
+      border: 1px solid #d97706;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,255,255,0.3);
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin: 12px 0;
-      font-family: var(--mono-font);
+      grid-template-rows: 1fr 1fr;
+      gap: 1px;
+      padding: 6px;
+      flex-shrink: 0;
+    }
+    .chip-cell {
+      background: rgba(0,0,0,0.3);
+      border-radius: 2px;
+    }
+
+    /* ── Divider ───────────────────────────────────────────────────────────── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-hi), transparent);
+      margin: 0 0 24px;
+    }
+
+    /* ── Identity block ────────────────────────────────────────────────────── */
+    .identity {
+      margin-bottom: 24px;
+    }
+    .exec-name {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .exec-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--cyan);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .exec-title .sep { color: var(--muted); }
+    .exec-title .role-b { color: var(--purple); }
+
+    .exec-spec {
+      font-family: 'JetBrains Mono', monospace;
       font-size: 10px;
+      color: var(--sub);
+      line-height: 1.7;
     }
 
-    .spec-card {
-      background: rgba(0, 0, 0, 0.35);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 8px;
-      padding: 8px 10px;
+    /* ── Spec grid ─────────────────────────────────────────────────────────── */
+    .spec-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 24px;
     }
-
+    .spec-cell {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
     .spec-label {
-      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
       font-size: 8.5px;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 3px;
     }
-
-    .spec-val {
-      color: #ffffff;
+    .spec-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
       font-weight: 600;
-      margin-top: 2px;
+      color: var(--cyan);
     }
 
-    .back-actions {
+    /* ── Contact links ─────────────────────────────────────────────────────── */
+    .contacts {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+    }
+    .contact-icon {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 7px;
+      background: rgba(0,230,255,0.08);
+      border: 1px solid var(--border);
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+    .contact-row a {
+      color: var(--sub);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.03em;
+      transition: color 0.2s;
+    }
+    .contact-row a:hover { color: var(--cyan); }
+
+    /* ── CTA buttons ───────────────────────────────────────────────────────── */
+    .cta-row {
       display: flex;
       gap: 10px;
     }
-
-    .btn-action {
+    .btn {
       flex: 1;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-family: var(--mono-font);
-      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
       font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-
-    .btn-action-primary {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.04) 100%);
-      border: 1px solid var(--primary-accent);
-      color: #ffffff;
-    }
-
-    .btn-action-primary:hover {
-      box-shadow: 0 0 16px var(--card-border-glow);
-      transform: translateY(-1px);
-    }
-
-    .btn-action-game {
-      background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(239, 68, 68, 0.2) 100%);
-      border: 1px solid var(--highlight-accent);
-      color: #ffffff;
-    }
-
-    .btn-action-game:hover {
-      box-shadow: 0 0 16px rgba(245, 158, 11, 0.5);
-      transform: translateY(-1px);
-    }
-
-    /* =========================================================================
-       THE METAMORPHIC STYLE MELT CONTROLS (BOTTOM DOCK)
-       ========================================================================= */
-    .style-dock {
-      position: fixed;
-      bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      background: rgba(11, 15, 25, 0.88);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 999px;
-      backdrop-filter: blur(16px);
-      z-index: 50;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-    }
-
-    .style-chip-btn {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      border: 2px solid transparent;
-      cursor: pointer;
-      position: relative;
-      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.2s ease;
-    }
-
-    .style-chip-btn:hover {
-      transform: scale(1.22);
-    }
-
-    .style-chip-btn.active {
-      transform: scale(1.28);
-      border-color: #ffffff;
-      box-shadow: 0 0 14px currentColor;
-    }
-
-    .style-chip-label {
-      font-family: var(--mono-font);
-      font-size: 10px;
-      color: var(--text-muted);
-      margin-left: 6px;
       letter-spacing: 0.08em;
-    }
-
-    /* MODAL OVERLAY: MINIGAME & TERMINAL */
-    /* =========================================================================
-       LEGEND OF THE RED DRAGON (L.O.R.D.) BBS RPG TERMINAL SYSTEM
-       ========================================================================= */
-    .game-modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(2, 4, 10, 0.94);
-      backdrop-filter: blur(16px);
-      z-index: 100;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 12px;
-    }
-
-    .game-modal.active {
-      display: flex;
-    }
-
-    .lord-terminal-frame {
-      width: 720px;
-      max-width: 98vw;
-      height: 580px;
-      max-height: 92vh;
-      background: #02050b;
-      border: 2px solid #ef4444;
-      box-shadow: 0 0 50px rgba(239, 68, 68, 0.4), inset 0 0 30px rgba(0, 0, 0, 0.9);
-      border-radius: 12px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      font-family: 'Courier New', 'JetBrains Mono', monospace;
-    }
-
-    /* CRT Monitor Effects */
-    .lord-terminal-frame::before {
-      content: " ";
-      display: block;
-      position: absolute;
-      top: 0; left: 0; bottom: 0; right: 0;
-      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-      z-index: 20;
-      background-size: 100% 3px, 6px 100%;
-      pointer-events: none;
-      opacity: 0.85;
-    }
-
-    .lord-header-bar {
-      padding: 8px 14px;
-      background: #110505;
-      border-bottom: 2px solid #ef4444;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      font-weight: bold;
-      color: #fca5a5;
-      letter-spacing: 0.08em;
-      z-index: 25;
-    }
-
-    .lord-header-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .lord-header-title span.dragon-icon {
-      color: #ef4444;
-      font-size: 14px;
-      animation: pulse 1.5s infinite;
-    }
-
-    .lord-close-btn {
-      background: #3f0d0d;
-      border: 1px solid #ef4444;
-      color: #fca5a5;
-      padding: 2px 10px;
-      border-radius: 4px;
+      text-transform: uppercase;
+      text-decoration: none;
       cursor: pointer;
-      font-family: monospace;
-      font-weight: bold;
-      font-size: 11px;
-      transition: all 0.2s;
+      transition: all 0.2s ease;
     }
-    .lord-close-btn:hover {
-      background: #ef4444;
-      color: #000000;
-    }
-
-    /* Stat Banner Strip */
-    .lord-hud-stats {
-      background: #090303;
-      padding: 6px 14px;
-      border-bottom: 1px solid #450a0a;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 11px;
-      color: #fecaca;
-      z-index: 25;
-      gap: 8px;
-    }
-
-    .lord-hud-stat-item {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .lord-stat-val {
-      color: #fef08a;
-      font-weight: bold;
-    }
-    .lord-stat-health {
-      color: #86efac;
-      font-weight: bold;
-    }
-
-    /* Screen Text Body */
-    .lord-screen-body {
-      flex: 1;
-      padding: 12px 16px;
-      overflow-y: auto;
-      font-size: 13px;
-      line-height: 1.45;
-      color: #f3f4f6;
-      white-space: pre-wrap;
-      word-break: break-word;
-      background: #02050b;
-      position: relative;
-      z-index: 10;
-      scrollbar-width: thin;
-      scrollbar-color: #ef4444 #0b0202;
-    }
-
-    .lord-screen-body::-webkit-scrollbar {
-      width: 6px;
-    }
-    .lord-screen-body::-webkit-scrollbar-thumb {
-      background: #ef4444;
-    }
-
-    /* ANSI Colors */
-    .c-red { color: #f87171; }
-    .c-lred { color: #ef4444; font-weight: bold; }
-    .c-gold { color: #fbbf24; font-weight: bold; }
-    .c-yellow { color: #fef08a; }
-    .c-green { color: #4ade80; }
-    .c-lgreen { color: #86efac; font-weight: bold; }
-    .c-cyan { color: #38bdf8; }
-    .c-lcyan { color: #67e8f9; font-weight: bold; }
-    .c-magenta { color: #f472b6; }
-    .c-white { color: #ffffff; font-weight: bold; }
-    .c-gray { color: #9ca3af; }
-    .c-darkgray { color: #4b5563; }
-    .c-key { color: #facc15; font-weight: bold; background: #261605; padding: 0 4px; border-radius: 2px; }
-
-    /* Interactive Action Keypad / Command Bar */
-    .lord-cmd-container {
-      background: #0d0404;
-      border-top: 1px solid #450a0a;
-      padding: 8px 12px;
-      z-index: 25;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .lord-prompt-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .lord-prompt-text {
-      color: #38bdf8;
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    .lord-input-field {
-      flex: 1;
-      background: #02050b;
-      border: 1px solid #7f1d1d;
-      color: #fef08a;
-      font-family: inherit;
-      font-size: 13px;
-      padding: 4px 8px;
-      border-radius: 4px;
-      outline: none;
-    }
-    .lord-input-field:focus {
-      border-color: #ef4444;
-      box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
-    }
-
-    /* Quick Touch Buttons (Perfect for mobile users) */
-    .lord-touch-pad {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      max-height: 80px;
-      overflow-y: auto;
-    }
-
-    .lord-pad-btn {
-      background: #1c0808;
-      border: 1px solid #7f1d1d;
-      color: #fca5a5;
-      font-family: inherit;
-      font-size: 11px;
-      padding: 5px 10px;
-      border-radius: 4px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      transition: all 0.15s;
-    }
-
-    .lord-pad-btn:hover, .lord-pad-btn:active {
-      background: #ef4444;
-      color: #000000;
-      border-color: #f87171;
-    }
-
-    .lord-pad-key {
-      background: #450a0a;
-      color: #fef08a;
-      padding: 1px 4px;
-      border-radius: 2px;
-      font-weight: bold;
-      font-size: 10px;
-    }
-    .lord-pad-btn:hover .lord-pad-key {
-      background: #000000;
-      color: #ffffff;
-    }
-
-    /* Terminal Console Modal */
-    .terminal-modal {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      width: 380px;
-      max-width: 90vw;
-      height: 240px;
-      background: rgba(8, 12, 22, 0.95);
-      border: 1px solid var(--primary-accent);
-      box-shadow: 0 0 25px var(--card-border-glow);
-      border-radius: 12px;
-      backdrop-filter: blur(12px);
-      z-index: 80;
-      display: none;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .terminal-modal.active {
-      display: flex;
-    }
-
-    .terminal-header {
-      background: rgba(0, 0, 0, 0.5);
-      padding: 8px 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: var(--mono-font);
-      font-size: 10px;
-      color: var(--primary-accent);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .terminal-body {
-      flex: 1;
-      padding: 10px 12px;
-      font-family: var(--mono-font);
-      font-size: 10px;
-      color: var(--text-main);
-      overflow-y: auto;
-      line-height: 1.5;
-    }
-
-    .terminal-input-row {
-      display: flex;
-      align-items: center;
-      padding: 6px 12px;
-      background: rgba(0, 0, 0, 0.4);
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .terminal-prompt {
-      color: var(--primary-accent);
-      font-family: var(--mono-font);
-      font-size: 10px;
-      margin-right: 6px;
-    }
-
-    .terminal-input {
-      flex: 1;
-      background: transparent;
+    .btn-primary {
+      background: var(--cyan);
+      color: #060810;
       border: none;
-      outline: none;
-      color: #ffffff;
-      font-family: var(--mono-font);
-      font-size: 10px;
+      box-shadow: 0 0 18px rgba(0,230,255,0.35);
+    }
+    .btn-primary:hover { filter: brightness(1.1); box-shadow: 0 0 26px rgba(0,230,255,0.5); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--sub);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .btn-ghost:hover { border-color: var(--cyan); color: var(--cyan); }
+
+    /* ── Address / footer ──────────────────────────────────────────────────── */
+    .card-footer {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .addr {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      line-height: 1.6;
+      font-style: normal;
+    }
+    .patent-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--gold);
+      background: rgba(245,158,11,0.08);
+      border: 1px solid rgba(245,158,11,0.2);
+      padding: 3px 8px;
+      border-radius: 5px;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
     }
 
-    /* Shockwave Pulse Effect on NFC Tap */
-    .shockwave {
-      position: absolute;
-      border-radius: 50%;
-      border: 2px solid var(--primary-accent);
-      box-shadow: 0 0 20px var(--primary-accent);
-      pointer-events: none;
-      animation: expand-wave 0.85s ease-out forwards;
-      z-index: 20;
-    }
-
-    @keyframes expand-wave {
-      0% {
-        width: 10px;
-        height: 10px;
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-      }
-      100% {
-        width: 650px;
-        height: 650px;
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(1);
-      }
-    }
-
-    #matrix-canvas {
+    /* ── Global footer ─────────────────────────────────────────────────────── */
+    .site-footer {
       position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 95;
-      display: none;
-      opacity: 0.85;
+      bottom: 0; left: 0; right: 0;
+      z-index: 40;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      padding: 6px 20px 8px;
+      background: rgba(6,8,15,0.80);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(255,255,255,0.05);
     }
+    .site-footer .sf-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+      margin-bottom: 4px;
+    }
+    .site-footer p, .site-footer address {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px;
+      color: var(--muted);
+      text-align: center;
+      letter-spacing: 0.05em;
+      font-style: normal;
+    }
+    .site-footer strong { color: var(--sub); font-weight: 600; }
+    .site-footer address { opacity: 0.65; }
   </style>
 </head>
-<body data-style="cyberpunk">
+<body>
 
-  <!-- SVG Molten Displacement Filter Definition -->
-  <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1">
-    <defs>
-      <filter id="melt-distortion" x="-20%" y="-20%" width="140%" height="140%">
-        <feTurbulence id="melt-turb" type="fractalNoise" baseFrequency="0.04 0.05" numOctaves="2" result="noise" />
-        <feDisplacementMap id="melt-disp" in="SourceGraphic" in2="noise" scale="22" xChannelSelector="R" yChannelSelector="G" />
-      </filter>
-    </defs>
-  </svg>
+  <a class="back-link" href="/">← scalarresonant.com</a>
 
-  <!-- Ambient Canvas -->
-  <canvas id="ambient-canvas"></canvas>
-  <canvas id="matrix-canvas"></canvas>
-
-  <!-- Top HUD Bar -->
-  <header class="hud-header">
-    <div class="hud-badge">
-      <span class="status-dot"></span>
-      <span id="style-status-text">STYLE: OBSIDIAN CYBERPUNK // METAMORPHIC</span>
-    </div>
-    <div class="hud-controls">
-      <button class="hud-btn" id="auto-melt-btn" title="Cycle through styles (Click to toggle OFF / 30s / 60s)">
-        <span>⟳</span> AUTO-MELT: OFF
-      </button>
-      <button class="hud-btn" id="audio-toggle-btn" title="Toggle Synthesized Audio">
-        <span id="audio-icon">🔊</span> AUDIO
-      </button>
-      <button class="hud-btn" id="terminal-toggle-btn" title="Open Debug Console">
-        <span>&gt;_</span> TERM
-      </button>
-    </div>
-  </header>
-
-  <!-- 3D Holographic Business Card -->
-  <div class="card-wrapper" id="card-wrapper">
-    <div class="card-inner" id="card-inner">
-      
-      <!-- FRONT FACE -->
-      <div class="card-face card-front" id="card-front-face">
-        <div class="holo-sheen" id="holo-sheen"></div>
-        <div class="circuit-overlay"></div>
-        
-        <!-- Header: Brand + NFC Chip -->
-        <div class="header-row">
-          <div class="brand-mark" id="brand-mark-btn" title="Click to trigger Quantum Chaos Melt">
-            <div class="brand-logo-hex">
-              <svg viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="9"/>
-                <circle cx="12" cy="12" r="5" stroke-dasharray="2 2"/>
-                <circle cx="12" cy="12" r="2" fill="var(--primary-accent)"/>
-              </svg>
-            </div>
-            <div>
-              <div class="brand-title">SCALAR RESONANT</div>
-              <div class="brand-sub">SYSTEMS INC.</div>
-            </div>
-          </div>
-
-          <!-- NFC Smart Chip (Interactive Tap) -->
-          <div class="nfc-chip-module" id="nfc-chip" title="Tap to sync vCard & pulse EM wave">
-            <div class="chip-lines"></div>
-            <div class="chip-center">
-              <svg viewBox="0 0 24 24">
-                <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12zM6 10h2v2H6zm0 4h8v2H6zm10 0h2v2h-2zm-6-4h8v2h-8z"/>
-              </svg>
-            </div>
-          </div>
-        </div>
-
-        <!-- Middle: Executive Identity & Interactive 3D Toroid -->
-        <div class="middle-row">
-          <div class="identity-block">
-            <h1 class="executive-name" id="exec-name">JUSTIN HOWARD</h1>
-            <div class="executive-title">
-              <span>CHIEF ARCHITECT</span>
-              <span>//</span>
-              <span style="color: var(--secondary-accent);">FOUNDER</span>
-            </div>
-            <p class="executive-spec">
-              Non-Euclidean Tensor Architecture<br>
-              3D Desargues Photonic Tape-Out Core<br>
-              Phase 1 Tape-Out Reticle: 2.5mm × 2.5mm
-            </p>
-          </div>
-
-          <div class="toroid-canvas-box">
-            <canvas id="toroid-mini-canvas" width="230" height="230" title="Click & Drag to Accelerate Singularity"></canvas>
-            <div class="toroid-badge">CORE T²</div>
-          </div>
-        </div>
-
-        <!-- Footer: Smart Links & Flip Trigger -->
-        <div class="footer-row">
-          <div class="contact-pills">
-            <a href="mailto:founder@scalarresonant.com" class="contact-pill" id="email-pill">
-              ✉ EMAIL
-            </a>
-            <a href="https://www.linkedin.com/in/redocoder" target="_blank" class="contact-pill">
-              🔗 LINKEDIN
-            </a>
-            <a href="#patents" class="contact-pill" id="patent-pill">
-              ◈ PATENTS (53 CLAIMS)
-            </a>
-          </div>
-
-          <button class="flip-hint-btn" id="flip-btn">
-            FLIP CARD <span>↻</span>
-          </button>
-        </div>
+  <div class="card">
+    <!-- Header -->
+    <div class="card-header">
+      <div class="brand-block">
+        <div class="brand-name">Scalar Resonant Systems</div>
+        <div class="brand-domain">scalarresonant.com</div>
       </div>
-
-      <!-- BACK FACE -->
-      <div class="card-face card-back" id="card-back-face">
-        <div class="holo-sheen"></div>
-        <div class="circuit-overlay"></div>
-
-        <div class="back-header">
-          <span class="back-title">DESARGUES 3D HARDWARE SPECS</span>
-          <button class="flip-hint-btn" id="flip-back-btn">RETURN <span>↺</span></button>
-        </div>
-
-        <div class="back-grid">
-          <div class="spec-card">
-            <div class="spec-label">OPTICAL CARRIER</div>
-            <div class="spec-val" style="color: var(--primary-accent);">64λ COMB (Δν=150GHz)</div>
-          </div>
-          <div class="spec-card">
-            <div class="spec-label">VERTICAL ALD GAP</div>
-            <div class="spec-val" style="color: var(--alert-accent);">180nm SiO₂ (IL=2.015dB)</div>
-          </div>
-          <div class="spec-card">
-            <div class="spec-label">TOROID HARMONICS</div>
-            <div class="spec-val" style="color: var(--secondary-accent);">R₁=300µm / R₂=485µm / R₃=785µm</div>
-          </div>
-          <div class="spec-card">
-            <div class="spec-label">RF MODULATION</div>
-            <div class="spec-val" style="color: var(--highlight-accent);">&gt;40 GHz POCKELS (50Ω GCPW)</div>
-          </div>
-        </div>
-
-        <div class="back-actions">
-          <button class="btn-action btn-action-primary" id="vcard-btn">
-            📥 SAVE CONTACT (VCARD)
-          </button>
-          <button class="btn-action btn-action-game" id="launch-game-btn">
-            🐉 PLAY L.O.R.D. RPG
-          </button>
-        </div>
+      <div class="chip-mark">
+        <div class="chip-cell"></div>
+        <div class="chip-cell"></div>
+        <div class="chip-cell"></div>
+        <div class="chip-cell"></div>
       </div>
+    </div>
 
+    <div class="divider"></div>
+
+    <!-- Identity -->
+    <div class="identity">
+      <h1 class="exec-name">Justin Howard</h1>
+      <div class="exec-title">
+        <span>Chief Architect</span>
+        <span class="sep">//</span>
+        <span class="role-b">Founder</span>
+      </div>
+      <div class="exec-spec">
+        Non-Euclidean Tensor Architecture<br>
+        3D Desargues Photonic Tape-Out Core<br>
+        Phase-1 Reticle · 2.5 mm × 2.5 mm
+      </div>
+    </div>
+
+    <!-- Spec grid -->
+    <div class="spec-grid">
+      <div class="spec-cell">
+        <div class="spec-label">Optical Carrier</div>
+        <div class="spec-value">64λ COMB</div>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Channel Spacing</div>
+        <div class="spec-value">150 GHz</div>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">ALD Coupler IL</div>
+        <div class="spec-value">2.015 dB</div>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">T² Manifold Q</div>
+        <div class="spec-value">≈ 2,791</div>
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="contacts">
+      <div class="contact-row">
+        <div class="contact-icon">✉</div>
+        <a href="mailto:founder@scalarresonant.com">founder@scalarresonant.com</a>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon">🔗</div>
+        <a href="https://www.linkedin.com/in/redocoder" target="_blank" rel="noopener">linkedin.com/in/redocoder</a>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon">🌐</div>
+        <a href="/">scalarresonant.com</a>
+      </div>
+    </div>
+
+    <!-- CTAs -->
+    <div class="cta-row">
+      <a class="btn btn-primary" href="mailto:founder@scalarresonant.com">Contact Engineering</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/redocoder" target="_blank" rel="noopener">LinkedIn →</a>
+    </div>
+
+    <!-- Card footer: address + patent badge -->
+    <div class="card-footer">
+      <address class="addr">
+        5737 Scenic Hills Dr · Roanoke, VA 24018-5209 · USA
+      </address>
+      <span class="patent-badge">◈ 53 PATENT CLAIMS</span>
     </div>
   </div>
 
-  <!-- THE METAMORPHIC STYLE MELT DOCK -->
-  <div class="style-dock" id="style-dock">
-    <button class="style-chip-btn active" data-style-target="cyberpunk" style="background: #00f0ff; box-shadow: 0 0 10px #00f0ff;" title="Obsidian Cyberpunk"></button>
-    <button class="style-chip-btn" data-style-target="titanium-gold" style="background: #fbbf24; box-shadow: 0 0 10px #fbbf24;" title="Titanium & 24K Gold"></button>
-    <button class="style-chip-btn" data-style-target="silicon-prism" style="background: #c084fc; box-shadow: 0 0 10px #c084fc;" title="Silicon Wafer & Prism"></button>
-    <button class="style-chip-btn" data-style-target="matrix-emerald" style="background: #10b981; box-shadow: 0 0 10px #10b981;" title="Quantum Matrix Emerald"></button>
-    <button class="style-chip-btn" data-style-target="synthwave-sunset" style="background: #f43f5e; box-shadow: 0 0 10px #f43f5e;" title="Synthwave Sunset"></button>
-    <button class="style-chip-btn" data-style-target="solarflare-plasma" style="background: #ea580c; box-shadow: 0 0 10px #ea580c;" title="Solarflare Plasma"></button>
-    <button class="style-chip-btn" data-style-target="stealth-carbon" style="background: #ffffff; box-shadow: 0 0 10px #ffffff;" title="Stealth Phantom Carbon"></button>
-    <span class="style-chip-label" id="dock-label">CYBERPUNK</span>
-  </div>
+  <!-- Site-wide footer -->
+  <footer class="site-footer">
+    <div class="sf-divider"></div>
+    <p>© 2026 <strong>Scalar Resonant Systems Inc.</strong> All rights reserved.</p>
+    <address>5737 Scenic Hills Dr &nbsp;//&nbsp; Roanoke, VA 24018-5209 &nbsp;//&nbsp; USA</address>
+  </footer>
 
-  <!-- MINIGAME MODAL: LEGEND OF THE RED DRAGON (L.O.R.D.) -->
-  <div class="game-modal" id="game-modal">
-    <div class="lord-terminal-frame">
-      <div class="lord-header-bar">
-        <div class="lord-header-title">
-          <span class="dragon-icon">🐉</span>
-          <span>LEGEND OF THE RED DRAGON // v3.26 BBS EMULATOR</span>
-        </div>
-        <button class="lord-close-btn" id="game-close-btn">QUIT [Q]</button>
-      </div>
-      
-      <!-- Live Player Stats Bar -->
-      <div class="lord-hud-stats" id="lord-hud-stats">
-        <div class="lord-hud-stat-item">HERO: <span class="lord-stat-val" id="hud-name">WARRIOR</span></div>
-        <div class="lord-hud-stat-item">LVL: <span class="lord-stat-val" id="hud-level">1</span></div>
-        <div class="lord-hud-stat-item">HP: <span class="lord-stat-health" id="hud-hp">20/20</span></div>
-        <div class="lord-hud-stat-item">GOLD: <span class="lord-stat-val" id="hud-gold">500</span></div>
-        <div class="lord-hud-stat-item">BANK: <span class="lord-stat-val" id="hud-bank">0</span></div>
-        <div class="lord-hud-stat-item">GEMS: <span class="lord-stat-val" id="hud-gems">0</span></div>
-        <div class="lord-hud-stat-item">FIGHTS: <span class="lord-stat-val" id="hud-fights">15</span></div>
-      </div>
-
-      <!-- ANSI CRT Screen Output Buffer -->
-      <div class="lord-screen-body" id="lord-screen"></div>
-
-      <!-- Keyboard & Touch Navigation Controls -->
-      <div class="lord-cmd-container">
-        <div class="lord-prompt-row">
-          <span class="lord-prompt-text" id="lord-prompt-label">YOUR CHOICE:</span>
-          <input type="text" class="lord-input-field" id="lord-input" maxlength="20" placeholder="Type key or press button below..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-        </div>
-        <div class="lord-touch-pad" id="lord-touch-pad"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- HACKER TERMINAL CONSOLE -->
-  <div class="terminal-modal" id="terminal-modal">
-    <div class="terminal-header">
-      <span>SRS_DEBUG_TERMINAL v2.5.0</span>
-      <button class="game-close" id="term-close-btn" style="font-size:12px;">✕</button>
-    </div>
-    <div class="terminal-body" id="term-output">
-      <div>[SYSTEM INITIALIZED] Toroidal Optoelectronic Kernel Online.</div>
-      <div>Type 'help' to view available system commands.</div>
-    </div>
-    <div class="terminal-input-row">
-      <span class="terminal-prompt">&gt;</span>
-      <input type="text" class="terminal-input" id="term-input" autocomplete="off" spellcheck="false">
-    </div>
-  </div>
-
-  <script>
-    /* =========================================================================
-       1. SYNTHESIZED WEB AUDIO ENGINE (Fluid Liquid Transmutation Chords)
-       ========================================================================= */
-    class CyberAudio {
-      constructor() {
-        this.ctx = null;
-        this.enabled = true;
-      }
-
-      init() {
-        if (!this.ctx) {
-          const AudioContext = window.AudioContext || window.webkitAudioContext;
-          this.ctx = new AudioContext();
-        }
-        if (this.ctx.state === 'suspended') {
-          this.ctx.resume();
-        }
-      }
-
-      playTone(freq, type = 'sine', duration = 0.12, gainVal = 0.15) {
-        if (!this.enabled) return;
-        this.init();
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = type;
-        osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
-        gain.gain.setValueAtTime(gainVal, this.ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start();
-        osc.stop(this.ctx.currentTime + duration);
-      }
-
-      // Liquid Molten Transmutation Sound (Harmonic Chime + Filter Sweep)
-      playMeltTransition(baseFreq = 440) {
-        if (!this.enabled) return;
-        this.init();
-        const now = this.ctx.currentTime;
-        const chords = [baseFreq, baseFreq * 1.25, baseFreq * 1.5, baseFreq * 1.875];
-
-        chords.forEach((f, idx) => {
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          const filter = this.ctx.createBiquadFilter();
-
-          osc.type = idx % 2 === 0 ? 'sine' : 'triangle';
-          osc.frequency.setValueAtTime(f, now);
-          osc.frequency.exponentialRampToValueAtTime(f * 1.08, now + 0.6);
-
-          filter.type = 'lowpass';
-          filter.frequency.setValueAtTime(300, now);
-          filter.frequency.exponentialRampToValueAtTime(3600, now + 0.35);
-          filter.frequency.exponentialRampToValueAtTime(800, now + 0.7);
-
-          gain.gain.setValueAtTime(0.08 / chords.length, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.7);
-
-          osc.connect(filter);
-          filter.connect(gain);
-          gain.connect(this.ctx.destination);
-
-          osc.start();
-          osc.stop(now + 0.7);
-        });
-      }
-
-      playNfcPulse() {
-        if (!this.enabled) return;
-        this.init();
-        const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(440, now);
-        osc.frequency.exponentialRampToValueAtTime(1760, now + 0.28);
-        gain.gain.setValueAtTime(0.2, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start();
-        osc.stop(now + 0.35);
-      }
-
-      playWhoosh() {
-        if (!this.enabled) return;
-        this.init();
-        const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(240, now);
-        osc.frequency.exponentialRampToValueAtTime(75, now + 0.25);
-        gain.gain.setValueAtTime(0.18, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start();
-        osc.stop(now + 0.25);
-      }
-
-      playPaddleHit(isP1 = true) {
-        this.playTone(isP1 ? 523.25 : 659.25, 'triangle', 0.08, 0.2);
-      }
-
-      playSingularityGravity() {
-        this.playTone(110, 'sawtooth', 0.15, 0.12);
-      }
-
-      playScore() {
-        this.playTone(880, 'sine', 0.2, 0.25);
-      }
-    }
-
-    const audio = new CyberAudio();
-
-    // Audio toggle
-    const audioBtn = document.getElementById('audio-toggle-btn');
-    const audioIcon = document.getElementById('audio-icon');
-    audioBtn.addEventListener('click', () => {
-      audio.enabled = !audio.enabled;
-      audioIcon.textContent = audio.enabled ? '🔊' : '🔇';
-      audioBtn.classList.toggle('active', audio.enabled);
-      if (audio.enabled) audio.playTone(440, 'sine', 0.1);
-    });
-
-    /* =========================================================================
-       2. METAMORPHIC STYLE MELT ENGINE
-       Seamlessly melts through every style archetype
-       ========================================================================= */
-    const styles = [
-      { id: "cyberpunk", name: "OBSIDIAN CYBERPUNK", freq: 440, color: "#00f0ff", rings: ['#00f0ff', '#a855f7', '#f59e0b'] },
-      { id: "titanium-gold", name: "AEROSPACE TITANIUM & GOLD", freq: 523.25, color: "#fbbf24", rings: ['#fbbf24', '#f59e0b', '#d97706'] },
-      { id: "silicon-prism", name: "SILICON WAFER & PRISM", freq: 587.33, color: "#c084fc", rings: ['#38bdf8', '#c084fc', '#f472b6'] },
-      { id: "matrix-emerald", name: "QUANTUM MATRIX PHOSPHOR", freq: 659.25, color: "#10b981", rings: ['#10b981', '#34d399', '#a3e635'] },
-      { id: "synthwave-sunset", name: "SYNTHWAVE OUTRUN 1984", freq: 698.46, color: "#f43f5e", rings: ['#f43f5e', '#fb923c', '#fde047'] },
-      { id: "solarflare-plasma", name: "SOLARFLARE THERMODYNAMIC", freq: 783.99, color: "#ea580c", rings: ['#ea580c', '#facc15', '#ffffff'] },
-      { id: "stealth-carbon", name: "STEALTH PHANTOM CARBON", freq: 880.00, color: "#ffffff", rings: ['#ffffff', '#9ca3af', '#4b5563'] }
-    ];
-
-    let currentStyleIndex = 0;
-    let autoMeltActive = false;
-    let autoMeltTimer = null;
-
-    const styleStatusText = document.getElementById('style-status-text');
-    const dockLabel = document.getElementById('dock-label');
-    const cardWrapper = document.getElementById('card-wrapper');
-    const styleChips = document.querySelectorAll('.style-chip-btn');
-    const autoMeltBtn = document.getElementById('auto-melt-btn');
-    const meltDisp = document.getElementById('melt-disp');
-
-    // Trigger molten liquid distortion effect
-    const applyMeltDistortion = () => {
-      cardWrapper.classList.remove('melting-active');
-      void cardWrapper.offsetWidth; // Trigger reflow
-      cardWrapper.classList.add('melting-active');
-      setTimeout(() => cardWrapper.classList.remove('melting-active'), 900);
-    };
-
-    const meltToStyle = (index, playAudio = true) => {
-      currentStyleIndex = (index + styles.length) % styles.length;
-      const s = styles[currentStyleIndex];
-
-      // Liquid physical melt animation
-      applyMeltDistortion();
-
-      // Apply body data-style
-      document.body.setAttribute('data-style', s.id);
-      styleStatusText.textContent = `STYLE: ${s.name} // METAMORPHIC`;
-      dockLabel.textContent = s.name.split(' ')[0];
-
-      // Update chip states
-      styleChips.forEach((btn, i) => {
-        btn.classList.toggle('active', i === currentStyleIndex);
-      });
-
-      // Update 3D Toroid Mini-Canvas ring colors dynamically
-      currentToroidRings = s.rings;
-
-      // Audio feedback
-      if (playAudio) {
-        audio.playMeltTransition(s.freq);
-      }
-
-      // Persist active style across pages
-      try {
-        localStorage.setItem('SRS_ACTIVE_STYLE', s.id);
-      } catch (e) {}
-    };
-
-    // Style dock click handlers
-    styleChips.forEach((btn, i) => {
-      btn.addEventListener('click', () => {
-        if (autoMeltActive) stopAutoMelt();
-        meltToStyle(i, true);
-      });
-    });
-
-    // Auto-Melt Cycle (Configured for 30s / 60s transitions with multi-mode toggle)
-    let autoMeltSeconds = 30; // Default cadence: 30s (toggles 30s -> 60s -> OFF)
-
-    const startAutoMelt = (secs = 30) => {
-      autoMeltActive = true;
-      autoMeltSeconds = secs;
-      autoMeltBtn.classList.add('active');
-      autoMeltBtn.innerHTML = `<span>⟳</span> AUTO-MELT: ${autoMeltSeconds}s`;
-      audio.playTone(880, 'sine', 0.2);
-
-      if (autoMeltTimer) clearInterval(autoMeltTimer);
-      autoMeltTimer = setInterval(() => {
-        meltToStyle((currentStyleIndex + 1) % styles.length, true);
-      }, autoMeltSeconds * 1000);
-    };
-
-    const stopAutoMelt = () => {
-      autoMeltActive = false;
-      autoMeltBtn.classList.remove('active');
-      autoMeltBtn.innerHTML = '<span>⟳</span> AUTO-MELT: OFF';
-      if (autoMeltTimer) {
-        clearInterval(autoMeltTimer);
-        autoMeltTimer = null;
-      }
-    };
-
-    // Cycle through: 30s -> 60s -> OFF
-    autoMeltBtn.addEventListener('click', () => {
-      if (!autoMeltActive) {
-        startAutoMelt(30);
-      } else if (autoMeltSeconds === 30) {
-        startAutoMelt(60);
-      } else {
-        stopAutoMelt();
-      }
-    });
-
-    // Restore persistent style on load
-    try {
-      const savedStyle = localStorage.getItem('SRS_ACTIVE_STYLE');
-      if (savedStyle) {
-        const idx = styles.findIndex(st => st.id === savedStyle);
-        if (idx !== -1 && idx !== currentStyleIndex) {
-          meltToStyle(idx, false);
-        }
-      }
-    } catch (e) {}
-
-    // Double-click brand mark to trigger chaotic fast melt
-    document.getElementById('brand-mark-btn').addEventListener('click', () => {
-      audio.playTone(1200, 'sawtooth', 0.3);
-      meltToStyle((currentStyleIndex + 1) % styles.length, true);
-    });
-
-        /* =========================================================================
-       CYBERPUNK NAME GLITCH & MOLTEN TRANSMUTATION ENGINE
-       Defaults to 'JUSTIN HOWARD'. When clicked as an Easter Egg, glitches to
-       'redocoder' for 3.5 seconds, then automatically melts back to 'JUSTIN HOWARD'.
-       ========================================================================= */
-    const execNameEl = document.getElementById('exec-name');
-    const nameA = "JUSTIN HOWARD";
-    const nameB = "redocoder";
-    let isNameGlitching = false;
-    let revertTimeout = null;
-    const GLITCH_GLYPHS = "!@#$%^&*()_+-=~<>{}[]|/\;:01λψφΩΣπµ";
-
-    const runGlitchTransition = (targetName, onComplete) => {
-      isNameGlitching = true;
-      execNameEl.classList.add('glitching', 'melting');
-      try {
-        if (audio && audio.enabled) audio.playTone(650, 'sawtooth', 0.08);
-      } catch (e) {}
-
-      let step = 0;
-      const totalSteps = 16;
-      const originalText = execNameEl.textContent;
-      const maxLen = Math.max(originalText.length, targetName.length);
-
-      const glitchInterval = setInterval(() => {
-        step++;
-        const progress = step / totalSteps;
-
-        if (step === 8) {
-          try {
-            if (audio && audio.enabled) audio.playTone(840, 'square', 0.06);
-          } catch (e) {}
-        }
-
-        let frameText = "";
-        for (let i = 0; i < maxLen; i++) {
-          if (progress > (i / maxLen)) {
-            frameText += (i < targetName.length) ? targetName[i] : "";
-          } else if (Math.random() < 0.65) {
-            frameText += GLITCH_GLYPHS[Math.floor(Math.random() * GLITCH_GLYPHS.length)];
-          } else {
-            frameText += (i < originalText.length) ? originalText[i] : targetName[i % targetName.length];
-          }
-        }
-
-        execNameEl.textContent = frameText;
-
-        if (step >= totalSteps) {
-          clearInterval(glitchInterval);
-          execNameEl.textContent = targetName;
-          execNameEl.classList.remove('glitching', 'melting');
-          isNameGlitching = false;
-          try {
-            if (audio && audio.enabled) audio.playTone(1050, 'sine', 0.1);
-          } catch (e) {}
-          if (onComplete) onComplete();
-        }
-      }, 40);
-    };
-
-    // Easter Egg: Click name -> Glitch to 'redocoder' -> Auto revert to 'JUSTIN HOWARD' after 3.5s
-    execNameEl.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (isNameGlitching) return;
-      if (revertTimeout) clearTimeout(revertTimeout);
-
-      if (execNameEl.textContent !== nameB) {
-        runGlitchTransition(nameB, () => {
-          revertTimeout = setTimeout(() => {
-            runGlitchTransition(nameA, null);
-          }, 3500); // Stays on redocoder for 3.5 seconds
-        });
-      } else {
-        runGlitchTransition(nameA, null);
-      }
-    });
-
-    /* =========================================================================
-       3. 3D CARD PARALLAX & HOLOGRAPHIC FOIL INTERACTION
-       ========================================================================= */
-    const cardInner = document.getElementById('card-inner');
-    const holoSheen = document.getElementById('holo-sheen');
-    let isFlipped = false;
-
-    // Flip handlers
-    const flipBtn = document.getElementById('flip-btn');
-    const flipBackBtn = document.getElementById('flip-back-btn');
-    const toggleFlip = () => {
-      isFlipped = !isFlipped;
-      cardInner.classList.toggle('flipped', isFlipped);
-      audio.playWhoosh();
-    };
-    flipBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleFlip(); });
-    flipBackBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleFlip(); });
-
-    let targetX = 0, targetY = 0;
-    let curX = 0, curY = 0;
-
-    const handleMove = (clientX, clientY) => {
-      const rect = cardWrapper.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const normX = (clientX - centerX) / (rect.width / 2);
-      const normY = (clientY - centerY) / (rect.height / 2);
-
-      targetX = -normY * 18;
-      targetY = normX * 18;
-
-      const sheenX = normX * 55;
-      const sheenY = normY * 55;
-      holoSheen.style.transform = `translate(${sheenX}px, ${sheenY}px)`;
-    };
-
-    window.addEventListener('mousemove', (e) => handleMove(e.clientX, e.clientY));
-    window.addEventListener('touchmove', (e) => {
-      if (e.touches.length > 0) handleMove(e.touches[0].clientX, e.touches[0].clientY);
-    }, { passive: true });
-
-    if (window.DeviceOrientationEvent) {
-      window.addEventListener('deviceorientation', (e) => {
-        if (e.gamma !== null && e.beta !== null) {
-          targetY = Math.min(Math.max(e.gamma * 0.7, -20), 20);
-          targetX = Math.min(Math.max((e.beta - 45) * 0.7, -20), 20);
-        }
-      });
-    }
-
-    const animateCard = () => {
-      curX += (targetX - curX) * 0.1;
-      curY += (targetY - curY) * 0.1;
-      cardWrapper.style.transform = `rotateX(${curX.toFixed(2)}deg) rotateY(${curY.toFixed(2)}deg)`;
-      requestAnimationFrame(animateCard);
-    };
-    animateCard();
-
-    /* =========================================================================
-       4. TACTILE NFC CHIP PULSE & VCARD DOWNLOAD
-       ========================================================================= */
-    const nfcChip = document.getElementById('nfc-chip');
-    let tapCount = 0;
-
-    nfcChip.addEventListener('click', (e) => {
-      e.stopPropagation();
-      audio.playNfcPulse();
-
-      const rect = nfcChip.getBoundingClientRect();
-      const wave = document.createElement('div');
-      wave.className = 'shockwave';
-      wave.style.left = `${rect.left + rect.width / 2}px`;
-      wave.style.top = `${rect.top + rect.height / 2}px`;
-      document.body.appendChild(wave);
-      setTimeout(() => wave.remove(), 850);
-
-      tapCount++;
-      if (tapCount === 3) {
-        startAutoMelt();
-        printTerm("⚡ HYPER-MELT TRIGGERED VIA TRIPLE NFC PULSE!", "var(--primary-accent)");
-      }
-    });
-
-    const downloadVCard = () => {
-      audio.playTone(600, 'sine', 0.15);
-      const vCardData = [
-        "BEGIN:VCARD",
-        "VERSION:3.0",
-        "N:Redocoder;;;",
-        "FN:Redocoder",
-        "ORG:Scalar Resonant Systems Inc.;",
-        "TITLE:Chief Architect & Founder",
-        "EMAIL;TYPE=INTERNET,WORK:founder@scalarresonant.com",
-        "URL:https://scalarresonant.com",
-        "NOTE:Non-Euclidean Photonic Tensor Processor Core. 3D Desargues Architecture.",
-        "END:VCARD"
-      ].join("\r\n");
-
-      const blob = new Blob([vCardData], { type: "text/vcard;charset=utf-8" });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = "Justin_Howard_redocoder.vcf";
-      document.body.appendChild(link);
-      link.click();
-      document.body.appendChild(link);
-      setTimeout(() => { link.remove(); URL.revokeObjectURL(url); }, 200);
-    };
-
-    document.getElementById('vcard-btn').addEventListener('click', downloadVCard);
-
-    /* =========================================================================
-       5. DYNAMIC 3D TOROID CANVAS (Color-matched to active melting style)
-       ========================================================================= */
-    const toroidCanvas = document.getElementById('toroid-mini-canvas');
-    const tCtx = toroidCanvas.getContext('2d');
-    let toroidAngleX = 0.6;
-    let toroidAngleY = 0.0;
-    let toroidSpeed = 0.02;
-    let currentToroidRings = ['#00f0ff', '#a855f7', '#f59e0b'];
-
-    const renderToroid = () => {
-      tCtx.clearRect(0, 0, 230, 230);
-      const cx = 115, cy = 115;
-
-      const rings = [
-        { r: 36, color: currentToroidRings[0] || '#00f0ff', count: 28 },
-        { r: 58, color: currentToroidRings[1] || '#a855f7', count: 42 },
-        { r: 84, color: currentToroidRings[2] || '#f59e0b', count: 56 }
-      ];
-
-      toroidAngleY += toroidSpeed;
-
-      rings.forEach((ring, rIdx) => {
-        tCtx.beginPath();
-        for (let i = 0; i <= ring.count; i++) {
-          const theta = (i / ring.count) * Math.PI * 2;
-          const x0 = ring.r * Math.cos(theta);
-          const y0 = ring.r * Math.sin(theta);
-          const z0 = Math.sin(theta * 3 + toroidAngleY * 2) * 8;
-
-          const cosY = Math.cos(toroidAngleY + rIdx * 0.4);
-          const sinY = Math.sin(toroidAngleY + rIdx * 0.4);
-          const cosX = Math.cos(toroidAngleX);
-          const sinX = Math.sin(toroidAngleX);
-
-          const x1 = x0 * cosY + z0 * sinY;
-          const z1 = -x0 * sinY + z0 * cosY;
-          const y1 = y0 * cosX - z1 * sinX;
-
-          const px = cx + x1;
-          const py = cy + y1;
-
-          if (i === 0) tCtx.moveTo(px, py);
-          else tCtx.lineTo(px, py);
-        }
-        tCtx.strokeStyle = ring.color;
-        tCtx.lineWidth = 1.9;
-        tCtx.shadowColor = ring.color;
-        tCtx.shadowBlur = 9;
-        tCtx.stroke();
-      });
-
-      // Singularity core emitter dot
-      tCtx.beginPath();
-      tCtx.arc(cx, cy, 3.8, 0, Math.PI * 2);
-      tCtx.fillStyle = '#ffffff';
-      tCtx.shadowColor = currentToroidRings[0];
-      tCtx.shadowBlur = 14;
-      tCtx.fill();
-
-      requestAnimationFrame(renderToroid);
-    };
-    renderToroid();
-
-    toroidCanvas.addEventListener('mousedown', () => {
-      toroidSpeed = 0.08;
-      audio.playTone(330, 'sawtooth', 0.1);
-    });
-    window.addEventListener('mouseup', () => {
-      toroidSpeed = 0.02;
-    });
-
-    /* =========================================================================
-       6. LEGEND OF THE RED DRAGON (L.O.R.D.) BBS ENGINE v3.26
-       Authentic BBS Text RPG: Forest, Town, Abduls, King Arthur, Violet, Dragon
-       ========================================================================= */
-    const gameModal = document.getElementById('game-modal');
-    const launchGameBtn = document.getElementById('launch-game-btn');
-    const gameCloseBtn = document.getElementById('game-close-btn');
-    const lordScreen = document.getElementById('lord-screen');
-    const lordInput = document.getElementById('lord-input');
-    const lordTouchPad = document.getElementById('lord-touch-pad');
-    const lordPromptLabel = document.getElementById('lord-prompt-label');
-
-    // HUD Elements
-    const hudName = document.getElementById('hud-name');
-    const hudLevel = document.getElementById('hud-level');
-    const hudHp = document.getElementById('hud-hp');
-    const hudGold = document.getElementById('hud-gold');
-    const hudBank = document.getElementById('hud-bank');
-    const hudGems = document.getElementById('hud-gems');
-    const hudFights = document.getElementById('hud-fights');
-
-    // Game Audio FX
-    const playLordBeep = (freq = 440, type = 'square', dur = 0.08) => {
-      try {
-        if (audio && audio.enabled) audio.playTone(freq, type, dur);
-      } catch (e) {}
-    };
-
-    const playLordHit = () => {
-      try {
-        if (audio && audio.enabled) {
-          audio.playTone(150, 'sawtooth', 0.1);
-          setTimeout(() => audio.playTone(80, 'sine', 0.12), 40);
-        }
-      } catch (e) {}
-    };
-
-    const playLordVictory = () => {
-      try {
-        if (audio && audio.enabled) {
-          audio.playTone(523, 'square', 0.1);
-          setTimeout(() => audio.playTone(659, 'square', 0.12), 90);
-          setTimeout(() => audio.playTone(784, 'square', 0.2), 180);
-        }
-      } catch (e) {}
-    };
-
-    const playLordDragonRoar = () => {
-      try {
-        if (audio && audio.enabled) {
-          audio.playTone(90, 'sawtooth', 0.4);
-          setTimeout(() => audio.playTone(65, 'sawtooth', 0.6), 100);
-        }
-      } catch (e) {}
-    };
-
-    // Weapons and Armors
-    const WEAPONS = [
-      { name: "Stick", power: 5, cost: 0 },
-      { name: "Dagger", power: 12, cost: 200 },
-      { name: "Short Sword", power: 22, cost: 750 },
-      { name: "Broadsword", power: 40, cost: 2200 },
-      { name: "Battle Axe", power: 75, cost: 6500 },
-      { name: "Vorpal Blade", power: 130, cost: 18000 },
-      { name: "Photonic Saber", power: 240, cost: 50000 },
-      { name: "Toroid Singularity Lance", power: 500, cost: 150000 }
-    ];
-
-    const ARMORS = [
-      { name: "Rags", defense: 2, cost: 0 },
-      { name: "Padded Leather", defense: 8, cost: 180 },
-      { name: "Studded Leather", defense: 18, cost: 650 },
-      { name: "Ring Mail", defense: 35, cost: 2000 },
-      { name: "Chain Mail", defense: 65, cost: 6000 },
-      { name: "Plate Mail", defense: 110, cost: 16000 },
-      { name: "Beryllium Crystal Carapace", defense: 200, cost: 45000 },
-      { name: "Aegis Toroidal Shielding", defense: 420, cost: 140000 }
-    ];
-
-    const FOREST_MONSTERS = [
-      { name: "Ugly Rat", minLvl: 1, hp: 12, maxHp: 12, str: 6, def: 2, exp: 15, gold: 25 },
-      { name: "Forest Pixie", minLvl: 1, hp: 18, maxHp: 18, str: 8, def: 3, exp: 25, gold: 40 },
-      { name: "Rabid Wolf", minLvl: 1, hp: 26, maxHp: 26, str: 12, def: 5, exp: 40, gold: 70 },
-      { name: "Woodland Bandit", minLvl: 2, hp: 45, maxHp: 45, str: 20, def: 10, exp: 80, gold: 140 },
-      { name: "Goblin Scavenger", minLvl: 2, hp: 60, maxHp: 60, str: 28, def: 14, exp: 120, gold: 220 },
-      { name: "Forest Troll", minLvl: 3, hp: 95, maxHp: 95, str: 42, def: 22, exp: 220, gold: 400 },
-      { name: "Dark Elf Assassin", minLvl: 4, hp: 140, maxHp: 140, str: 60, def: 32, exp: 380, gold: 750 },
-      { name: "Mountain Ogre", minLvl: 5, hp: 210, maxHp: 210, str: 85, def: 48, exp: 650, gold: 1400 },
-      { name: "Rogue Cyber-Alchemist", minLvl: 6, hp: 320, maxHp: 320, str: 120, def: 70, exp: 1100, gold: 2500 },
-      { name: "Ancient Minotaur", minLvl: 7, hp: 480, maxHp: 480, str: 170, def: 100, exp: 1900, gold: 4500 },
-      { name: "Shadow Wyrm", minLvl: 8, hp: 700, maxHp: 700, str: 240, def: 150, exp: 3200, gold: 8000 }
-    ];
-
-    const MASTER_TURGON = [
-      { lvl: 1, name: "Halflings Apprentice", hp: 35, str: 15, def: 8, expReq: 100 },
-      { lvl: 2, name: "Squire Roderick", hp: 70, str: 28, def: 16, expReq: 400 },
-      { lvl: 3, name: "Master Turgon Himself", hp: 130, str: 50, def: 30, expReq: 1200 },
-      { lvl: 4, name: "Sir Lancelot of the Marsh", hp: 220, str: 85, def: 52, expReq: 3200 },
-      { lvl: 5, name: "High Inquisitor Malakor", hp: 360, str: 130, def: 85, expReq: 7500 },
-      { lvl: 6, name: "Arch-Mage Kaelen", hp: 550, str: 190, def: 130, expReq: 16000 },
-      { lvl: 7, name: "Titan Knight Valerius", hp: 850, str: 280, def: 200, expReq: 35000 },
-      { lvl: 8, name: "Dragon-Lord Ignis", hp: 1300, str: 400, def: 300, expReq: 75000 }
-    ];
-
-    // Default Player State
-    const defaultPlayer = {
-      name: "REDOCODER",
-      level: 1,
-      hp: 30,
-      maxHp: 30,
-      str: 15,
-      def: 10,
-      exp: 0,
-      gold: 350,
-      bank: 150,
-      gems: 2,
-      fights: 15,
-      weaponIdx: 0,
-      armorIdx: 0,
-      flirtCount: 0,
-      innSleep: false,
-      dragonSlain: false,
-      lastLoginDay: new Date().toDateString()
-    };
-
-    let player = { ...defaultPlayer };
-    let gameState = "TOWN"; // TOWN, FOREST, COMBAT, INN, BANK, WEAPONS, ARMOR, HEALER, TURGON, DRAGON, STATS
-    let currentEnemy = null;
-    let combatReturnState = "FOREST";
-    let pendingAction = null;
-
-    // Load from LocalStorage
-    const loadLordData = () => {
-      try {
-        const saved = localStorage.getItem('SRS_LORD_SAVE_V1');
-        if (saved) {
-          player = Object.assign({}, defaultPlayer, JSON.parse(saved));
-          // Daily fight reset check
-          const today = new Date().toDateString();
-          if (player.lastLoginDay !== today) {
-            player.fights = 15;
-            player.flirtCount = 0;
-            player.innSleep = false;
-            // Bank interest 5%
-            player.bank = Math.floor(player.bank * 1.05);
-            player.lastLoginDay = today;
-            saveLordData();
-          }
-        }
-      } catch (e) {
-        console.warn("Could not load LORD save:", e);
-      }
-    };
-
-    const saveLordData = () => {
-      try {
-        localStorage.setItem('SRS_LORD_SAVE_V1', JSON.stringify(player));
-      } catch (e) {}
-    };
-
-    const updateHud = () => {
-      hudName.textContent = player.name;
-      hudLevel.textContent = player.level;
-      hudHp.textContent = `${Math.max(0, player.hp)}/${player.maxHp}`;
-      hudHp.style.color = player.hp < player.maxHp * 0.3 ? '#f87171' : '#86efac';
-      hudGold.textContent = player.gold.toLocaleString();
-      hudBank.textContent = player.bank.toLocaleString();
-      hudGems.textContent = player.gems;
-      hudFights.textContent = player.fights;
-    };
-
-    // Terminal Screen Rendering Engine
-    const writeLine = (htmlText = "") => {
-      const line = document.createElement('div');
-      line.innerHTML = htmlText;
-      lordScreen.appendChild(line);
-      lordScreen.scrollTop = lordScreen.scrollHeight;
-    };
-
-    const clearScreen = () => {
-      lordScreen.innerHTML = "";
-    };
-
-    const setPrompt = (text, options = []) => {
-      lordPromptLabel.textContent = text;
-      lordTouchPad.innerHTML = "";
-      options.forEach(opt => {
-        const btn = document.createElement('button');
-        btn.className = 'lord-pad-btn';
-        btn.innerHTML = `<span class="lord-pad-key">[${opt.key}]</span> ${opt.label}`;
-        btn.addEventListener('click', () => {
-          handleInput(opt.key);
-        });
-        lordTouchPad.appendChild(btn);
-      });
-      lordInput.value = "";
-      setTimeout(() => lordInput.focus(), 50);
-    };
-
-    /* ================= SCREEN CONTROLLERS ================= */
-
-    const showTownSquare = () => {
-      gameState = "TOWN";
-      updateHud();
-      clearScreen();
-      writeLine("<span class='c-lred'>========================================================================</span>");
-      writeLine("<span class='c-gold'>               ⚔ THE REALM OF OASIS // TOWN SQUARE ⚔</span>");
-      writeLine("<span class='c-lred'>========================================================================</span>");
-      writeLine("<span class='c-gray'>Cobblestones echo with armored footsteps. A crisp breeze carries the scent</span>");
-      writeLine("<span class='c-gray'>of roasting boar from the tavern and distant sulfur from the dragon peaks.</span>\n");
-      writeLine("<span class='c-lcyan'>The bustling village stands before you:</span>\n");
-      writeLine("<span class='c-key'>[F]</span> <span class='c-yellow'>The Dark Forest</span>          - Venture out to battle beasts & gain EXP");
-      writeLine("<span class='c-key'>[I]</span> <span class='c-yellow'>The Pig's Whistle Inn</span>     - Rest, talk to the Bard, flirt with Violet");
-      writeLine("<span class='c-key'>[W]</span> <span class='c-yellow'>Abdul's Weapon Emporium</span>   - Buy legendary blades & photonic sabers");
-      writeLine("<span class='c-key'>[A]</span> <span class='c-yellow'>Arthur's Armor Shoppe</span>     - Equip plate mail & crystal shielding");
-      writeLine("<span class='c-key'>[H]</span> <span class='c-yellow'>Healer's Sanity Hut</span>       - Brew elixirs to heal wounds");
-      writeLine("<span class='c-key'>[B]</span> <span class='c-yellow'>Ye Olde Imperial Bank</span>     - Safe storage (5% daily interest)");
-      writeLine("<span class='c-key'>[T]</span> <span class='c-yellow'>Turgon's Training Guild</span>   - Challenge the Master to level up!");
-      writeLine("<span class='c-key'>[S]</span> <span class='c-yellow'>View Your Hero Stats</span>      - Detailed combat breakdown");
-      writeLine("<span class='c-key'>[D]</span> <span class='c-lred'>THE RED DRAGON'S LAIR</span>      - Dare to enter the volcano!");
-      writeLine("<span class='c-key'>[Q]</span> <span class='c-gray'>Return to Business Card</span>");
-
-      setPrompt("TOWN SQUARE (F/I/W/A/H/B/T/S/D/Q):", [
-        { key: "F", label: "Forest" },
-        { key: "I", label: "The Inn" },
-        { key: "W", label: "Weapons" },
-        { key: "A", label: "Armor" },
-        { key: "H", label: "Healer" },
-        { key: "B", label: "Bank" },
-        { key: "T", label: "Turgon" },
-        { key: "S", label: "Stats" },
-        { key: "D", label: "Dragon Lair" },
-        { key: "Q", label: "Quit" }
-      ]);
-    };
-
-    /* ================= THE FOREST ================= */
-    const showForest = () => {
-      gameState = "FOREST";
-      updateHud();
-      clearScreen();
-      writeLine("<span class='c-green'>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>");
-      writeLine("<span class='c-lgreen'>                      🌲 THE ENCHANTED DARK FOREST 🌲</span>");
-      writeLine("<span class='c-green'>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>");
-      writeLine("<span class='c-gray'>Towering ancient oaks block the sun. Moss clings to glowing crystal ruins.</span>");
-      writeLine(`<span class='c-yellow'>You have <b>${player.fights}</b> forest encounters remaining today.</span>\n`);
-
-      if (player.hp <= 0) {
-        writeLine("<span class='c-lred'>You are unconscious and bleeding! Visit the Healer immediately.</span>");
-        setPrompt("RETURN TO TOWN [R]:", [{ key: "R", label: "Return to Town" }]);
-        return;
-      }
-
-      writeLine("<span class='c-key'>[L]</span> <span class='c-yellow'>Look for Something to Fight</span>");
-      writeLine("<span class='c-key'>[R]</span> <span class='c-yellow'>Return to the Safety of Town</span>");
-
-      setPrompt("FOREST COMMAND (L/R):", [
-        { key: "L", label: "Fight Monster" },
-        { key: "R", label: "Town" }
-      ]);
-    };
-
-    const triggerForestEncounter = () => {
-      if (player.fights <= 0) {
-        clearScreen();
-        writeLine("<span class='c-lred'>\nYou are exhausted! No more forest fights remain today.</span>");
-        writeLine("<span class='c-gray'>Rest at the Inn or wait for the morning to regain your energy.</span>\n");
-        setPrompt("PRESS [R] TO RETURN:", [{ key: "R", label: "Return to Town" }]);
-        return;
-      }
-
-      player.fights--;
-      updateHud();
-      saveLordData();
-
-      // Random Event Chance (15%)
-      const roll = Math.random();
-      if (roll < 0.07) {
-        // Find Gold
-        const found = Math.floor(Math.random() * 80 + 30) * player.level;
-        clearScreen();
-        playLordVictory();
-        writeLine("<span class='c-gold'>\n💰 A GLINT IN THE BUSHES!</span>");
-        writeLine(`<span class='c-yellow'>You uncover an abandoned traveler's pouch containing <b>${found} GOLD</b>!</span>\n`);
-        player.gold += found;
-        updateHud();
-        saveLordData();
-        setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
-        pendingAction = () => showForest();
-        return;
-      } else if (roll < 0.12) {
-        // Find Gem
-        clearScreen();
-        playLordVictory();
-        writeLine("<span class='c-lcyan'>\n💎 GEMSTONE DISCOVERY!</span>");
-        writeLine("<span class='c-cyan'>Wedged inside a petrified tree hollow, you pry loose a sparkling green <b>GEM</b>!</span>\n");
-        player.gems += 1;
-        updateHud();
-        saveLordData();
-        setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
-        pendingAction = () => showForest();
-        return;
-      } else if (roll < 0.16) {
-        // Old Hermit Blessing
-        clearScreen();
-        playLordVictory();
-        writeLine("<span class='c-lcyan'>\n🧙 THE MYSTIC OLD HERMIT OF THE WOODS</span>");
-        writeLine("<span class='c-gray'>A robed elder steps out from behind an ancient toroid monolithic arch.</span>");
-        writeLine("<span class='c-lgreen'>'Be protected, young warrior,' he chants, sprinkling optical stardust upon you.</span>");
-        const heal = Math.min(player.maxHp - player.hp, 25 * player.level);
-        player.hp += heal;
-        writeLine(`<span class='c-green'>Your wounds seal! You recover <b>${heal} HP</b>.</span>\n`);
-        updateHud();
-        saveLordData();
-        setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
-        pendingAction = () => showForest();
-        return;
-      }
-
-      // Spawn monster scaled to player level
-      const eligible = FOREST_MONSTERS.filter(m => m.minLvl <= player.level + 1);
-      const template = eligible[Math.floor(Math.random() * eligible.length)];
-      
-      const variance = 0.85 + Math.random() * 0.3;
-      currentEnemy = {
-        name: template.name,
-        hp: Math.floor(template.hp * variance),
-        maxHp: Math.floor(template.hp * variance),
-        str: Math.floor(template.str * variance),
-        def: Math.floor(template.def * variance),
-        exp: Math.floor(template.exp * variance),
-        gold: Math.floor(template.gold * variance)
-      };
-
-      combatReturnState = "FOREST";
-      startCombat();
-    };
-
-    /* ================= COMBAT SYSTEM ================= */
-    const startCombat = () => {
-      gameState = "COMBAT";
-      playLordHit();
-      renderCombatRound("A hostile shadow leaps from the undergrowth!");
-    };
-
-    const renderCombatRound = (message = "") => {
-      clearScreen();
-      writeLine("<span class='c-lred'>========================================================================</span>");
-      writeLine(`<span class='c-lred'>                      ⚔ BATTLE IN PROGRESS ⚔</span>`);
-      writeLine("<span class='c-lred'>========================================================================</span>");
-      if (message) writeLine(`<span class='c-yellow'>${message}</span>\n`);
-
-      writeLine(`<span class='c-white'>HERO: <b>${player.name}</b> (Lvl ${player.level})</span>`);
-      writeLine(`  HP: <span class='c-lgreen'>${player.hp}/${player.maxHp}</span> | Weapon: <span class='c-cyan'>${WEAPONS[player.weaponIdx].name}</span> | Armor: <span class='c-cyan'>${ARMORS[player.armorIdx].name}</span>\n`);
-
-      writeLine(`<span class='c-lred'>FOE: <b>${currentEnemy.name}</b></span>`);
-      writeLine(`  HP: <span class='c-red'>${Math.max(0, currentEnemy.hp)}/${currentEnemy.maxHp}</span> | Strength: ${currentEnemy.str} | Armor: ${currentEnemy.def}\n`);
-
-      writeLine("<span class='c-key'>[A]</span> <span class='c-yellow'>Attack With Weapon</span>");
-      writeLine("<span class='c-key'>[R]</span> <span class='c-yellow'>Run Like a Coward (Try to Flee)</span>");
-
-      setPrompt("COMBAT (A/R):", [
-        { key: "A", label: "Attack" },
-        { key: "R", label: "Run" }
-      ]);
-    };
-
-    const playerAttackRound = () => {
-      playLordHit();
-      const weaponPwr = WEAPONS[player.weaponIdx].power;
-      const baseDmg = Math.max(1, Math.floor(player.str + weaponPwr - currentEnemy.def * 0.4));
-      const variation = Math.floor((Math.random() - 0.3) * 8);
-      const isCrit = Math.random() < 0.15;
-      let totalDmg = Math.max(1, baseDmg + variation);
-      if (isCrit) totalDmg = Math.floor(totalDmg * 1.8);
-
-      currentEnemy.hp -= totalDmg;
-
-      let combatLog = `You strike the <b>${currentEnemy.name}</b> with your <b>${WEAPONS[player.weaponIdx].name}</b> for <span class='c-lred'>${totalDmg}</span> damage!`;
-      if (isCrit) combatLog += " <span class='c-gold'>*** CRITICAL STRIKE! ***</span>";
-
-      if (currentEnemy.hp <= 0) {
-        // VICTORY!
-        playLordVictory();
-        player.exp += currentEnemy.exp;
-        player.gold += currentEnemy.gold;
-        updateHud();
-        saveLordData();
-
-        clearScreen();
-        writeLine("<span class='c-lgreen'>\n========================================================================</span>");
-        writeLine("<span class='c-gold'>                      ⚔ VICTORY IN COMBAT! ⚔</span>");
-        writeLine("<span class='c-lgreen'>========================================================================</span>");
-        writeLine(`<span class='c-white'>The ${currentEnemy.name} collapses into the mud with a final gasp!</span>\n`);
-        writeLine(`<span class='c-yellow'>You search the corpse and plunder <b>${currentEnemy.gold} GOLD</b>!</span>`);
-        writeLine(`<span class='c-lcyan'>You gain <b>${currentEnemy.exp} EXPERIENCE POINTS</b>!</span>\n`);
-
-        if (combatReturnState === "TURGON") {
-          // Master Turgon Defeated! Level Up!
-          player.level += 1;
-          player.maxHp += 20;
-          player.hp = player.maxHp;
-          player.str += 12;
-          player.def += 8;
-          writeLine("<span class='c-gold'>\n🌟 *** CONGRATULATIONS! YOU HAVE ADVANCED IN LEVEL! *** 🌟</span>");
-          writeLine(`<span class='c-lgreen'>Master Turgon bows respectfully: 'You have proven your valor! You are now Level ${player.level}!'</span>`);
-          writeLine("<span class='c-cyan'>+20 Max HP | +12 Strength | +8 Defense | Full HP Restored!</span>\n");
-          updateHud();
-          saveLordData();
-          setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
-          pendingAction = () => showTownSquare();
-          return;
-        }
-
-        if (combatReturnState === "DRAGON") {
-          // DRAGON DEFEATED! GAME WON!
-          player.dragonSlain = true;
-          player.gold += 50000;
-          player.gems += 20;
-          updateHud();
-          saveLordData();
-          clearScreen();
-          writeLine("<span class='c-gold'>\n🐲====================================================================🐲</span>");
-          writeLine("<span class='c-gold'>        👑 VICTORY! YOU HAVE SLAIN THE LEGENDARY RED DRAGON! 👑</span>");
-          writeLine("<span class='c-gold'>🐲====================================================================🐲</span>");
-          writeLine("<span class='c-lred'>With an earth-shattering bellow, the great crimson leviathan crashes</span>");
-          writeLine("<span class='c-lred'>into the magma chasm! Smoke clears, revealing the dragon's glittering hoard:</span>\n");
-          writeLine("<span class='c-yellow'>+50,000 GOLD COINS!</span>");
-          writeLine("<span class='c-lcyan'>+20 FLAWLESS GEMSTONES!</span>");
-          writeLine("<span class='c-gold'>FOUNDER STATUS: TITAN OF THE TOROIDAL REALM!</span>\n");
-          writeLine("<span class='c-gray'>Your name shall be inscribed upon the immutable silicon monuments forever.</span>\n");
-          setPrompt("PRESS [C] TO RETURN TRIUMPHANT:", [{ key: "C", label: "Triumph" }]);
-          pendingAction = () => showTownSquare();
-          return;
-        }
-
-        setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
-        pendingAction = () => showForest();
-        return;
-      }
-
-      // Enemy Counter-Attacks!
-      const armorDef = ARMORS[player.armorIdx].defense;
-      const enemyBaseDmg = Math.max(1, Math.floor(currentEnemy.str - (player.def + armorDef) * 0.45));
-      const enemyVar = Math.floor((Math.random() - 0.4) * 6);
-      const enemyDmg = Math.max(1, enemyBaseDmg + enemyVar);
-
-      player.hp -= enemyDmg;
-      updateHud();
-      saveLordData();
-
-      combatLog += `<br><span class='c-red'>The <b>${currentEnemy.name}</b> counter-strikes viciously, inflicting <span class='c-lred'>${enemyDmg}</span> damage to you!</span>`;
-
-      if (player.hp <= 0) {
-        // DEFEAT!
-        player.hp = 0;
-        updateHud();
-        saveLordData();
-        clearScreen();
-        writeLine("<span class='c-lred'>\n========================================================================</span>");
-        writeLine("<span class='c-red'>                         💀 YOU HAVE BEEN SLAIN! 💀</span>");
-        writeLine("<span class='c-lred'>========================================================================</span>");
-        writeLine(`<span class='c-gray'>The ${currentEnemy.name} delivers a devastating death blow. Darkness engulfs you.</span>\n`);
-        const lostGold = Math.floor(player.gold * 0.5);
-        player.gold -= lostGold;
-        writeLine(`<span class='c-yellow'>Scavengers loot your lifeless body for <b>${lostGold} GOLD</b>!</span>`);
-        writeLine("<span class='c-cyan'>Town monks drag your battered shell back to the Healer's hut...</span>\n");
-        updateHud();
-        saveLordData();
-        setPrompt("PRESS [C] TO AWAKEN IN TOWN:", [{ key: "C", label: "Awaken" }]);
-        pendingAction = () => {
-          player.hp = 5; // Resurrect with 5 HP
-          updateHud();
-          saveLordData();
-          showTownSquare();
-        };
-        return;
-      }
-
-      renderCombatRound(combatLog);
-    };
-
-    const tryFlee = () => {
-      if (Math.random() < 0.55) {
-        clearScreen();
-        writeLine("<span class='c-yellow'>\nYou turn on your heel and sprint frantically through the thorns!</span>");
-        writeLine("<span class='c-lgreen'>You managed to escape safely!</span>\n");
-        setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
-        pendingAction = () => showForest();
-      } else {
-        const scratch = Math.floor(Math.random() * 6 + 4);
-        player.hp = Math.max(1, player.hp - scratch);
-        updateHud();
-        saveLordData();
-        renderCombatRound(`<span class='c-lred'>You tripped over an ancient root! The ${currentEnemy.name} slashes you for ${scratch} damage as you scramble to your feet!</span>`);
-      }
-    };
-
-    /* ================= THE INN ================= */
-    const showInn = () => {
-      gameState = "INN";
-      updateHud();
-      clearScreen();
-      writeLine("<span class='c-gold'>========================================================================</span>");
-      writeLine("<span class='c-yellow'>                  🍺 THE PIG'S WHISTLE INN & TAVERN 🍺</span>");
-      writeLine("<span class='c-gold'>========================================================================</span>");
-      writeLine("<span class='c-gray'>Firelight dances across seasoned oak beams. A lute strums in the corner</span>");
-      writeLine("<span class='c-gray'>and hearty cyber-ale flows freely from brass kegs.</span>\n");
-      writeLine("<span class='c-key'>[B]</span> <span class='c-yellow'>Converse with Seth Able the Bard</span>");
-      writeLine("<span class='c-key'>[F]</span> <span class='c-magenta'>Flirt with Violet the Barmaid</span>");
-      writeLine("<span class='c-key'>[A]</span> <span class='c-yellow'>Order a Tankard of Cyber-Ale (20 Gold)</span>");
-      writeLine("<span class='c-key'>[S]</span> <span class='c-cyan'>Sleep in a Warm Bed (Save & Restore 5 HP)</span>");
-      writeLine("<span class='c-key'>[R]</span> <span class='c-gray'>Return to Town Square</span>");
-
-      setPrompt("INN (B/F/A/S/R):", [
-        { key: "B", label: "Bard" },
-        { key: "F", label: "Violet" },
-        { key: "A", label: "Ale" },
-        { key: "S", label: "Sleep" },
-        { key: "R", label: "Town" }
-      ]);
-    };
-
-    const talkBard = () => {
-      clearScreen();
-      playLordVictory();
-      const rumors = [
-        "'The Red Dragon nests upon the Obsidian Toroid spire... only those with Dragon Plate and Vorpal weapons survive!'",
-        "'Did you know? Depositing gold in the Imperial Bank yields 5% compound interest each real day!'",
-        "'Turgon only trains warriors who possess enough combat experience from the dark forest.'",
-        "'In the deep woods, ancient monoliths occasionally bestow flawless gems to wandering souls.'",
-        "'Beware the Mountain Ogres; their crude clubs shatter light leather armors!'"
-      ];
-      const rumor = rumors[Math.floor(Math.random() * rumors.length)];
-      writeLine("<span class='c-gold'>\n🎶 SETH ABLE STRUMS HIS LUTE 🎶</span>");
-      writeLine(`<span class='c-yellow'>${rumor}</span>\n`);
-      setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
-      pendingAction = () => showInn();
-    };
-
-    const flirtViolet = () => {
-      clearScreen();
-      if (player.flirtCount >= 3) {
-        writeLine("<span class='c-magenta'>\nViolet winks and laughs: 'My, you are persistent today! Go slay some beasts and come back tonight!'</span>\n");
-      } else {
-        player.flirtCount++;
-        const smiles = [
-          "Violet blushes warmly as you recount your latest dungeon conquest. She brings you extra cider!",
-          "You present a delicate forest petal. Violet smiles brightly and kisses your cheek!",
-          "Violet giggles: 'A brave hero like you shouldn't be wandering alone in the dark forest...'"
-        ];
-        writeLine("<span class='c-magenta'>\n💖 FLIRTING WITH VIOLET 💖</span>");
-        writeLine(`<span class='c-white'>${smiles[player.flirtCount - 1]}</span>\n`);
-        player.hp = Math.min(player.maxHp, player.hp + 5);
-        updateHud();
-        saveLordData();
-      }
-      setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
-      pendingAction = () => showInn();
-    };
-
-    /* ================= WEAPON SHOP ================= */
-    const showWeapons = () => {
-      gameState = "WEAPONS";
-      updateHud();
-      clearScreen();
-      writeLine("<span class='c-lcyan'>========================================================================</span>");
-      writeLine("<span class='c-cyan'>                    ⚔ ABDUL'S WEAPON EMPORIUM ⚔</span>");
-      writeLine("<span class='c-lcyan'>========================================================================</span>");
-      writeLine("<span class='c-gray'>Abdul grins showing a gold tooth, polishing a gleaming broadsword.</span>");
-      writeLine(`<span class='c-yellow'>You currently wield: <b>${WEAPONS[player.weaponIdx].name}</b> (+${WEAPONS[player.weaponIdx].power} ATK)</span>\n`);
-
-      const options = [];
-      WEAPONS.forEach((w, idx) => {
-        if (idx === player.weaponIdx) {
-          writeLine(`<span class='c-green'>[${idx + 1}] ${w.name} - EQUIPPED (Power: +${w.power})</span>`);
-        } else if (idx < player.weaponIdx) {
-          writeLine(`<span class='c-gray'>[${idx + 1}] ${w.name} - OUTGROWN</span>`);
-        } else {
-          writeLine(`<span class='c-key'>[${idx + 1}]</span> <span class='c-yellow'>${w.name}</span> (Power: +${w.power}) - Cost: <span class='c-gold'>${w.cost.toLocaleString()} Gold</span>`);
-          options.push({ key: String(idx + 1), label: w.name });
-        }
-      });
-      writeLine("\n<span class='c-key'>[R]</span> <span class='c-gray'>Return to Town</span>");
-      options.push({ key: "R", label: "Town" });
-
-      setPrompt("CHOOSE WEAPON TO BUY:", options);
-    };
-
-    const buyWeapon = (idx) => {
-      const weapon = WEAPONS[idx];
-      if (!weapon) return;
-      if (idx <= player.weaponIdx) {
-        clearScreen();
-        writeLine("<span class='c-yellow'>\nYou already possess this weapon or a superior one!</span>\n");
-        setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
-        pendingAction = () => showWeapons();
-        return;
-      }
-      if (player.gold < weapon.cost) {
-        clearScreen();
-        writeLine("<span class='c-lred'>\nAbdul scoffs: 'You don't have enough gold for that fine blade!'</span>\n");
-        setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
-        pendingAction = () => showWeapons();
-        return;
-      }
-
-      player.gold -= weapon.cost;
-      player.weaponIdx = idx;
-      playLordVictory();
-      updateHud();
-      saveLordData();
-      clearScreen();
-      writeLine(`<span class='c-lgreen'>\nYou purchase the <b>${weapon.name}</b>! Your strike power increases by +${weapon.power}!</span>\n`);
-      setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
-      pendingAction = () => showWeapons();
-    };
-
-    /* ================= ARMOR SHOP ================= */
-    const showArmor = () => {
-      gameState = "ARMOR";
-      updateHud();
-      clearScreen();
-      writeLine("<span class='c-lcyan'>========================================================================</span>");
-      writeLine("<span class='c-cyan'>                    🛡 ARTHUR'S ARMOR SHOPPE 🛡</span>");
-      writeLine("<span class='c-lcyan'>========================================================================</span>");
-      writeLine("<span class='c-gray'>Anvils ring out as smiths pound glowing ingots of tungsten steel.</span>");
-      writeLine(`<span class='c-yellow'>You currently wear: <b>${ARMORS[player.armorIdx].name}</b> (+${ARMORS[player.armorIdx].defense} DEF)</span>\n`);
-
-      const options = [];
-      ARMORS.forEach((a, idx) => {
-        if (idx === player.armorIdx) {
-          writeLine(`<span class='c-green'>[${idx + 1}] ${a.name} - EQUIPPED (Defense: +${a.defense})</span>`);
-        } else if (idx < player.armorIdx) {
-          writeLine(`<span class='c-gray'>[${idx + 1}] ${a.name} - OUTGROWN</span>`);
-        } else {
-          writeLine(`<span class='c-key'>[${idx + 1}]</span> <span class='c-yellow'>${a.name}</span> (Defense: +${a.defense}) - Cost: <span class='c-gold'>${a.cost.toLocaleString()} Gold</span>`);
-          options.push({ key: String(idx + 1), label: a.name });
-        }
-      });
-      writeLine("\n<span class='c-key'>[R]</span> <span class='c-gray'>Return to Town</span>");
-      options.push({ key: "R", label: "Town" });
-
-      setPrompt("CHOOSE ARMOR TO BUY:", options);
-    };
-
-    const buyArmor = (idx) => {
-      const armor = ARMORS[idx];
-      if (!armor) return;
-      if (idx <= player.armorIdx) {
-        clearScreen();
-        writeLine("<span class='c-yellow'>\nYou already wear this armor or superior armor!</span>\n");
-        setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
-        pendingAction = () => showArmor();
-        return;
-      }
-      if (player.gold < armor.cost) {
-        clearScreen();
-        writeLine("<span class='c-lred'>\nArthur shakes his head: 'Good steel requires good gold, adventurer!'</span>\n");
-        setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
-        pendingAction = () => showArmor();
-        return;
-      }
-
-      player.gold -= armor.cost;
-      player.armorIdx = idx;
-      playLordVictory();
-      updateHud();
-      saveLordData();
-      clearScreen();
-      writeLine(`<span class='c-lgreen'>\nYou equip the <b>${armor.name}</b>! Your defense increases by +${armor.defense}!</span>\n`);
-      setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
-      pendingAction = () => showArmor();
-    };
-
-    /* ================= HEALER'S HUT ================= */
-    const showHealer = () => {
-      gameState = "HEALER";
-      updateHud();
-      clearScreen();
-      writeLine("<span class='c-green'>========================================================================</span>");
-      writeLine("<span class='c-lgreen'>                      🌿 HEALER'S SANCTUARY 🌿</span>");
-      writeLine("<span class='c-green'>========================================================================</span>");
-      writeLine("<span class='c-gray'>Vials of glowing emerald salve bubble gently over a soft hearth.</span>");
-      writeLine(`<span class='c-white'>Current Health: <span class='c-lgreen'>${player.hp}/${player.maxHp} HP</span></span>\n`);
-
-      const missingHp = player.maxHp - player.hp;
-      const costPerHp = 2 * player.level;
-      const fullCost = missingHp * costPerHp;
-
-      if (missingHp <= 0) {
-        writeLine("<span class='c-yellow'>The healer smiles: 'You are bursting with vitality! No healing required.'</span>\n");
-      } else {
-        writeLine(`<span class='c-yellow'>You have <b>${missingHp} wounds</b>.</span>`);
-        writeLine(`<span class='c-gold'>Cost to heal fully: <b>${fullCost} Gold</b> (${costPerHp} gold/HP)</span>\n`);
-        writeLine("<span class='c-key'>[H]</span> <span class='c-yellow'>Heal All Wounds</span>");
-      }
-      writeLine("<span class='c-key'>[R]</span> <span class='c-gray'>Return to Town</span>");
-
-      const opts = [];
-      if (missingHp > 0) opts.push({ key: "H", label: "Heal All" });
-      opts.push({ key: "R", label: "Town" });
-
-      setPrompt("HEALER (H/R):", opts);
-    };
-
-    const healWounds = () => {
-      const missingHp = player.maxHp - player.hp;
-      const costPerHp = 2 * player.level;
-      const fullCost = missingHp * costPerHp;
-
-      if (player.gold < fullCost) {
-        clearScreen();
-        writeLine("<span class='c-lred'>\nYou lack the gold to pay for a full healing draught!</span>\n");
-        setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
-        pendingAction = () => showHealer();
-        return;
-      }
-
-      player.gold -= fullCost;
-      player.hp = player.maxHp;
-      playLordVictory();
-      updateHud();
-      saveLordData();
-      clearScreen();
-      writeLine("<span class='c-lgreen'>\nThe soothing elixir restores your flesh and bone! Health fully restored.</span>\n");
-      setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
-      pendingAction = () => showHealer();
-    };
-
-    /* ================= THE BANK ================= */
-    const showBank = () => {
-      gameState = "BANK";
-      updateHud();
-      clearScreen();
-      writeLine("<span class='c-gold'>========================================================================</span>");
-      writeLine("<span class='c-yellow'>                    🏦 YE OLDE IMPERIAL BANK 🏦</span>");
-      writeLine("<span class='c-gold'>========================================================================</span>");
-      writeLine("<span class='c-gray'>Armored guards flank heavy iron vault doors. The Teller peeks through iron bars.</span>\n");
-      writeLine(`Gold in Hand: <span class='c-gold'>${player.gold.toLocaleString()}</span>`);
-      writeLine(`Gold in Bank: <span class='c-gold'>${player.bank.toLocaleString()}</span> (5% daily interest)\n`);
-
-      writeLine("<span class='c-key'>[D]</span> <span class='c-yellow'>Deposit All Gold to Bank</span>");
-      writeLine("<span class='c-key'>[W]</span> <span class='c-yellow'>Withdraw All Gold from Bank</span>");
-      writeLine("<span class='c-key'>[R]</span> <span class='c-gray'>Return to Town Square</span>");
-
-      setPrompt("BANK (D/W/R):", [
-        { key: "D", label: "Deposit All" },
-        { key: "W", label: "Withdraw All" },
-        { key: "R", label: "Town" }
-      ]);
-    };
-
-    /* ================= TURGON'S TRAINING GUILD ================= */
-    const showTurgon = () => {
-      gameState = "TURGON";
-      updateHud();
-      clearScreen();
-      writeLine("<span class='c-lred'>========================================================================</span>");
-      writeLine("<span class='c-gold'>                  🥋 MASTER TURGON'S TRAINING GUILD 🥋</span>");
-      writeLine("<span class='c-lred'>========================================================================</span>");
-      writeLine("<span class='c-gray'>Veteran gladiators spar in sawdust rings. Master Turgon crosses his mighty arms.</span>\n");
-
-      if (player.level >= 8) {
-        writeLine("<span class='c-gold'>Master Turgon salutes you: 'You have reached the maximum martial mastery! You are ready to slay the Red Dragon!'</span>\n");
-        setPrompt("RETURN TO TOWN [R]:", [{ key: "R", label: "Town" }]);
-        return;
-      }
-
-      const masterFoe = MASTER_TURGON[player.level - 1];
-      writeLine(`Current Level: <span class='c-yellow'>${player.level}</span> | Experience: <span class='c-lcyan'>${player.exp.toLocaleString()}</span>`);
-      writeLine(`Experience required to challenge Master: <span class='c-gold'>${masterFoe.expReq.toLocaleString()}</span>\n`);
-
-      if (player.exp < masterFoe.expReq) {
-        writeLine(`<span class='c-red'>Turgon scoffs: 'You lack discipline! Go battle more monsters in the forest before challenging <b>${masterFoe.name}</b>!'</span>\n`);
-        writeLine("<span class='c-key'>[R]</span> <span class='c-gray'>Return to Town</span>");
-        setPrompt("TURGON (R):", [{ key: "R", label: "Town" }]);
-      } else {
-        writeLine(`<span class='c-lgreen'>You are worthy! Master Turgon introduces your trial opponent: <b>${masterFoe.name}</b>!</span>`);
-        writeLine("<span class='c-yellow'>Defeat them in honorable combat to earn your next level title!</span>\n");
-        writeLine("<span class='c-key'>[C]</span> <span class='c-lred'>CHALLENGE MASTER IN COMBAT</span>");
-        writeLine("<span class='c-key'>[R]</span> <span class='c-gray'>Not Yet (Return to Town)</span>");
-        setPrompt("TURGON CHALLENGE (C/R):", [
-          { key: "C", label: "Fight Master" },
-          { key: "R", label: "Town" }
-        ]);
-      }
-    };
-
-    const startTurgonFight = () => {
-      const masterFoe = MASTER_TURGON[player.level - 1];
-      currentEnemy = {
-        name: masterFoe.name,
-        hp: masterFoe.hp,
-        maxHp: masterFoe.hp,
-        str: masterFoe.str,
-        def: masterFoe.def,
-        exp: 500 * player.level,
-        gold: 1000 * player.level
-      };
-      combatReturnState = "TURGON";
-      startCombat();
-    };
-
-    /* ================= THE RED DRAGON'S LAIR ================= */
-    const showDragonLair = () => {
-      gameState = "DRAGON";
-      updateHud();
-      clearScreen();
-      playLordDragonRoar();
-      writeLine("<span class='c-lred'>🐲====================================================================🐲</span>");
-      writeLine("<span class='c-lred'>             🌋 THE VOLCANIC LAIR OF THE RED DRAGON 🌋</span>");
-      writeLine("<span class='c-lred'>🐲====================================================================🐲</span>");
-      writeLine("<span class='c-red'>Bones of failed champions litter the obsidian floor. Rivers of liquid</span>");
-      writeLine("<span class='c-red'>fire illuminate smoke-stained stalactites. At the cavern summit, an immense</span>");
-      writeLine("<span class='c-red'>crimson dragon opens slit golden eyes, smoke curling from razor nostrils!</span>\n");
-
-      if (player.dragonSlain) {
-        writeLine("<span class='c-gold'>The Red Dragon lies defeated! You are already hailed as the Supreme Sovereign of the Realm!</span>\n");
-        setPrompt("RETURN TO TOWN [R]:", [{ key: "R", label: "Town" }]);
-        return;
-      }
-
-      if (player.level < 6) {
-        writeLine("<span class='c-lred'>WARNING: You are only Level " + player.level + "! The Dragon will incinerate you in seconds!</span>\n");
-      }
-
-      writeLine("<span class='c-key'>[D]</span> <span class='c-lred'>DRAW WEAPON AND ATTACK THE RED DRAGON!</span>");
-      writeLine("<span class='c-key'>[R]</span> <span class='c-gray'>Flee Back to Town</span>");
-
-      setPrompt("DRAGON LAIR (D/R):", [
-        { key: "D", label: "Attack Dragon" },
-        { key: "R", label: "Flee" }
-      ]);
-    };
-
-    const startDragonBattle = () => {
-      currentEnemy = {
-        name: "THE RED DRAGON",
-        hp: 1800,
-        maxHp: 1800,
-        str: 380,
-        def: 220,
-        exp: 50000,
-        gold: 50000
-      };
-      combatReturnState = "DRAGON";
-      startCombat();
-    };
-
-    /* ================= STATS SHEET ================= */
-    const showStats = () => {
-      gameState = "STATS";
-      updateHud();
-      clearScreen();
-      writeLine("<span class='c-lcyan'>========================================================================</span>");
-      writeLine("<span class='c-cyan'>                    📜 HERO STATUS & TELEMETRY 📜</span>");
-      writeLine("<span class='c-lcyan'>========================================================================</span>");
-      writeLine(`Name: <span class='c-gold'>${player.name}</span>`);
-      writeLine(`Level: <span class='c-yellow'>${player.level}</span>`);
-      writeLine(`Hit Points: <span class='c-lgreen'>${player.hp} / ${player.maxHp}</span>`);
-      writeLine(`Base Strength: <span class='c-white'>${player.str}</span> (+${WEAPONS[player.weaponIdx].power} from ${WEAPONS[player.weaponIdx].name})`);
-      writeLine(`Base Defense:  <span class='c-white'>${player.def}</span> (+${ARMORS[player.armorIdx].defense} from ${ARMORS[player.armorIdx].name})`);
-      writeLine(`Total Attack Power:  <span class='c-lred'>${player.str + WEAPONS[player.weaponIdx].power}</span>`);
-      writeLine(`Total Armor Defense: <span class='c-lcyan'>${player.def + ARMORS[player.armorIdx].defense}</span>`);
-      writeLine(`Experience: <span class='c-yellow'>${player.exp.toLocaleString()}</span>`);
-      writeLine(`Gold in Hand: <span class='c-gold'>${player.gold.toLocaleString()}</span>`);
-      writeLine(`Gold in Bank: <span class='c-gold'>${player.bank.toLocaleString()}</span>`);
-      writeLine(`Flawless Gems: <span class='c-cyan'>${player.gems}</span>`);
-      writeLine(`Forest Fights Left: <span class='c-lgreen'>${player.fights}</span>`);
-      writeLine(`Dragon Slain Status: <span class='c-lred'>${player.dragonSlain ? "YES (TITAN)" : "NO"}</span>\n`);
-
-      writeLine("<span class='c-key'>[R]</span> <span class='c-gray'>Return to Town</span>");
-      setPrompt("STATS (R):", [{ key: "R", label: "Town" }]);
-    };
-
-    /* ================= INPUT HANDLER ================= */
-    const handleInput = (rawVal) => {
-      const val = (rawVal || "").trim().toUpperCase();
-      if (!val) return;
-      playLordBeep();
-
-      if (pendingAction) {
-        const action = pendingAction;
-        pendingAction = null;
-        action();
-        return;
-      }
-
-      if (val === "Q") {
-        gameModal.classList.remove('active');
-        return;
-      }
-
-      switch (gameState) {
-        case "TOWN":
-          if (val === "F") showForest();
-          else if (val === "I") showInn();
-          else if (val === "W") showWeapons();
-          else if (val === "A") showArmor();
-          else if (val === "H") showHealer();
-          else if (val === "B") showBank();
-          else if (val === "T") showTurgon();
-          else if (val === "S") showStats();
-          else if (val === "D") showDragonLair();
-          break;
-
-        case "FOREST":
-          if (val === "L") triggerForestEncounter();
-          else if (val === "R") showTownSquare();
-          break;
-
-        case "COMBAT":
-          if (val === "A") playerAttackRound();
-          else if (val === "R") tryFlee();
-          break;
-
-        case "INN":
-          if (val === "B") talkBard();
-          else if (val === "F") flirtViolet();
-          else if (val === "A") {
-            if (player.gold >= 20) {
-              player.gold -= 20;
-              player.hp = Math.min(player.maxHp, player.hp + 2);
-              updateHud();
-              saveLordData();
-              clearScreen();
-              writeLine("<span class='c-yellow'>\nYou gulp down a frothing mug of cyber-ale! (+2 HP)</span>\n");
-            } else {
-              clearScreen();
-              writeLine("<span class='c-lred'>\nYou don't even have 20 gold for ale!</span>\n");
-            }
-            setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
-            pendingAction = () => showInn();
-          } else if (val === "S") {
-            player.hp = Math.min(player.maxHp, player.hp + 5);
-            saveLordData();
-            clearScreen();
-            writeLine("<span class='c-cyan'>\nYou rest peacefully in the feather bed. Progress saved to local storage! (+5 HP)</span>\n");
-            setPrompt("PRESS [C] TO CONTINUE:", [{ key: "C", label: "Continue" }]);
-            pendingAction = () => showInn();
-          } else if (val === "R") showTownSquare();
-          break;
-
-        case "WEAPONS":
-          if (val === "R") showTownSquare();
-          else {
-            const num = parseInt(val, 10);
-            if (!isNaN(num) && num >= 1 && num <= WEAPONS.length) buyWeapon(num - 1);
-          }
-          break;
-
-        case "ARMOR":
-          if (val === "R") showTownSquare();
-          else {
-            const num = parseInt(val, 10);
-            if (!isNaN(num) && num >= 1 && num <= ARMORS.length) buyArmor(num - 1);
-          }
-          break;
-
-        case "HEALER":
-          if (val === "H") healWounds();
-          else if (val === "R") showTownSquare();
-          break;
-
-        case "BANK":
-          if (val === "D") {
-            player.bank += player.gold;
-            player.gold = 0;
-            saveLordData();
-            showBank();
-          } else if (val === "W") {
-            player.gold += player.bank;
-            player.bank = 0;
-            saveLordData();
-            showBank();
-          } else if (val === "R") showTownSquare();
-          break;
-
-        case "TURGON":
-          if (val === "C") startTurgonFight();
-          else if (val === "R") showTownSquare();
-          break;
-
-        case "DRAGON":
-          if (val === "D") startDragonBattle();
-          else if (val === "R") showTownSquare();
-          break;
-
-        case "STATS":
-          if (val === "R") showTownSquare();
-          break;
-
-        default:
-          showTownSquare();
-      }
-    };
-
-    // Event Listeners for Game Launch & Input
-    launchGameBtn.addEventListener('click', () => {
-      gameModal.classList.add('active');
-      loadLordData();
-      showTownSquare();
-      playLordVictory();
-    });
-
-    gameCloseBtn.addEventListener('click', () => {
-      gameModal.classList.remove('active');
-    });
-
-    lordInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        const val = lordInput.value;
-        lordInput.value = '';
-        handleInput(val);
-      }
-    });
-
-    window.addEventListener('keydown', (e) => {
-      if (!gameModal.classList.contains('active')) return;
-      if (document.activeElement === lordInput) return; // let input handle it
-      if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
-        handleInput(e.key);
-      }
-    });
-
-    /* =========================================================================
-       7. HACKER TERMINAL & EASTER EGGS
-       ========================================================================= */
-    const termModal = document.getElementById('terminal-modal');
-    const termBtn = document.getElementById('terminal-toggle-btn');
-    const termCloseBtn = document.getElementById('term-close-btn');
-    const termInput = document.getElementById('term-input');
-    const termOutput = document.getElementById('term-output');
-
-    termBtn.addEventListener('click', () => {
-      termModal.classList.toggle('active');
-      if (termModal.classList.contains('active')) termInput.focus();
-    });
-    termCloseBtn.addEventListener('click', () => termModal.classList.remove('active'));
-
-    const printTerm = (msg, color = 'var(--primary-accent)') => {
-      const line = document.createElement('div');
-      line.style.color = color;
-      line.innerHTML = msg;
-      termOutput.appendChild(line);
-      termOutput.scrollTop = termOutput.scrollHeight;
-    };
-
-    termInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        const cmd = termInput.value.trim().toLowerCase();
-        printTerm(`&gt; ${termInput.value}`, '#ffffff');
-        termInput.value = '';
-
-        switch (cmd) {
-          case 'help':
-            printTerm("Commands: melt, styles, specs, patents, toroid, game, contact, matrix, clear");
-            break;
-          case 'melt':
-            meltToStyle((currentStyleIndex + 1) % styles.length, true);
-            printTerm(`Melted to style: ${styles[currentStyleIndex].name}`);
-            break;
-          case 'styles':
-            styles.forEach((st, i) => printTerm(`[${i}] ${st.name}`));
-            break;
-          case 'specs':
-            printTerm("• Die: 2.5x2.5mm SOI<br>• Carrier: 64λ C-Band Comb<br>• IL: 2.015 dB (62.88% ALD @ 180nm)<br>• Euler Bends: R &gt;= 15µm");
-            break;
-          case 'patents':
-            printTerm("• 53 Non-Provisional Claims Validated.<br>• Non-Euclidean Toroidal Manifold T² = S¹ × S¹.<br>• Art Unit 2824 Clean.");
-            break;
-          case 'game':
-            launchGameBtn.click();
-            break;
-          case 'matrix':
-            triggerMatrixRain();
-            break;
-          case 'contact':
-            printTerm("Direct Comms: founder@scalarresonant.com");
-            break;
-          case 'clear':
-            termOutput.innerHTML = '';
-            break;
-          default:
-            printTerm(`Command not recognized: '${cmd}'. Type 'help'.`, '#f87171');
-        }
-      }
-    });
-
-    // Konami Code Easter Egg (↑ ↑ ↓ ↓ ← → ← → B A)
-    const konamiSequence = [
-      'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
-      'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
-      'b', 'a'
-    ];
-    let konamiIndex = 0;
-
-    window.addEventListener('keydown', (e) => {
-      if (e.key === konamiSequence[konamiIndex]) {
-        konamiIndex++;
-        audio.playTone(300 + konamiIndex * 50, 'sine', 0.08);
-        if (konamiIndex === konamiSequence.length) {
-          konamiIndex = 0;
-          triggerMatrixRain();
-          termModal.classList.add('active');
-          printTerm("🔓 KONAMI CODE ACCEPTED: MATRIX OVERRIDE UNLOCKED!", "var(--primary-accent)");
-        }
-      } else {
-        konamiIndex = 0;
-      }
-    });
-
-    // Matrix Rain Effect
-    const matrixCanvas = document.getElementById('matrix-canvas');
-    const mCtx = matrixCanvas.getContext('2d');
-    let matrixInterval = null;
-
-    const triggerMatrixRain = () => {
-      matrixCanvas.style.display = 'block';
-      matrixCanvas.width = window.innerWidth;
-      matrixCanvas.height = window.innerHeight;
-      const chars = "01TOROIDALPHOTONICS64λDESARGUESE8";
-      const fontSize = 14;
-      const cols = matrixCanvas.width / fontSize;
-      const drops = Array(Math.floor(cols)).fill(1);
-
-      audio.playTone(880, 'square', 0.4);
-
-      if (matrixInterval) clearInterval(matrixInterval);
-      matrixInterval = setInterval(() => {
-        mCtx.fillStyle = 'rgba(5, 8, 17, 0.08)';
-        mCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-        mCtx.fillStyle = styles[currentStyleIndex].color;
-        mCtx.font = `${fontSize}px monospace`;
-
-        for (let i = 0; i < drops.length; i++) {
-          const text = chars[Math.floor(Math.random() * chars.length)];
-          mCtx.fillText(text, i * fontSize, drops[i] * fontSize);
-          if (drops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) {
-            drops[i] = 0;
-          }
-          drops[i]++;
-        }
-      }, 33);
-
-      setTimeout(() => {
-        clearInterval(matrixInterval);
-        matrixCanvas.style.display = 'none';
-      }, 5000);
-    };
-
-    /* =========================================================================
-       8. AMBIENT BACKGROUND PARTICLES
-       ========================================================================= */
-    const ambientCanvas = document.getElementById('ambient-canvas');
-    const aCtx = ambientCanvas.getContext('2d');
-    let particles = [];
-
-    const resizeAmbient = () => {
-      ambientCanvas.width = window.innerWidth;
-      ambientCanvas.height = window.innerHeight;
-    };
-    window.addEventListener('resize', resizeAmbient);
-    resizeAmbient();
-
-    for (let i = 0; i < 48; i++) {
-      particles.push({
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
-        r: Math.random() * 1.5 + 0.5,
-        c: Math.random() > 0.5 ? '#00f0ff' : '#a855f7'
-      });
-    }
-
-    const animateAmbient = () => {
-      aCtx.clearRect(0, 0, ambientCanvas.width, ambientCanvas.height);
-      particles.forEach(p => {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0) p.x = ambientCanvas.width;
-        if (p.x > ambientCanvas.width) p.x = 0;
-        if (p.y < 0) p.y = ambientCanvas.height;
-        if (p.y > ambientCanvas.height) p.y = 0;
-
-        aCtx.beginPath();
-        aCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        aCtx.fillStyle = styles[currentStyleIndex].color;
-        aCtx.shadowColor = styles[currentStyleIndex].color;
-        aCtx.shadowBlur = 6;
-        aCtx.fill();
-      });
-      requestAnimationFrame(animateAmbient);
-    };
-    animateAmbient();
-  </script>
 </body>
 </html>
