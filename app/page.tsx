@@ -17,8 +17,8 @@ const PILLARS = [
   },
   {
     tag:   "Fabrication",
-    title: "3D Desargues Tape-Out",
-    body:  "Projective-geometry IC layout achieves near-lossless multi-layer optical coupling via atomic-layer-deposited 180 nm SiO₂ vertical gap junctions in a 2.5 × 2.5 mm Phase-1 reticle.",
+    title: "3D Multi-Layer Photonic Tape-Out",
+    body:  "Coaxial multi-layer IC layout achieves low-loss vertical optical coupling via atomic-layer-deposited 180 nm SiO₂ gap junctions in a 2.5 × 2.5 mm Phase-1 reticle.",
   },
   {
     tag:   "Photonics",
@@ -30,7 +30,7 @@ const PILLARS = [
 const CLAIMS = [
   { tag: "Claim Set A", title: "Toroidal Waveguide Topology",  desc: "Non-Euclidean photonic manifold geometry for lossless optical tensor routing across multi-radius toroid structures." },
   { tag: "Claim Set B", title: "ALD Vertical Gap Junction",    desc: "Atomic-layer-deposited 180 nm SiO₂ coupler achieving 2.015 dB insertion loss across a 3D inter-layer optical gap." },
-  { tag: "Claim Set C", title: "Desargues Layout Engine",      desc: "Projective-geometry-based photonic IC layout enabling dense, cross-layer waveguide routing without intersection loss." },
+  { tag: "Claim Set C", title: "Coherent State Routing & Buffering", desc: "Multidimensional optical state transformation, storage-basis conversion, and coherent recombination across χ⁽³⁾ nonlinear waveguides." },
   { tag: "Claim Set D", title: "64λ Integrated Comb Source",   desc: "On-chip C-band frequency comb generating 64 simultaneous carriers at 150 GHz spacing for DWDM interconnect fabrics." },
 ];
 
@@ -197,7 +197,7 @@ export default function Home() {
           </h2>
           <p className="text-[13.5px] text-[var(--text-2)] max-w-2xl mx-auto leading-relaxed">
             Provisional application covering toroidal waveguide topology, ALD vertical coupling,
-            Desargues-geometry tape-out layout, and 64-channel comb source integration.
+            coherent multidimensional state routing, and 64-channel comb source integration.
           </p>
         </div>
 
