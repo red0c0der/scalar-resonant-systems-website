@@ -237,10 +237,10 @@ export default function Home() {
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <a
-                href="mailto:founder@scalarresonant.com"
+                href="mailto:founder@scalar-resonant.systems"
                 className="flex items-center justify-center gap-2 h-12 px-8 rounded-xl bg-[var(--accent)] text-[var(--bg-dark)] font-mono font-bold text-[11px] tracking-widest uppercase hover:brightness-110 transition-all shadow-[0_0_24px_var(--accent-glow)]"
               >
-                ✉ founder@scalarresonant.com
+                ✉ founder@scalar-resonant.systems
               </a>
               <a
                 href="https://www.linkedin.com/in/redocoder"
