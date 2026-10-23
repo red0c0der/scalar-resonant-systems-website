@@ -2,7 +2,172 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Design tokens ─────────────────────────────────────────────────────────── */
+:root,
+body[data-style="cyberpunk"] {
+  --bg-dark:     #04060e;
+  --bg-surface:  #080c18;
+  --accent:      #00d4ff;
+  --accent-dim:  rgba(0, 212, 255, 0.12);
+  --accent-glow: rgba(0, 212, 255, 0.30);
+  --accent-2:    #8b5cf6;
+  --accent-gold: #f59e0b;
+  --border:      rgba(0, 212, 255, 0.16);
+  --border-hi:   rgba(0, 212, 255, 0.40);
+  --text-1:      #f8fafc;
+  --text-2:      #94a3b8;
+  --text-3:      #475569;
+  /* legacy aliases used by StyleDock */
+  --neon-cyan:    #00d4ff;
+  --neon-purple:  #8b5cf6;
+  --neon-gold:    #f59e0b;
+  --neon-emerald: #10b981;
+  --border-line:  rgba(0, 212, 255, 0.16);
+  --border-glow:  rgba(0, 212, 255, 0.30);
+  --text-main:    #f8fafc;
+  --text-muted:   #94a3b8;
+}
+
+body[data-style="titanium-gold"] {
+  --bg-dark:     #07080b;
+  --bg-surface:  #0d0e12;
+  --accent:      #f59e0b;
+  --accent-dim:  rgba(245,158,11,0.12);
+  --accent-glow: rgba(245,158,11,0.28);
+  --accent-2:    #d97706;
+  --border:      rgba(245,158,11,0.18);
+  --border-hi:   rgba(245,158,11,0.42);
+  --text-1:      #fffbeb;
+  --text-2:      #92400e;
+  --text-3:      #451a03;
+  --neon-cyan:#f59e0b; --neon-purple:#d97706; --neon-gold:#fef3c7;
+  --neon-emerald:#b45309; --border-line:rgba(245,158,11,0.18);
+  --border-glow:rgba(245,158,11,0.28); --text-main:#fffbeb; --text-muted:#a8a29e;
+}
+
+body[data-style="silicon-prism"] {
+  --bg-dark:     #050b18;
+  --bg-surface:  #0a1225;
+  --accent:      #38bdf8;
+  --accent-dim:  rgba(56,189,248,0.12);
+  --accent-glow: rgba(56,189,248,0.28);
+  --accent-2:    #c084fc;
+  --border:      rgba(56,189,248,0.18);
+  --border-hi:   rgba(56,189,248,0.42);
+  --text-1:      #f0f9ff;
+  --text-2:      #7dd3fc;
+  --text-3:      #0369a1;
+  --neon-cyan:#38bdf8; --neon-purple:#c084fc; --neon-gold:#f472b6;
+  --neon-emerald:#0ea5e9; --border-line:rgba(56,189,248,0.18);
+  --border-glow:rgba(56,189,248,0.28); --text-main:#f0f9ff; --text-muted:#94a3b8;
+}
+
+body[data-style="matrix-emerald"] {
+  --bg-dark:     #020d07;
+  --bg-surface:  #051a0e;
+  --accent:      #10b981;
+  --accent-dim:  rgba(16,185,129,0.12);
+  --accent-glow: rgba(16,185,129,0.28);
+  --accent-2:    #34d399;
+  --border:      rgba(16,185,129,0.18);
+  --border-hi:   rgba(16,185,129,0.42);
+  --text-1:      #ecfdf5;
+  --text-2:      #6ee7b7;
+  --text-3:      #065f46;
+  --neon-cyan:#10b981; --neon-purple:#34d399; --neon-gold:#a3e635;
+  --neon-emerald:#6ee7b7; --border-line:rgba(16,185,129,0.18);
+  --border-glow:rgba(16,185,129,0.28); --text-main:#ecfdf5; --text-muted:#6ee7b7;
+}
+
+body[data-style="synthwave-sunset"] {
+  --bg-dark:     #0d0416;
+  --bg-surface:  #160924;
+  --accent:      #e879f9;
+  --accent-dim:  rgba(232,121,249,0.12);
+  --accent-glow: rgba(232,121,249,0.28);
+  --accent-2:    #fb923c;
+  --border:      rgba(232,121,249,0.18);
+  --border-hi:   rgba(232,121,249,0.42);
+  --text-1:      #fdf4ff;
+  --text-2:      #e879f9;
+  --text-3:      #7e22ce;
+  --neon-cyan:#e879f9; --neon-purple:#fb923c; --neon-gold:#fde047;
+  --neon-emerald:#fb7185; --border-line:rgba(232,121,249,0.18);
+  --border-glow:rgba(232,121,249,0.28); --text-main:#fdf4ff; --text-muted:#d8b4fe;
+}
+
+body[data-style="solarflare-plasma"] {
+  --bg-dark:     #100304;
+  --bg-surface:  #1c060a;
+  --accent:      #f97316;
+  --accent-dim:  rgba(249,115,22,0.12);
+  --accent-glow: rgba(249,115,22,0.28);
+  --accent-2:    #facc15;
+  --border:      rgba(249,115,22,0.18);
+  --border-hi:   rgba(249,115,22,0.42);
+  --text-1:      #fff7ed;
+  --text-2:      #fdba74;
+  --text-3:      #9a3412;
+  --neon-cyan:#f97316; --neon-purple:#facc15; --neon-gold:#fbbf24;
+  --neon-emerald:#fde68a; --border-line:rgba(249,115,22,0.18);
+  --border-glow:rgba(249,115,22,0.28); --text-main:#fff7ed; --text-muted:#fdba74;
+}
+
+body[data-style="stealth-carbon"] {
+  --bg-dark:     #020203;
+  --bg-surface:  #080809;
+  --accent:      #e2e8f0;
+  --accent-dim:  rgba(226,232,240,0.08);
+  --accent-glow: rgba(226,232,240,0.18);
+  --accent-2:    #64748b;
+  --border:      rgba(255,255,255,0.10);
+  --border-hi:   rgba(255,255,255,0.24);
+  --text-1:      #f8fafc;
+  --text-2:      #64748b;
+  --text-3:      #334155;
+  --neon-cyan:#e2e8f0; --neon-purple:#94a3b8; --neon-gold:#d1d5db;
+  --neon-emerald:#e5e7eb; --border-line:rgba(255,255,255,0.10);
+  --border-glow:rgba(255,255,255,0.18); --text-main:#f8fafc; --text-muted:#64748b;
+}
+
+/* ── Base ──────────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
 body {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: var(--bg-dark);
+  color: var(--text-1);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Subtle grid texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Top ambient glow */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 340px;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(ellipse 80% 100% at 50% -10%, var(--accent-glow) 0%, transparent 70%);
+  transition: background 0.5s ease;
 }
