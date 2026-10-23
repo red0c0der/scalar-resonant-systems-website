@@ -1166,6 +1166,12 @@
   </style>
 </head>
 <body data-style="cyberpunk">
+  <script>
+    try {
+      const s = localStorage.getItem('SRS_ACTIVE_STYLE');
+      if (s) document.body.setAttribute('data-style', s);
+    } catch (e) {}
+  </script>
 
   <!-- SVG Molten Displacement Filter Definition -->
   <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1">

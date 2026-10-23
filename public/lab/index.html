@@ -75,6 +75,25 @@
       --font-body: 'Inter', sans-serif;
     }
 
+    body[data-style="cyberpunk"] {
+      --bg-dark: #050811;
+      --bg-card: rgba(11, 16, 28, 0.85);
+      --bg-card-hover: rgba(16, 24, 42, 0.95);
+      --border-line: rgba(0, 240, 255, 0.22);
+      --border-glow: rgba(0, 240, 255, 0.55);
+      --neon-cyan: #00f0ff;
+      --neon-purple: #a855f7;
+      --neon-gold: #f59e0b;
+      --neon-rose: #ff0055;
+      --neon-emerald: #10b981;
+      --text-bright: #ffffff;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
     body[data-style="titanium-gold"] {
       --bg-dark: #08090c;
       --bg-card: rgba(22, 24, 30, 0.90);
@@ -175,34 +194,35 @@
       transform: translateX(-50%);
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 9px;
       background: rgba(5, 8, 17, 0.88);
       backdrop-filter: blur(20px);
       border: 1px solid var(--border-line);
       border-radius: 999px;
-      padding: 6px 14px;
+      padding: 7px 16px;
       z-index: 100;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px var(--border-glow);
       transition: all 0.4s ease;
     }
 
     .style-chip-btn {
-      width: 14px;
-      height: 14px;
+      width: 22px;
+      height: 22px;
       border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.6);
+      border: 2px solid transparent;
       cursor: pointer;
       padding: 0;
-      transition: transform 0.25s, box-shadow 0.25s;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.2s ease, box-shadow 0.25s ease;
     }
 
     .style-chip-btn:hover {
-      transform: scale(1.35);
+      transform: scale(1.25);
     }
 
     .style-chip-btn.active {
-      transform: scale(1.45);
+      transform: scale(1.35);
       border-color: #ffffff;
+      box-shadow: 0 0 14px currentColor;
     }
 
     .style-chip-label {
@@ -336,8 +356,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(0, 240, 255, 0.06);
-      box-shadow: 0 0 16px rgba(0, 240, 255, 0.25);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: 0 0 16px var(--border-glow);
+      transition: all 0.4s ease;
     }
 
     .brand-hex svg {
@@ -346,6 +367,7 @@
       stroke: var(--neon-cyan);
       fill: none;
       stroke-width: 1.8;
+      transition: stroke 0.4s ease;
     }
 
     .brand-text h1 {
@@ -355,6 +377,7 @@
       letter-spacing: 0.14em;
       color: #ffffff;
       text-transform: uppercase;
+      transition: font-family 0.4s ease;
     }
 
     .brand-text p {
@@ -362,6 +385,7 @@
       font-size: 9.5px;
       color: var(--neon-cyan);
       letter-spacing: 0.08em;
+      transition: color 0.4s ease;
     }
 
     .nav-actions {
@@ -390,12 +414,12 @@
     .nav-btn:hover {
       border-color: var(--neon-cyan);
       color: var(--neon-cyan);
-      box-shadow: 0 0 14px rgba(0, 240, 255, 0.25);
+      box-shadow: 0 0 14px var(--border-glow);
       transform: translateY(-1px);
     }
 
     .nav-btn.primary {
-      background: linear-gradient(135deg, rgba(0, 240, 255, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
       border-color: var(--neon-cyan);
       color: #ffffff;
     }
@@ -420,13 +444,14 @@
       align-items: center;
       gap: 8px;
       padding: 6px 14px;
-      background: rgba(0, 240, 255, 0.06);
-      border: 1px solid rgba(0, 240, 255, 0.2);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-line);
       border-radius: 999px;
       font-family: var(--font-mono);
       font-size: 11px;
       color: var(--neon-cyan);
       margin-bottom: 16px;
+      transition: all 0.4s ease;
     }
 
     .hero-badge .dot {
@@ -435,6 +460,7 @@
       border-radius: 50%;
       background: var(--neon-cyan);
       box-shadow: 0 0 8px var(--neon-cyan);
+      transition: all 0.4s ease;
     }
 
     .hero-title {
@@ -488,7 +514,7 @@
 
     .sim-card:hover {
       border-color: var(--border-glow);
-      box-shadow: 0 25px 50px -10px rgba(0, 240, 255, 0.15);
+      box-shadow: 0 25px 50px -10px var(--border-glow);
     }
 
     .card-head {
@@ -505,6 +531,7 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       margin-bottom: 4px;
+      transition: color 0.4s ease;
     }
 
     .module-title {
@@ -512,6 +539,7 @@
       font-size: 18px;
       font-weight: 700;
       color: #ffffff;
+      transition: font-family 0.4s ease;
     }
 
     .live-status {
@@ -556,8 +584,9 @@
       background: rgba(5, 8, 17, 0.85);
       padding: 4px 8px;
       border-radius: 6px;
-      border: 1px solid rgba(0, 240, 255, 0.2);
+      border: 1px solid var(--border-line);
       pointer-events: none;
+      transition: all 0.4s ease;
     }
 
     /* Interactive Controls */
@@ -586,6 +615,7 @@
     .control-val {
       color: var(--neon-cyan);
       font-weight: 600;
+      transition: color 0.4s ease;
     }
 
     .slider-bar {
@@ -606,6 +636,7 @@
       background: var(--neon-cyan);
       cursor: pointer;
       box-shadow: 0 0 8px var(--neon-cyan);
+      transition: background 0.4s ease, box-shadow 0.4s ease;
     }
 
     .btn-toggle-group {
@@ -634,7 +665,7 @@
     }
 
     .toggle-chip.active {
-      background: rgba(0, 240, 255, 0.15);
+      background: var(--border-line);
       border-color: var(--neon-cyan);
       color: var(--neon-cyan);
       font-weight: 600;
@@ -679,7 +710,13 @@
     }
   </style>
 </head>
-<body>
+<body data-style="cyberpunk">
+  <script>
+    try {
+      const s = localStorage.getItem('SRS_ACTIVE_STYLE');
+      if (s) document.body.setAttribute('data-style', s);
+    } catch (e) {}
+  </script>
 
   <!-- Ambient Dust Canvas -->
   <canvas id="ambient-canvas"></canvas>
@@ -948,7 +985,14 @@
     ];
 
     let currentStyleIndex = 0;
-    let activeTheme = styles[0];
+    try {
+      const saved = localStorage.getItem('SRS_ACTIVE_STYLE');
+      if (saved) {
+        const idx = styles.findIndex(s => s.id === saved);
+        if (idx !== -1) currentStyleIndex = idx;
+      }
+    } catch (e) {}
+    let activeTheme = styles[currentStyleIndex];
     let autoMeltActive = false;
     let autoMeltTimer = null;
     let autoMeltSeconds = 30;
@@ -995,16 +1039,17 @@
         this.init();
         if (!this.ctx) return;
         try {
+          const now = this.ctx.currentTime;
           const osc = this.ctx.createOscillator();
           const gain = this.ctx.createGain();
           osc.type = type;
-          osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
-          gain.gain.setValueAtTime(gainVal, this.ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
+          osc.frequency.setValueAtTime(freq, now);
+          gain.gain.setValueAtTime(gainVal, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
           osc.connect(gain);
           gain.connect(this.ctx.destination);
           osc.start();
-          osc.stop(this.ctx.currentTime + duration);
+          osc.stop(now + duration);
         } catch (e) {}
       }
       playMeltChord(baseFreq = 440) {
@@ -1045,6 +1090,13 @@
       }
     }
     const audio = new LabAudio();
+    const unlockAudio = () => {
+      audio.init();
+      window.removeEventListener('pointerdown', unlockAudio);
+      window.removeEventListener('keydown', unlockAudio);
+    };
+    window.addEventListener('pointerdown', unlockAudio, { once: true });
+    window.addEventListener('keydown', unlockAudio, { once: true });
 
     const audioBtn = document.getElementById('audio-btn');
     const audioIcon = document.getElementById('audio-icon');
@@ -1344,11 +1396,22 @@
     const eCtx = emitterCanvas ? emitterCanvas.getContext('2d') : null;
     let oamCharge = 1;
     let vortexPhase = 0;
+    let oftFocal = 12.5;
 
     const btnOam1 = document.getElementById('btn-oam-1');
     const btnOam2 = document.getElementById('btn-oam-2');
     const btnOam3 = document.getElementById('btn-oam-3');
     const emitterTelemetry = document.getElementById('emitter-telemetry');
+    const sliderOft = document.getElementById('slider-oft');
+    const oftVal = document.getElementById('oft-val');
+    const dmdModeVal = document.getElementById('dmd-mode-val');
+
+    if (sliderOft) {
+      sliderOft.addEventListener('input', (e) => {
+        oftFocal = parseFloat(e.target.value);
+        if (oftVal) oftVal.textContent = `${oftFocal.toFixed(1)} mm`;
+      });
+    }
 
     if (btnOam1) {
       btnOam1.addEventListener('click', () => {
@@ -1357,6 +1420,7 @@
         if (btnOam2) btnOam2.classList.remove('active');
         if (btnOam3) btnOam3.classList.remove('active');
         if (emitterTelemetry) emitterTelemetry.textContent = "Vortex Charge: l = +1";
+        if (dmdModeVal) dmdModeVal.textContent = "Forked Diffraction Grating (l = +1)";
         audio.playSweep(500, 750);
       });
     }
@@ -1368,6 +1432,7 @@
         if (btnOam1) btnOam1.classList.remove('active');
         if (btnOam3) btnOam3.classList.remove('active');
         if (emitterTelemetry) emitterTelemetry.textContent = "Vortex Charge: l = +2";
+        if (dmdModeVal) dmdModeVal.textContent = "Spiral Phase Plate (l = +2)";
         audio.playSweep(750, 1000);
       });
     }
@@ -1379,6 +1444,7 @@
         if (btnOam1) btnOam1.classList.remove('active');
         if (btnOam2) btnOam2.classList.remove('active');
         if (emitterTelemetry) emitterTelemetry.textContent = "Trinary Superposition (192-State)";
+        if (dmdModeVal) dmdModeVal.textContent = "Trinary Superposition Hologram";
         audio.playSweep(400, 1200);
       });
     }
@@ -1390,12 +1456,13 @@
       vortexPhase += 0.04;
 
       const cx = 300, cy = 120;
+      const maxR = 40 + (oftFocal / 25.0) * 45;
 
       // Far-field doughnut vortex beam
       for (let arm = 0; arm < (oamCharge === 3 ? 3 : oamCharge); arm++) {
         const offset = arm * ((Math.PI * 2) / (oamCharge === 3 ? 3 : oamCharge));
         eCtx.beginPath();
-        for (let r = 12; r < 75; r += 2) {
+        for (let r = 12; r < maxR; r += 2) {
           const th = offset + (r * 0.08) * (oamCharge === 2 ? 1.5 : 1.0) - vortexPhase;
           const x = cx + r * Math.cos(th);
           const y = cy + r * Math.sin(th);
@@ -1563,16 +1630,8 @@
       if (autoMeltBtn) autoMeltBtn.addEventListener('click', cycleAutoMelt);
       if (dockMeltToggle) dockMeltToggle.addEventListener('click', cycleAutoMelt);
 
-      // Check stored style preference
-      try {
-        const saved = localStorage.getItem('SRS_ACTIVE_STYLE');
-        if (saved) {
-          const idx = styles.findIndex(s => s.id === saved);
-          if (idx !== -1) {
-            meltToStyle(idx, false);
-          }
-        }
-      } catch (e) {}
+      // Synchronize initial active style with UI dock and chips
+      meltToStyle(currentStyleIndex, false);
     }
 
     if (document.readyState === 'loading') {
