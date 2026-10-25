@@ -2,49 +2,52 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Toroidal Semantic Web of Light | Invertible Conformal Manifold</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        html, body {
+            width: 100%; height: 100%;
+            overflow: hidden;
             background: radial-gradient(circle at center, #0B0F19 0%, #030712 100%);
             color: #F8FAFC;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            overflow: hidden;
-            width: 100vw; height: 100vh;
+            touch-action: none;
         }
-        #canvas3d { width: 100%; height: 100%; display: block; }
+        #canvas3d { width: 100%; height: 100%; display: block; touch-action: none; }
 
+        /* Glassmorphism Panels */
         .hud-panel {
             position: absolute;
-            background: rgba(15, 23, 42, 0.78);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(15, 23, 42, 0.82);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             border: 1px solid rgba(56, 189, 248, 0.25);
-            border-radius: 10px;
+            border-radius: 12px;
             padding: 14px 18px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            box-shadow: 0 12px 36px 0 rgba(0, 0, 0, 0.55);
             z-index: 100;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        #top-hud { top: 16px; left: 16px; width: 380px; max-height: 90vh; overflow-y: auto; }
-        #inspector-hud { top: 16px; right: 16px; width: 420px; max-height: 90vh; overflow-y: auto; }
+        /* Desktop Positioning */
+        #top-hud { top: 16px; left: 16px; width: 380px; max-height: calc(100vh - 120px); overflow-y: auto; }
+        #inspector-hud { top: 16px; right: 16px; width: 420px; max-height: calc(100vh - 120px); overflow-y: auto; }
         #bottom-hud {
             bottom: 16px; left: 50%; transform: translateX(-50%);
-            display: flex; gap: 10px; align-items: center;
+            display: flex; gap: 8px; align-items: center; justify-content: center;
         }
 
-        h1 { font-size: 16px; font-weight: 700; color: #38BDF8; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; }
-        .badge { background: rgba(56, 189, 248, 0.2); color: #38BDF8; padding: 2px 8px; border-radius: 4px; font-size: 11px; }
-        .badge-success { background: rgba(16, 185, 129, 0.2); color: #10B981; padding: 2px 8px; border-radius: 4px; font-size: 11px; }
-        .hud-sub { font-size: 12px; color: #94A3B8; margin-top: 4px; margin-bottom: 12px; }
+        h1 { font-size: 15px; font-weight: 700; color: #38BDF8; letter-spacing: 0.5px; display: flex; align-items: center; gap: 8px; }
+        .badge { background: rgba(56, 189, 248, 0.2); color: #38BDF8; padding: 2px 7px; border-radius: 4px; font-size: 10px; font-weight: 600; }
+        .hud-sub { font-size: 12px; color: #94A3B8; margin-top: 4px; margin-bottom: 12px; line-height: 1.4; }
         
         .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 11px; margin-bottom: 12px; }
         .stat-box { background: rgba(255, 255, 255, 0.04); padding: 8px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.08); }
-        .stat-val { font-size: 14px; font-weight: bold; color: #F8FAFC; }
+        .stat-val { font-size: 14px; font-weight: bold; color: #F8FAFC; margin-top: 2px; }
 
         input[type="text"] {
-            width: 100%; background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(56, 189, 248, 0.4);
+            width: 100%; background: rgba(0, 0, 0, 0.45); border: 1px solid rgba(56, 189, 248, 0.4);
             border-radius: 6px; padding: 8px 12px; color: #fff; font-size: 13px; outline: none; margin-bottom: 8px;
         }
         input[type="text"]:focus { border-color: #38BDF8; box-shadow: 0 0 10px rgba(56, 189, 248, 0.4); }
@@ -52,28 +55,99 @@
         button {
             background: rgba(56, 189, 248, 0.15); border: 1px solid #38BDF8; color: #38BDF8;
             padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: 600;
-            transition: all 0.2s;
+            transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
         }
-        button:hover { background: #38BDF8; color: #000; }
+        button:hover, button:active { background: #38BDF8; color: #000; }
 
         .btn-mode {
             background: rgba(16, 185, 129, 0.2); border: 1px solid #10B981; color: #10B981;
-            padding: 8px 14px; font-size: 12px; font-weight: 700;
+            padding: 7px 13px; font-size: 11px; font-weight: 700;
         }
-        .btn-mode:hover { background: #10B981; color: #000; }
+        .btn-mode:hover, .btn-mode:active { background: #10B981; color: #000; }
 
         .trans-pill { display: inline-block; background: rgba(255,255,255,0.06); padding: 2px 6px; border-radius: 4px; font-size: 10px; margin: 2px; }
         .cid-chip { display: inline-block; background: rgba(245, 158, 11, 0.2); color: #F59E0B; padding: 2px 6px; border-radius: 4px; font-size: 10px; margin: 2px; cursor: pointer; }
-        .cid-chip:hover { background: #F59E0B; color: #000; }
+        .cid-chip:hover, .cid-chip:active { background: #F59E0B; color: #000; }
         
         .legend-row { display: flex; align-items: center; gap: 6px; font-size: 11px; margin-top: 4px; color: #94A3B8; }
         .dot { width: 8px; height: 8px; border-radius: 50%; }
+
+        .mobile-header-bar { display: none; }
+        .close-btn {
+            position: absolute; top: 10px; right: 12px;
+            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+            color: #fff; width: 26px; height: 26px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px; cursor: pointer; padding: 0;
+        }
+
+        /* ============================================================ */
+        /* MOBILE PHONE RESPONSIVE STYLES (Screen width <= 768px)       */
+        /* ============================================================ */
+        @media (max-width: 768px) {
+            /* Slim mobile header bar pinned at top */
+            .mobile-header-bar {
+                display: flex; align-items: center; justify-content: space-between;
+                position: absolute; top: 10px; left: 10px; right: 10px;
+                background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px);
+                border: 1px solid rgba(56, 189, 248, 0.25);
+                border-radius: 10px; padding: 8px 12px; z-index: 120;
+            }
+            .mobile-title { font-size: 13px; font-weight: 700; color: #38BDF8; display: flex; align-items: center; gap: 6px; }
+            .mobile-btn-group { display: flex; gap: 6px; }
+            .mobile-btn-group button { padding: 5px 10px; font-size: 11px; }
+
+            /* Collapsible Top HUD modal on mobile */
+            #top-hud {
+                top: 60px; left: 10px; right: 10px; width: auto;
+                max-height: calc(100vh - 140px);
+                display: none; /* toggled via button */
+                z-index: 200;
+            }
+            #top-hud.mobile-open { display: block; }
+
+            /* Slide-up Bottom Drawer Inspector */
+            #inspector-hud {
+                top: auto; bottom: 62px; left: 10px; right: 10px; width: auto;
+                max-height: 44vh; border-radius: 14px;
+                transform: translateY(120%);
+                opacity: 0; pointer-events: none;
+                z-index: 190;
+            }
+            #inspector-hud.mobile-active {
+                transform: translateY(0);
+                opacity: 1; pointer-events: auto;
+            }
+
+            /* Scrollable bottom pill bar */
+            #bottom-hud {
+                bottom: 10px; left: 8px; right: 8px; width: calc(100vw - 16px);
+                transform: none; justify-content: flex-start;
+                overflow-x: auto; -webkit-overflow-scrolling: touch;
+                padding: 6px; border-radius: 10px; gap: 6px;
+                background: rgba(15, 23, 42, 0.82); backdrop-filter: blur(12px);
+                border: 1px solid rgba(56, 189, 248, 0.2);
+            }
+            #bottom-hud::-webkit-scrollbar { display: none; }
+            #bottom-hud button { font-size: 10px; padding: 6px 10px; }
+        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 </head>
 <body>
+    <!-- Slim Mobile Header Bar -->
+    <div class="mobile-header-bar">
+        <div class="mobile-title">🌊 TOROIDAL WEB <span class="badge">T²</span></div>
+        <div class="mobile-btn-group">
+            <button id="btnMobileSearch">🔍 Search</button>
+            <button id="btnMobileStats">ℹ Stats</button>
+        </div>
+    </div>
+
+    <!-- Top / Search HUD (Desktop Panel / Mobile Modal) -->
     <div id="top-hud" class="hud-panel">
+        <button class="close-btn" id="btnCloseTopHud" style="display:none;">✕</button>
         <h1>🌊 TOROIDAL WEB OF LIGHT <span class="badge">T² MANIFOLD</span></h1>
         <p class="hud-sub">Invertible Conformal Dispersion: 100% Signature Invariance & Zero Cross-Talk</p>
         
@@ -93,19 +167,22 @@
         <div class="legend-row"><div class="dot" style="background:#8B5CF6;"></div> Physical & Linguistic Entities</div>
     </div>
 
+    <!-- Inspector HUD (Desktop Sidecard / Mobile Bottom Sheet) -->
     <div id="inspector-hud" class="hud-panel">
-        <h2 style="font-size: 14px; color: #F59E0B; margin-bottom: 8px;" id="insp-title">INSPECTOR: CLICK ANY NODE</h2>
+        <button class="close-btn" id="btnCloseInspector">✕</button>
+        <h2 style="font-size: 14px; color: #F59E0B; margin-bottom: 8px; padding-right: 28px;" id="insp-title">INSPECTOR: TAP ANY NODE</h2>
         <div id="insp-body" style="font-size: 12px; line-height: 1.5; color: #CBD5E1;">
-            Click on any photon node or use the search bar above to trace its geodesic definition chords through the Torus.
+            Tap on any glowing photon node or use Search above to trace its geodesic definition chords through the Torus.
         </div>
     </div>
 
-    <div id="bottom-hud" class="hud-panel">
-        <button id="btnToggleDispersion" class="btn-mode">MODE: DISPERSED WEB (CLICK TO TOGGLE RAW)</button>
+    <!-- Bottom Controls Pill-Bar -->
+    <div id="bottom-hud">
+        <button id="btnToggleDispersion" class="btn-mode">MODE: DISPERSED WEB</button>
         <button id="btnAutoRotate">Auto-Rotate</button>
-        <button id="btnToggleChords">Toggle Chords</button>
-        <button id="btnStokes">Focus: STOKES</button>
-        <button id="btnLight">Focus: LIGHT</button>
+        <button id="btnToggleChords">Chords</button>
+        <button id="btnStokes">Stokes</button>
+        <button id="btnLight">Light</button>
         <button id="btnResetCamera">Reset</button>
     </div>
 
@@ -127,13 +204,30 @@
 
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(0, 10, 16);
+
+        // Responsive Camera Framing for Portrait / Landscape
+        function adjustCameraForViewport() {
+            const isPortrait = window.innerWidth < window.innerHeight;
+            if (isPortrait) {
+                camera.fov = 68;
+                camera.position.set(0, 16, 23); // pulled back on phones
+            } else {
+                camera.fov = 55;
+                camera.position.set(0, 10, 16); // standard desktop
+            }
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+        adjustCameraForViewport();
 
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         controls.dampingFactor = 0.05;
         controls.autoRotate = true;
         controls.autoRotateSpeed = 0.4;
+        controls.maxDistance = 50;
+        controls.minDistance = 3;
 
         // Parametric Clifford Torus Dimensions
         const R = 5.0; // Major radius
@@ -206,7 +300,7 @@
         }
 
         const particlesMat = new THREE.PointsMaterial({
-            size: 0.28,
+            size: window.innerWidth <= 768 ? 0.32 : 0.28,
             map: createGlowTexture(),
             vertexColors: true,
             transparent: true,
@@ -235,7 +329,6 @@
                 linkPositions[i * 6 + 4] = p2.y;
                 linkPositions[i * 6 + 5] = p2.z;
 
-                // Subtle cyan glow
                 linkColors[i * 6] = 0.05; linkColors[i * 6 + 1] = 0.45; linkColors[i * 6 + 2] = 0.75;
                 linkColors[i * 6 + 3] = 0.05; linkColors[i * 6 + 4] = 0.45; linkColors[i * 6 + 5] = 0.75;
             }
@@ -282,8 +375,10 @@
 
         // Raycasting & Interaction
         const raycaster = new THREE.Raycaster();
-        raycaster.params.Points.threshold = 0.25;
+        raycaster.params.Points.threshold = window.innerWidth <= 768 ? 0.45 : 0.25;
         const mouse = new THREE.Vector2();
+
+        const inspectorHud = document.getElementById('inspector-hud');
 
         function inspectNode(node) {
             document.getElementById('insp-title').innerText = `${node.word} (Sense #${node.sense})`;
@@ -301,31 +396,34 @@
             });
 
             document.getElementById('insp-body').innerHTML = `
-                <div style="margin-bottom: 8px;">
-                    <span class="badge" style="background:rgba(245,158,11,0.2); color:#F59E0B;">CONCEPT ID: #${node.id}</span>
+                <div style="margin-bottom: 6px;">
+                    <span class="badge" style="background:rgba(245,158,11,0.2); color:#F59E0B;">#${node.id}</span>
                     <span class="badge">RANK #${node.rank}</span>
-                    <span class="badge">OAM CHARGE: ℓ=${node.oam}</span>
-                    <span class="badge">POS: ${node.pos}</span>
+                    <span class="badge">ℓ=${node.oam}</span>
+                    <span class="badge">${node.pos}</span>
                 </div>
-                <div style="background:rgba(0,0,0,0.3); padding:8px; border-radius:6px; margin-bottom:8px; border-left:3px solid #38BDF8;">
-                    <b>Definition:</b> "${node.def}"
+                <div style="background:rgba(0,0,0,0.35); padding:8px; border-radius:6px; margin-bottom:6px; border-left:3px solid #38BDF8; font-size:11.5px;">
+                    <b>Def:</b> "${node.def}"
                 </div>
-                <div style="margin-bottom:8px;">
-                    <div style="font-size:11px; color:#94A3B8; margin-bottom:4px;">DISAMBIGUATED CONCEPT-ID VECTOR:</div>
+                <div style="margin-bottom:6px;">
+                    <div style="font-size:10px; color:#94A3B8; margin-bottom:2px;">CONCEPT-ID VECTOR:</div>
                     ${defChips || '<span style="color:#64748B;">Primitive root</span>'}
                 </div>
-                <div style="margin-bottom:8px;">
-                    <div style="font-size:11px; color:#94A3B8; margin-bottom:4px;">COORDINATE METRICS:</div>
-                    <div style="font-family:monospace; font-size:11px; background:rgba(255,255,255,0.04); padding:6px; border-radius:4px;">
-                        <div>• Active Dispersed : θ = ${node.th.toFixed(4)}, ϕ = ${node.ph.toFixed(4)}</div>
-                        <div>• Raw Signature   : θ = ${node.raw_th.toFixed(4)}, ϕ = ${node.raw_ph.toFixed(4)}</div>
+                <div style="margin-bottom:6px;">
+                    <div style="font-size:10px; color:#94A3B8; margin-bottom:2px;">COORDINATES:</div>
+                    <div style="font-family:monospace; font-size:10.5px; background:rgba(255,255,255,0.04); padding:4px 6px; border-radius:4px;">
+                        <div>• Active : θ=${node.th.toFixed(4)}, ϕ=${node.ph.toFixed(4)}</div>
+                        <div>• Raw    : θ=${node.raw_th.toFixed(4)}, ϕ=${node.raw_ph.toFixed(4)}</div>
                     </div>
                 </div>
                 <div>
-                    <div style="font-size:11px; color:#94A3B8; margin-bottom:4px;">MULTILINGUAL ALIGNED ROOTS:</div>
+                    <div style="font-size:10px; color:#94A3B8; margin-bottom:2px;">TRANSLATIONS:</div>
                     ${transHtml}
                 </div>
             `;
+
+            // Mobile slide-up trigger
+            inspectorHud.classList.add('mobile-active');
         }
 
         window.focusOnCID = function(cid) {
@@ -335,17 +433,19 @@
                 inspectNode(n);
                 const pos = nodeCurPositions[idx];
                 controls.target.copy(pos);
-                camera.position.set(pos.x * 1.6, pos.y * 1.6 + 2.0, pos.z * 1.6);
+                const factor = window.innerWidth <= 768 ? 2.2 : 1.6;
+                camera.position.set(pos.x * factor, pos.y * factor + 2.0, pos.z * factor);
             }
         };
 
-        window.addEventListener('click', (event) => {
-            if (event.clientY < 70 && event.clientX < 400) return;
-            if (event.clientY > window.innerHeight - 70) return;
-            if (event.clientX > window.innerWidth - 440 && event.clientY < 500) return;
+        // Tap/Click Raycaster
+        function handleInteraction(clientX, clientY) {
+            // Ignore if tapped on buttons/header
+            if (clientY < 55) return;
+            if (clientY > window.innerHeight - 60) return;
 
-            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            mouse.x = (clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(clientY / window.innerHeight) * 2 + 1;
 
             raycaster.setFromCamera(mouse, camera);
             const intersects = raycaster.intersectObject(particleSystem);
@@ -353,7 +453,45 @@
                 const idx = intersects[0].index;
                 const node = NODES[idx];
                 inspectNode(node);
+            } else {
+                // Tapped empty space -> close mobile drawer
+                if (window.innerWidth <= 768) {
+                    inspectorHud.classList.remove('mobile-active');
+                }
             }
+        }
+
+        window.addEventListener('click', (e) => {
+            handleInteraction(e.clientX, e.clientY);
+        });
+
+        // Close buttons
+        document.getElementById('btnCloseInspector').addEventListener('click', (e) => {
+            e.stopPropagation();
+            inspectorHud.classList.remove('mobile-active');
+        });
+
+        const topHud = document.getElementById('top-hud');
+        const btnCloseTopHud = document.getElementById('btnCloseTopHud');
+
+        // Mobile Top HUD Modal Toggles
+        document.getElementById('btnMobileStats').addEventListener('click', (e) => {
+            e.stopPropagation();
+            topHud.classList.toggle('mobile-open');
+            btnCloseTopHud.style.display = topHud.classList.contains('mobile-open') ? 'block' : 'none';
+        });
+
+        document.getElementById('btnMobileSearch').addEventListener('click', (e) => {
+            e.stopPropagation();
+            topHud.classList.add('mobile-open');
+            btnCloseTopHud.style.display = 'block';
+            setTimeout(() => document.getElementById('searchInput').focus(), 150);
+        });
+
+        btnCloseTopHud.addEventListener('click', (e) => {
+            e.stopPropagation();
+            topHud.classList.remove('mobile-open');
+            btnCloseTopHud.style.display = 'none';
         });
 
         // Search Input
@@ -376,7 +514,7 @@
         btnToggleDispersion.addEventListener('click', () => {
             if (targetDispFactor > 0.5) {
                 targetDispFactor = 0.0;
-                btnToggleDispersion.innerText = "MODE: RAW HARMONIC (CLICK TO TOGGLE DISPERSED)";
+                btnToggleDispersion.innerText = "MODE: RAW HARMONIC";
                 btnToggleDispersion.style.borderColor = "#F59E0B";
                 btnToggleDispersion.style.color = "#F59E0B";
                 document.getElementById('stat-empty').innerText = "13 / 256 (5.08%)";
@@ -385,7 +523,7 @@
                 document.getElementById('stat-dist').style.color = "#F59E0B";
             } else {
                 targetDispFactor = 1.0;
-                btnToggleDispersion.innerText = "MODE: DISPERSED WEB (CLICK TO TOGGLE RAW)";
+                btnToggleDispersion.innerText = "MODE: DISPERSED WEB";
                 btnToggleDispersion.style.borderColor = "#10B981";
                 btnToggleDispersion.style.color = "#10B981";
                 document.getElementById('stat-empty').innerText = "0 / 256 (0.00%)";
@@ -403,7 +541,7 @@
             pulseSystem.visible = !pulseSystem.visible;
         });
         document.getElementById('btnResetCamera').addEventListener('click', () => {
-            camera.position.set(0, 10, 16);
+            adjustCameraForViewport();
             controls.target.set(0, 0, 0);
         });
         document.getElementById('btnStokes').addEventListener('click', () => {
@@ -481,16 +619,9 @@
 
         animate();
 
-        // Initial default focus
-        setTimeout(() => {
-            const lightNode = NODES.find(n => n.word === 'LIGHT' && n.sense === 1);
-            if (lightNode) inspectNode(lightNode);
-        }, 500);
-
+        // Responsive Resizing
         window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
+            adjustCameraForViewport();
         });
     </script>
 </body>
