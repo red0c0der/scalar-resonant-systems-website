@@ -19,23 +19,34 @@
         /* Glassmorphism Panels */
         .hud-panel {
             position: absolute;
-            background: rgba(15, 23, 42, 0.82);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(56, 189, 248, 0.25);
             border-radius: 12px;
             padding: 14px 18px;
-            box-shadow: 0 12px 36px 0 rgba(0, 0, 0, 0.55);
+            box-shadow: 0 12px 36px 0 rgba(0, 0, 0, 0.6);
             z-index: 100;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         /* Desktop Positioning */
         #top-hud { top: 16px; left: 16px; width: 380px; max-height: calc(100vh - 120px); overflow-y: auto; }
         #inspector-hud { top: 16px; right: 16px; width: 420px; max-height: calc(100vh - 120px); overflow-y: auto; }
+        
+        /* Unified Bottom Dock */
         #bottom-hud {
+            position: absolute;
             bottom: 16px; left: 50%; transform: translateX(-50%);
             display: flex; gap: 8px; align-items: center; justify-content: center;
+            background: rgba(15, 23, 42, 0.88);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 30px;
+            padding: 6px 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+            z-index: 300;
         }
 
         h1 { font-size: 15px; font-weight: 700; color: #38BDF8; letter-spacing: 0.5px; display: flex; align-items: center; gap: 8px; }
@@ -47,21 +58,24 @@
         .stat-val { font-size: 14px; font-weight: bold; color: #F8FAFC; margin-top: 2px; }
 
         input[type="text"] {
-            width: 100%; background: rgba(0, 0, 0, 0.45); border: 1px solid rgba(56, 189, 248, 0.4);
-            border-radius: 6px; padding: 8px 12px; color: #fff; font-size: 13px; outline: none; margin-bottom: 8px;
+            width: 100%; background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(56, 189, 248, 0.45);
+            border-radius: 8px; padding: 10px 14px; color: #fff; font-size: 14px; outline: none; margin-bottom: 10px;
         }
-        input[type="text"]:focus { border-color: #38BDF8; box-shadow: 0 0 10px rgba(56, 189, 248, 0.4); }
+        input[type="text"]:focus { border-color: #38BDF8; box-shadow: 0 0 12px rgba(56, 189, 248, 0.5); }
 
         button {
             background: rgba(56, 189, 248, 0.15); border: 1px solid #38BDF8; color: #38BDF8;
-            padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: 600;
-            transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
+            padding: 7px 14px; border-radius: 20px; cursor: pointer; font-size: 11.5px; font-weight: 600;
+            transition: all 0.2s; white-space: nowrap; flex-shrink: 0; outline: none;
         }
         button:hover, button:active { background: #38BDF8; color: #000; }
 
+        .btn-search-main {
+            background: rgba(56, 189, 248, 0.3); border-color: #38BDF8; color: #fff; font-weight: 700;
+        }
         .btn-mode {
             background: rgba(16, 185, 129, 0.2); border: 1px solid #10B981; color: #10B981;
-            padding: 7px 13px; font-size: 11px; font-weight: 700;
+            font-weight: 700;
         }
         .btn-mode:hover, .btn-mode:active { background: #10B981; color: #000; }
 
@@ -72,82 +86,106 @@
         .legend-row { display: flex; align-items: center; gap: 6px; font-size: 11px; margin-top: 4px; color: #94A3B8; }
         .dot { width: 8px; height: 8px; border-radius: 50%; }
 
-        .mobile-header-bar { display: none; }
         .close-btn {
-            position: absolute; top: 10px; right: 12px;
-            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
-            color: #fff; width: 26px; height: 26px; border-radius: 50%;
+            position: absolute; top: 12px; right: 14px;
+            background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);
+            color: #fff; width: 28px; height: 28px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 13px; cursor: pointer; padding: 0;
+            font-size: 13px; font-weight: bold; cursor: pointer; padding: 0;
+            z-index: 10;
+        }
+        .close-btn:hover, .close-btn:active { background: rgba(239, 68, 68, 0.7); border-color: #EF4444; }
+
+        /* Top Watermark */
+        .top-watermark {
+            position: absolute; top: 14px; left: 16px;
+            font-size: 13px; font-weight: 700; color: rgba(56, 189, 248, 0.85);
+            letter-spacing: 0.5px; z-index: 50; pointer-events: none;
+            display: flex; align-items: center; gap: 6px;
         }
 
         /* ============================================================ */
         /* MOBILE PHONE RESPONSIVE STYLES (Screen width <= 768px)       */
         /* ============================================================ */
         @media (max-width: 768px) {
-            /* Slim mobile header bar pinned at top */
-            .mobile-header-bar {
-                display: flex; align-items: center; justify-content: space-between;
-                position: absolute; top: 10px; left: 10px; right: 10px;
-                background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px);
-                border: 1px solid rgba(56, 189, 248, 0.25);
-                border-radius: 10px; padding: 8px 12px; z-index: 120;
-            }
-            .mobile-title { font-size: 13px; font-weight: 700; color: #38BDF8; display: flex; align-items: center; gap: 6px; }
-            .mobile-btn-group { display: flex; gap: 6px; }
-            .mobile-btn-group button { padding: 5px 10px; font-size: 11px; }
+            /* Floating Top Watermark */
+            .top-watermark { font-size: 12px; top: 10px; left: 12px; }
 
-            /* Collapsible Top HUD modal on mobile */
+            /* Search & Stats Window: Opens ABOVE the bottom dock */
             #top-hud {
-                top: 60px; left: 10px; right: 10px; width: auto;
-                max-height: calc(100vh - 140px);
-                display: none; /* toggled via button */
-                z-index: 200;
+                top: auto;
+                bottom: 74px; /* Rests directly above the bottom button dock */
+                left: 10px; right: 10px; width: auto;
+                max-height: 56vh;
+                display: none;
+                z-index: 280; /* Behind nothing, above canvas */
+                border-radius: 16px;
+                box-shadow: 0 10px 45px rgba(0,0,0,0.85);
+                border: 1px solid rgba(56, 189, 248, 0.35);
             }
-            #top-hud.mobile-open { display: block; }
+            #top-hud.mobile-open {
+                display: block;
+                animation: popUp 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+            }
 
-            /* Slide-up Bottom Drawer Inspector */
+            /* Inspector HUD: Also opens ABOVE the bottom dock */
             #inspector-hud {
-                top: auto; bottom: 62px; left: 10px; right: 10px; width: auto;
-                max-height: 44vh; border-radius: 14px;
+                top: auto;
+                bottom: 74px; /* Rests directly above the bottom button dock */
+                left: 10px; right: 10px; width: auto;
+                max-height: 48vh;
+                border-radius: 16px;
                 transform: translateY(120%);
                 opacity: 0; pointer-events: none;
-                z-index: 190;
+                z-index: 270;
+                box-shadow: 0 10px 45px rgba(0,0,0,0.85);
+                border: 1px solid rgba(245, 158, 11, 0.35);
             }
             #inspector-hud.mobile-active {
                 transform: translateY(0);
                 opacity: 1; pointer-events: auto;
+                animation: popUp 0.22s cubic-bezier(0.16, 1, 0.3, 1);
             }
 
-            /* Scrollable bottom pill bar */
+            /* Bottom Controls Dock: Pinned at bottom, always fully accessible */
             #bottom-hud {
-                bottom: 10px; left: 8px; right: 8px; width: calc(100vw - 16px);
-                transform: none; justify-content: flex-start;
-                overflow-x: auto; -webkit-overflow-scrolling: touch;
-                padding: 6px; border-radius: 10px; gap: 6px;
-                background: rgba(15, 23, 42, 0.82); backdrop-filter: blur(12px);
-                border: 1px solid rgba(56, 189, 248, 0.2);
+                bottom: 12px;
+                left: 10px; right: 10px;
+                width: calc(100vw - 20px);
+                transform: none;
+                justify-content: flex-start;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                padding: 7px 10px;
+                border-radius: 25px;
+                gap: 6px;
+                background: rgba(15, 23, 42, 0.94);
+                backdrop-filter: blur(18px);
+                -webkit-backdrop-filter: blur(18px);
+                border: 1px solid rgba(56, 189, 248, 0.35);
+                z-index: 300; /* ALWAYS ON TOP */
             }
             #bottom-hud::-webkit-scrollbar { display: none; }
-            #bottom-hud button { font-size: 10px; padding: 6px 10px; }
+            #bottom-hud button {
+                font-size: 11px;
+                padding: 7px 13px;
+            }
+        }
+
+        @keyframes popUp {
+            0% { transform: translateY(20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 </head>
 <body>
-    <!-- Slim Mobile Header Bar -->
-    <div class="mobile-header-bar">
-        <div class="mobile-title">🌊 TOROIDAL WEB <span class="badge">T²</span></div>
-        <div class="mobile-btn-group">
-            <button id="btnMobileSearch">🔍 Search</button>
-            <button id="btnMobileStats">ℹ Stats</button>
-        </div>
-    </div>
+    <div class="top-watermark">🌊 TOROIDAL WEB <span class="badge">T²</span></div>
 
-    <!-- Top / Search HUD (Desktop Panel / Mobile Modal) -->
+    <!-- Search & Stats Panel (Desktop Sidepanel / Mobile Floating Card) -->
     <div id="top-hud" class="hud-panel">
-        <button class="close-btn" id="btnCloseTopHud" style="display:none;">✕</button>
+        <button class="close-btn" id="btnCloseTopHud">✕</button>
         <h1>🌊 TOROIDAL WEB OF LIGHT <span class="badge">T² MANIFOLD</span></h1>
         <p class="hud-sub">Invertible Conformal Dispersion: 100% Signature Invariance & Zero Cross-Talk</p>
         
@@ -167,19 +205,21 @@
         <div class="legend-row"><div class="dot" style="background:#8B5CF6;"></div> Physical & Linguistic Entities</div>
     </div>
 
-    <!-- Inspector HUD (Desktop Sidecard / Mobile Bottom Sheet) -->
+    <!-- Inspector HUD (Desktop Sidecard / Mobile Floating Card) -->
     <div id="inspector-hud" class="hud-panel">
         <button class="close-btn" id="btnCloseInspector">✕</button>
-        <h2 style="font-size: 14px; color: #F59E0B; margin-bottom: 8px; padding-right: 28px;" id="insp-title">INSPECTOR: TAP ANY NODE</h2>
+        <h2 style="font-size: 14px; color: #F59E0B; margin-bottom: 8px; padding-right: 32px;" id="insp-title">INSPECTOR: TAP ANY NODE</h2>
         <div id="insp-body" style="font-size: 12px; line-height: 1.5; color: #CBD5E1;">
-            Tap on any glowing photon node or use Search above to trace its geodesic definition chords through the Torus.
+            Tap on any glowing photon node or use Search below to trace its geodesic definition chords through the Torus.
         </div>
     </div>
 
-    <!-- Bottom Controls Pill-Bar -->
+    <!-- Unified Bottom Controls Dock (Buttons ALWAYS accessible at bottom) -->
     <div id="bottom-hud">
-        <button id="btnToggleDispersion" class="btn-mode">MODE: DISPERSED WEB</button>
-        <button id="btnAutoRotate">Auto-Rotate</button>
+        <button id="btnSearchToggle" class="btn-search-main">🔍 Search</button>
+        <button id="btnStatsToggle">ℹ Stats</button>
+        <button id="btnToggleDispersion" class="btn-mode">MODE: DISPERSED</button>
+        <button id="btnAutoRotate">Rotate</button>
         <button id="btnToggleChords">Chords</button>
         <button id="btnStokes">Stokes</button>
         <button id="btnLight">Light</button>
@@ -379,6 +419,7 @@
         const mouse = new THREE.Vector2();
 
         const inspectorHud = document.getElementById('inspector-hud');
+        const topHud = document.getElementById('top-hud');
 
         function inspectNode(node) {
             document.getElementById('insp-title').innerText = `${node.word} (Sense #${node.sense})`;
@@ -424,6 +465,10 @@
 
             // Mobile slide-up trigger
             inspectorHud.classList.add('mobile-active');
+            // If top hud is open, close it to prevent overlap
+            if (window.innerWidth <= 768) {
+                topHud.classList.remove('mobile-open');
+            }
         }
 
         window.focusOnCID = function(cid) {
@@ -440,9 +485,8 @@
 
         // Tap/Click Raycaster
         function handleInteraction(clientX, clientY) {
-            // Ignore if tapped on buttons/header
-            if (clientY < 55) return;
-            if (clientY > window.innerHeight - 60) return;
+            // Ignore if tapped on bottom dock or open cards
+            if (clientY > window.innerHeight - 70) return;
 
             mouse.x = (clientX / window.innerWidth) * 2 - 1;
             mouse.y = -(clientY / window.innerHeight) * 2 + 1;
@@ -454,9 +498,10 @@
                 const node = NODES[idx];
                 inspectNode(node);
             } else {
-                // Tapped empty space -> close mobile drawer
+                // Tapped empty space -> close mobile popups
                 if (window.innerWidth <= 768) {
                     inspectorHud.classList.remove('mobile-active');
+                    topHud.classList.remove('mobile-open');
                 }
             }
         }
@@ -471,27 +516,25 @@
             inspectorHud.classList.remove('mobile-active');
         });
 
-        const topHud = document.getElementById('top-hud');
-        const btnCloseTopHud = document.getElementById('btnCloseTopHud');
-
-        // Mobile Top HUD Modal Toggles
-        document.getElementById('btnMobileStats').addEventListener('click', (e) => {
-            e.stopPropagation();
-            topHud.classList.toggle('mobile-open');
-            btnCloseTopHud.style.display = topHud.classList.contains('mobile-open') ? 'block' : 'none';
-        });
-
-        document.getElementById('btnMobileSearch').addEventListener('click', (e) => {
-            e.stopPropagation();
-            topHud.classList.add('mobile-open');
-            btnCloseTopHud.style.display = 'block';
-            setTimeout(() => document.getElementById('searchInput').focus(), 150);
-        });
-
-        btnCloseTopHud.addEventListener('click', (e) => {
+        document.getElementById('btnCloseTopHud').addEventListener('click', (e) => {
             e.stopPropagation();
             topHud.classList.remove('mobile-open');
-            btnCloseTopHud.style.display = 'none';
+        });
+
+        // Mobile Dock Toggle Buttons
+        document.getElementById('btnSearchToggle').addEventListener('click', (e) => {
+            e.stopPropagation();
+            inspectorHud.classList.remove('mobile-active');
+            topHud.classList.toggle('mobile-open');
+            if (topHud.classList.contains('mobile-open')) {
+                setTimeout(() => document.getElementById('searchInput').focus(), 150);
+            }
+        });
+
+        document.getElementById('btnStatsToggle').addEventListener('click', (e) => {
+            e.stopPropagation();
+            inspectorHud.classList.remove('mobile-active');
+            topHud.classList.toggle('mobile-open');
         });
 
         // Search Input
@@ -514,7 +557,7 @@
         btnToggleDispersion.addEventListener('click', () => {
             if (targetDispFactor > 0.5) {
                 targetDispFactor = 0.0;
-                btnToggleDispersion.innerText = "MODE: RAW HARMONIC";
+                btnToggleDispersion.innerText = "MODE: RAW";
                 btnToggleDispersion.style.borderColor = "#F59E0B";
                 btnToggleDispersion.style.color = "#F59E0B";
                 document.getElementById('stat-empty').innerText = "13 / 256 (5.08%)";
@@ -523,7 +566,7 @@
                 document.getElementById('stat-dist').style.color = "#F59E0B";
             } else {
                 targetDispFactor = 1.0;
-                btnToggleDispersion.innerText = "MODE: DISPERSED WEB";
+                btnToggleDispersion.innerText = "MODE: DISPERSED";
                 btnToggleDispersion.style.borderColor = "#10B981";
                 btnToggleDispersion.style.color = "#10B981";
                 document.getElementById('stat-empty').innerText = "0 / 256 (0.00%)";
@@ -559,7 +602,6 @@
             requestAnimationFrame(animate);
             frame++;
 
-            // Handle smooth transition between Raw and Dispersed coordinates
             if (Math.abs(dispFactor - targetDispFactor) > 0.001) {
                 dispFactor = THREE.MathUtils.lerp(dispFactor, targetDispFactor, 0.08);
 
